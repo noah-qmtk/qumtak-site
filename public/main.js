@@ -8,7 +8,7 @@ function toggleExpand(trigger) {
   trigger.nextElementSibling.classList.toggle('open');
 }
 
-// ─── SURVEY POPUP ───
+// ─── CONTACT POPUP ───
 function openSurvey() {
   var o = document.getElementById('survey-overlay');
   o.style.display = 'flex';
@@ -22,12 +22,16 @@ function closeSurvey() {
 document.getElementById('survey-overlay').addEventListener('click', function(e) {
   if (e.target === this) closeSurvey();
 });
-// Auto-open after 8s, once per session
-if (!sessionStorage.getItem('surveyShown')) {
-  setTimeout(function() {
-    openSurvey();
-    sessionStorage.setItem('surveyShown', '1');
-  }, 8000);
+
+function submitContact(e) {
+  e.preventDefault();
+  var name    = document.getElementById('contact-name').value.trim();
+  var email   = document.getElementById('contact-email').value.trim();
+  var message = document.getElementById('contact-msg').value.trim();
+  var subject = encodeURIComponent('Qumtak Inquiry from ' + name);
+  var body    = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
+  window.location.href = 'mailto:noah@qmtk.org?subject=' + subject + '&body=' + body;
+  setTimeout(function() { closeSurvey(); }, 800);
 }
 
 // ─── SCROLL REVEAL ───
