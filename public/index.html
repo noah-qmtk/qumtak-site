@@ -36,7 +36,7 @@
     <p class="hero-sub">A professional soccer development program built for kids who want to get better — without the club fees, the travel, or the tryouts. Bringing a German Bundesliga standard directly to your town.</p>
     <div class="hero-actions">
       <a href="https://square.link/u/TOPIwZpf" target="_blank" class="btn-green">Book Private Training →</a>
-      <a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank" class="btn-ghost">Andover Group Classes →</a>
+      <a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank" class="btn-andover">Andover Group Classes →</a>
       <a href="#partners" class="btn-ghost">For Athletic Directors</a>
     </div>
   </div>
@@ -417,41 +417,58 @@
 </footer>
 
 
-<!-- ─── SURVEY POPUP ─── -->
+<!-- ─── CONTACT POPUP ─── -->
 <div id="survey-overlay">
   <div id="survey-modal">
     <div id="survey-modal-header">
       <div style="display:flex; align-items:center; gap:14px;">
         <img src="/logo.png" style="width:40px;height:40px;border-radius:10px;box-shadow:0 2px 12px rgba(34,162,77,0.4);">
         <div>
-          <div style="color:#fff;font-weight:800;font-size:1.05rem;letter-spacing:-0.3px;">Andover Classes — Spring 2026</div>
-          <div style="color:rgba(232,237,233,0.5);font-size:0.78rem;margin-top:2px;">Register through Andover Rec · spots are limited ⚽</div>
+          <div style="color:#fff;font-weight:800;font-size:1.05rem;letter-spacing:-0.3px;">Get in Touch</div>
+          <div style="color:rgba(232,237,233,0.5);font-size:0.78rem;margin-top:2px;">Questions? We'll get back to you fast ⚽</div>
         </div>
       </div>
       <button id="survey-close-btn" onclick="closeSurvey()">✕ Close</button>
     </div>
-    <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding:3rem 2rem; gap:1.5rem; flex:1;">
-      <div style="font-size:3rem;">⚽</div>
-      <div style="text-align:center;">
-        <div style="color:#fff; font-family:'Barlow Condensed',sans-serif; font-size:1.8rem; font-weight:700; margin-bottom:0.4rem;">Sign Up for Andover Classes</div>
-        <div style="color:rgba(232,237,233,0.6); font-size:0.9rem;">Register now — no tryouts, no club fees, no travel</div>
+    <div style="display:flex; flex-direction:column; padding:2rem; gap:1rem; flex:1;">
+      <div style="text-align:center; margin-bottom:0.5rem;">
+        <div style="color:#fff; font-family:'Barlow Condensed',sans-serif; font-size:1.8rem; font-weight:700; margin-bottom:0.3rem;">Send Us a Message</div>
+        <div style="color:rgba(232,237,233,0.6); font-size:0.88rem;">Ask about classes, private training, or anything else</div>
       </div>
-      <a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank" style="
-        display:inline-flex; align-items:center; gap:10px;
-        background:#22a24d; color:#fff; text-decoration:none;
-        font-family:'DM Sans',sans-serif; font-weight:700; font-size:1rem;
-        padding:0.9rem 2rem; border-radius:50px;
-        box-shadow:0 4px 24px rgba(34,162,77,0.45);
-        transition:background 0.2s, transform 0.2s;
-      " onmouseover="this.style.background='#178038';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#22a24d';this.style.transform='none'">
-        Register Now →
-      </a>
-      <div style="color:rgba(232,237,233,0.35); font-size:0.78rem;">Opens Andover Rec in a new tab</div>
+      <form id="contact-form" onsubmit="submitContact(event)" style="display:flex; flex-direction:column; gap:0.75rem;">
+        <input type="text" id="contact-name" placeholder="Your name" required style="
+          background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15);
+          border-radius:10px; padding:0.75rem 1rem; color:#fff;
+          font-family:'DM Sans',sans-serif; font-size:0.95rem; outline:none;
+          transition:border 0.2s;
+        " onfocus="this.style.borderColor='#22a24d'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
+        <input type="email" id="contact-email" placeholder="Your email" required style="
+          background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15);
+          border-radius:10px; padding:0.75rem 1rem; color:#fff;
+          font-family:'DM Sans',sans-serif; font-size:0.95rem; outline:none;
+          transition:border 0.2s;
+        " onfocus="this.style.borderColor='#22a24d'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
+        <textarea id="contact-msg" placeholder="Your message" rows="4" required style="
+          background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15);
+          border-radius:10px; padding:0.75rem 1rem; color:#fff;
+          font-family:'DM Sans',sans-serif; font-size:0.95rem; outline:none;
+          resize:vertical; transition:border 0.2s;
+        " onfocus="this.style.borderColor='#22a24d'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'"></textarea>
+        <button type="submit" style="
+          background:#22a24d; color:#fff; border:none; border-radius:50px;
+          padding:0.9rem 2rem; font-family:'DM Sans',sans-serif; font-weight:700;
+          font-size:1rem; cursor:pointer; box-shadow:0 4px 24px rgba(34,162,77,0.45);
+          transition:background 0.2s, transform 0.2s; margin-top:0.25rem;
+        " onmouseover="this.style.background='#178038';this.style.transform='translateY(-2px)'"
+           onmouseout="this.style.background='#22a24d';this.style.transform='none'">
+          Send Message →
+        </button>
+      </form>
     </div>
   </div>
 </div>
 
-<!-- Survey trigger button -->
+<!-- Contact trigger button -->
 <button id="survey-btn" onclick="openSurvey()" style="
   position:fixed; bottom:1.6rem; right:1.6rem; z-index:9998;
   background:var(--green); color:#fff;
@@ -462,10 +479,10 @@
   display:flex; align-items:center; gap:8px;
   white-space:nowrap;
 ">
-  <span style="font-size:1rem;">⚽</span>
+  <span style="font-size:1rem;">✉️</span>
   <span style="display:flex; flex-direction:column; align-items:flex-start; line-height:1.2;">
-    <span style="font-size:0.7rem; font-weight:600; opacity:0.85; text-transform:uppercase; letter-spacing:0.6px;">Andover Classes</span>
-    <span style="font-size:0.92rem; font-weight:700;">Sign Up Here →</span>
+    <span style="font-size:0.7rem; font-weight:600; opacity:0.85; text-transform:uppercase; letter-spacing:0.6px;">Questions?</span>
+    <span style="font-size:0.92rem; font-weight:700;">Contact Us</span>
   </span>
 </button>
 
