@@ -426,11 +426,24 @@
       </div>
       <button id="survey-close-btn" onclick="closeSurvey()">✕ Close</button>
     </div>
-    <iframe
-      src="https://forms.office.com/Pages/ResponsePage.aspx?id=u043c25KjkacSleRk_tGx5BszrBmq8BOpuVcDeLw_idUOVBYWUk4NkNDOVBaNDdBMUw0VzQ5WDk0Ny4u&embed=true"
-      frameborder="0" marginwidth="0" marginheight="0"
-      allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen>
-    </iframe>
+    <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding:3rem 2rem; gap:1.5rem; flex:1;">
+      <div style="font-size:3rem;">⚽</div>
+      <div style="text-align:center;">
+        <div style="color:#fff; font-family:'Barlow Condensed',sans-serif; font-size:1.8rem; font-weight:700; margin-bottom:0.4rem;">Saturday Session Survey</div>
+        <div style="color:rgba(232,237,233,0.6); font-size:0.9rem;">Takes about 2 minutes · your feedback helps every session get better</div>
+      </div>
+      <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=u043c25KjkacSleRk_tGx5BszrBmq8BOpuVcDeLw_idUOVBYWUk4NkNDOVBaNDdBMUw0VzQ5WDk0Ny4u" target="_blank" style="
+        display:inline-flex; align-items:center; gap:10px;
+        background:#22a24d; color:#fff; text-decoration:none;
+        font-family:'DM Sans',sans-serif; font-weight:700; font-size:1rem;
+        padding:0.9rem 2rem; border-radius:50px;
+        box-shadow:0 4px 24px rgba(34,162,77,0.45);
+        transition:background 0.2s, transform 0.2s;
+      " onmouseover="this.style.background='#178038';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#22a24d';this.style.transform='none'">
+        Fill Out the Survey →
+      </a>
+      <div style="color:rgba(232,237,233,0.35); font-size:0.78rem;">Opens in a new tab</div>
+    </div>
   </div>
 </div>
 
