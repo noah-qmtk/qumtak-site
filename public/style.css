@@ -47,7 +47,7 @@ nav {
 .nav-logo-icon img {
   width: 100%; height: 100%; object-fit: cover; border-radius: 10px;
 }
-.nav-logo-text { color: var(--white); font-weight: 800; font-size: 1.25rem; letter-spacing: -0.4px; font-family: 'Barlow Condensed', sans-serif; }
+.nav-logo-text { color: var(--white); font-weight: 700; font-size: 1.25rem; letter-spacing: -0.4px; font-family: 'Barlow Condensed', sans-serif; }
 .nav-links { display: flex; align-items: center; gap: 1.8rem; list-style: none; }
 .nav-links a {
   color: var(--text-mid); text-decoration: none;
@@ -92,9 +92,9 @@ nav {
 }
 .hero h1 {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(2.8rem, 4.2vw, 4.2rem);
-  font-weight: 900; color: var(--white);
-  line-height: 1.05; letter-spacing: -1px;
+  font-size: clamp(3rem, 4.5vw, 4.6rem);
+  font-weight: 700; color: var(--white);
+  line-height: 1.05; letter-spacing: 0px;
   margin-bottom: 1.4rem;
 }
 .hero h1 em { font-style: normal; color: var(--green); }
@@ -146,7 +146,7 @@ nav {
 }
 .stat-item { text-align: center; }
 .stat-num {
-  display: block; font-size: 1.65rem; font-weight: 900;
+  display: block; font-size: 1.65rem; font-weight: 700;
   color: var(--white); letter-spacing: -0.5px; line-height: 1.1;
 }
 .stat-num span { color: var(--green); }
@@ -165,8 +165,8 @@ nav {
 }
 .section h2 {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(2rem, 3.2vw, 2.8rem);
-  font-weight: 900; color: var(--white);
+  font-size: clamp(2.2rem, 3.4vw, 3rem);
+  font-weight: 700; color: var(--white);
   line-height: 1.1; letter-spacing: 0px; margin-bottom: 1rem;
 }
 .section-sub { font-size: 0.975rem; color: var(--text-mid); line-height: 1.7; max-width: 560px; }
@@ -225,7 +225,7 @@ nav {
 }
 .journey-num {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 2.5rem; font-weight: 900; color: var(--green-border);
+  font-size: 2.5rem; font-weight: 700; color: var(--green-border);
   line-height: 1; margin-bottom: 0.8rem; display: block;
 }
 .journey-card.active .journey-num { color: var(--green); }
@@ -385,8 +385,8 @@ nav {
 .linkedin-text .section-tag { margin-bottom: 1rem; }
 .linkedin-text h2 {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(1.7rem, 2.7vw, 2.3rem);
-  font-weight: 900; color: var(--white);
+  font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+  font-weight: 700; color: var(--white);
   line-height: 1.1; letter-spacing: 0px; margin-bottom: 0.75rem;
 }
 .linkedin-text p { font-size: 0.925rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 1.5rem; }
