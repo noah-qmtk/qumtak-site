@@ -377,24 +377,35 @@ nav {
   border-top: 1px solid var(--border);
   padding: 4rem 3rem;
 }
-.linkedin-inner {
-  max-width: 1140px; margin: 0 auto;
-  display: flex; gap: 4rem; align-items: flex-start; flex-wrap: wrap;
+.linkedin-posts-header {
+  max-width: 1140px; margin: 0 auto 2.5rem;
+  text-align: center;
 }
-.linkedin-text { flex: 1; min-width: 260px; }
-.linkedin-text .section-tag { margin-bottom: 1rem; }
-.linkedin-text h2 {
+.linkedin-posts-header .section-tag { margin-bottom: 1rem; }
+.linkedin-posts-header h2 {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: clamp(1.8rem, 2.8vw, 2.5rem);
   font-weight: 700; color: var(--white);
-  line-height: 1.1; letter-spacing: 0px; margin-bottom: 0.75rem;
+  line-height: 1.1; letter-spacing: 0px; margin-bottom: 0.6rem;
 }
-.linkedin-text p { font-size: 0.925rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 1.5rem; }
-.linkedin-embed-wrap { flex-shrink: 0; }
-.linkedin-embed-wrap iframe {
-  border-radius: 12px;
+.linkedin-posts-header p { font-size: 0.925rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 1rem; }
+.linkedin-posts-grid {
+  max-width: 1140px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.linkedin-post-card {
+  border-radius: 14px;
+  overflow: hidden;
   border: 1px solid var(--border-bright);
-  max-width: 100%;
+  background: var(--bg-raised);
+}
+.linkedin-post-card iframe {
+  display: block;
+  width: 100%;
+  border: none;
+  min-height: 500px;
 }
 
 /* ─── FOOTER ─── */
@@ -444,8 +455,7 @@ footer {
   .stats-bar { padding: 1.2rem 1.5rem; }
   footer { padding: 2.5rem 1.5rem; }
   .linkedin-section { padding: 3rem 1.5rem; }
-  .linkedin-inner { gap: 2rem; }
-  .linkedin-embed-wrap iframe { width: 100%; max-width: 504px; }
+  .linkedin-posts-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   nav { padding: 0 1rem; }
@@ -469,8 +479,7 @@ footer {
   .cta-btns { flex-direction: column; align-items: center; }
   .cta-btns a { width: 100%; max-width: 320px; justify-content: center; }
   footer { flex-direction: column; gap: 2rem; padding: 2rem 1.2rem; }
-  .linkedin-embed-wrap { width: 100%; }
-  .linkedin-embed-wrap iframe { width: 100% !important; height: auto !important; min-height: 500px; }
+  .linkedin-post-card iframe { min-height: 450px; }
   .programs-header { flex-direction: column; }
 }
 @media (max-width: 400px) {
