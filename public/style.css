@@ -21,7 +21,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   color: var(--text);
   background: var(--bg);
   line-height: 1.6;
@@ -40,14 +40,14 @@ nav {
 }
 .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .nav-logo-icon {
-  width: 36px; height: 36px; border-radius: 8px;
+  width: 48px; height: 48px; border-radius: 10px;
   overflow: hidden;
   display: flex; align-items: center; justify-content: center;
 }
 .nav-logo-icon img {
-  width: 100%; height: 100%; object-fit: cover; border-radius: 8px;
+  width: 100%; height: 100%; object-fit: cover; border-radius: 10px;
 }
-.nav-logo-text { color: var(--white); font-weight: 800; font-size: 1.15rem; letter-spacing: -0.4px; }
+.nav-logo-text { color: var(--white); font-weight: 800; font-size: 1.25rem; letter-spacing: -0.4px; font-family: 'Barlow Condensed', sans-serif; }
 .nav-links { display: flex; align-items: center; gap: 1.8rem; list-style: none; }
 .nav-links a {
   color: var(--text-mid); text-decoration: none;
@@ -91,9 +91,10 @@ nav {
   width: fit-content;
 }
 .hero h1 {
-  font-size: clamp(2.4rem, 3.8vw, 3.6rem);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(2.8rem, 4.2vw, 4.2rem);
   font-weight: 900; color: var(--white);
-  line-height: 1.08; letter-spacing: -2px;
+  line-height: 1.05; letter-spacing: -1px;
   margin-bottom: 1.4rem;
 }
 .hero h1 em { font-style: normal; color: var(--green); }
@@ -163,9 +164,10 @@ nav {
   margin-bottom: 1rem;
 }
 .section h2 {
-  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(2rem, 3.2vw, 2.8rem);
   font-weight: 900; color: var(--white);
-  line-height: 1.12; letter-spacing: -1px; margin-bottom: 1rem;
+  line-height: 1.1; letter-spacing: 0px; margin-bottom: 1rem;
 }
 .section-sub { font-size: 0.975rem; color: var(--text-mid); line-height: 1.7; max-width: 560px; }
 
@@ -173,7 +175,7 @@ nav {
 .journey { background: var(--bg); }
 .journey-intro { max-width: 680px; margin: 0 auto 3.5rem; text-align: center; }
 .journey-intro .section-tag { display: block; width: fit-content; margin: 0 auto 1rem; }
-.journey-intro h2 { font-size: clamp(1.8rem, 2.8vw, 2.5rem); }
+.journey-intro h2 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2rem, 3vw, 2.7rem); }
 .journey-intro .section-sub { margin: 0 auto; }
 
 /* ─── JOURNEY PHASE HEADERS ─── */
@@ -222,12 +224,13 @@ nav {
   flex: 1;
 }
 .journey-num {
-  font-size: 2rem; font-weight: 900; color: var(--green-border);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2.5rem; font-weight: 900; color: var(--green-border);
   line-height: 1; margin-bottom: 0.8rem; display: block;
 }
 .journey-card.active .journey-num { color: var(--green); }
 .journey-year { font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--green); margin-bottom: 0.35rem; }
-.journey-club { font-size: 1rem; font-weight: 800; color: var(--white); line-height: 1.25; margin-bottom: 0.2rem; }
+.journey-club { font-family: 'Barlow Condensed', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--white); line-height: 1.25; margin-bottom: 0.2rem; letter-spacing: 0.2px; }
 .journey-location { font-size: 0.78rem; color: var(--text-dim); }
 .journey-toggle {
   padding: 0.75rem 1.4rem;
@@ -341,7 +344,7 @@ nav {
 /* ─── AD / PARTNERSHIP ─── */
 .partnership { background: var(--bg-card); border-top: 1px solid var(--border); }
 .partnership-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-.partnership h2 { font-size: clamp(1.8rem, 2.8vw, 2.5rem); }
+.partnership h2 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2rem, 3vw, 2.7rem); }
 .partnership .section-sub { margin-bottom: 1.8rem; max-width: 100%; }
 .features { display: flex; flex-direction: column; gap: 1.2rem; }
 .feature { display: flex; align-items: flex-start; gap: 14px; }
@@ -356,7 +359,7 @@ nav {
 /* ─── ENROLL CTA ─── */
 .cta-section { background: var(--bg); border-top: 1px solid var(--border); }
 .cta-inner { max-width: 640px; margin: 0 auto; text-align: center; }
-.cta-inner h2 { font-size: clamp(1.8rem, 2.8vw, 2.6rem); margin-bottom: 0.7rem; }
+.cta-inner h2 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2rem, 3vw, 2.8rem); margin-bottom: 0.7rem; letter-spacing: 0; }
 .cta-inner p { color: var(--text-mid); margin-bottom: 2rem; font-size: 0.975rem; }
 .cta-btns { display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; }
 .btn-gold {
@@ -381,9 +384,10 @@ nav {
 .linkedin-text { flex: 1; min-width: 260px; }
 .linkedin-text .section-tag { margin-bottom: 1rem; }
 .linkedin-text h2 {
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(1.7rem, 2.7vw, 2.3rem);
   font-weight: 900; color: var(--white);
-  line-height: 1.15; letter-spacing: -0.8px; margin-bottom: 0.75rem;
+  line-height: 1.1; letter-spacing: 0px; margin-bottom: 0.75rem;
 }
 .linkedin-text p { font-size: 0.925rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 1.5rem; }
 .linkedin-embed-wrap { flex-shrink: 0; }
