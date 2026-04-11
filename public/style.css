@@ -120,6 +120,21 @@ nav {
   transition: border-color 0.2s, color 0.2s, background 0.2s;
 }
 .btn-ghost:hover { border-color: rgba(255,255,255,0.35); color: var(--white); background: rgba(255,255,255,0.04); }
+.btn-andover {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: transparent; color: var(--green);
+  padding: 0.8rem 1.7rem; border-radius: 8px;
+  font-weight: 700; font-size: 0.925rem; text-decoration: none;
+  border: 2px solid var(--green);
+  box-shadow: 0 0 12px rgba(34,162,77,0.35);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+.btn-andover:hover {
+  background: var(--green); color: var(--white);
+  box-shadow: 0 0 22px rgba(34,162,77,0.65);
+  transform: translateY(-1px);
+}
+.btn-andover:active { transform: translateY(0); box-shadow: 0 0 10px rgba(34,162,77,0.4); }
 .hero-image {
   position: relative; overflow: hidden;
 }
