@@ -475,51 +475,91 @@ footer {
 }
 
 /* ─── SCROLL ANIMATIONS ─── */
+
+.reveal,
+.reveal-left,
+.reveal-right,
+.reveal-scale,
+.reveal-up-fast {
+  will-change: transform, opacity;
+}
+
+/* Slide up + fade (default) */
 .reveal {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1),
-              transform 0.65s cubic-bezier(0.22,1,0.36,1);
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+              transform 0.7s cubic-bezier(0.16,1,0.3,1);
 }
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Slide in from left */
 .reveal-left {
   opacity: 0;
-  transform: translateX(-40px);
-  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
-              transform 0.7s cubic-bezier(0.22,1,0.36,1);
+  transform: translateX(-50px);
+  transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1),
+              transform 0.75s cubic-bezier(0.16,1,0.3,1);
 }
 .reveal-left.visible {
   opacity: 1;
   transform: translateX(0);
 }
+
+/* Slide in from right */
 .reveal-right {
   opacity: 0;
-  transform: translateX(40px);
-  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
-              transform 0.7s cubic-bezier(0.22,1,0.36,1);
+  transform: translateX(50px);
+  transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1),
+              transform 0.75s cubic-bezier(0.16,1,0.3,1);
 }
 .reveal-right.visible {
   opacity: 1;
   transform: translateX(0);
 }
+
+/* Scale up + fade */
 .reveal-scale {
   opacity: 0;
-  transform: scale(0.93);
-  transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1),
-              transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  transform: scale(0.9);
+  transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1),
+              transform 0.65s cubic-bezier(0.16,1,0.3,1);
 }
 .reveal-scale.visible {
   opacity: 1;
   transform: scale(1);
 }
-/* Stagger delays for grids */
-.reveal-d1 { transition-delay: 0.05s; }
-.reveal-d2 { transition-delay: 0.13s; }
-.reveal-d3 { transition-delay: 0.21s; }
-.reveal-d4 { transition-delay: 0.29s; }
+
+/* Fast subtle pop */
+.reveal-up-fast {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.45s cubic-bezier(0.16,1,0.3,1),
+              transform 0.45s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-up-fast.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays */
+.reveal-d1 { transition-delay: 0.06s; }
+.reveal-d2 { transition-delay: 0.14s; }
+.reveal-d3 { transition-delay: 0.22s; }
+.reveal-d4 { transition-delay: 0.30s; }
+.reveal-d5 { transition-delay: 0.38s; }
+
+/* Respect reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right,
+  .reveal-scale, .reveal-up-fast {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
 
 /* ─── HOVER ENHANCEMENTS ─── */
 
