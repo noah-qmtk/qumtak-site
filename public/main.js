@@ -1,3 +1,4 @@
+// ─── CARD TOGGLES ───
 function toggleJourney(card) {
   card.classList.toggle('active');
 }
@@ -7,6 +8,7 @@ function toggleExpand(trigger) {
   trigger.nextElementSibling.classList.toggle('open');
 }
 
+// ─── SURVEY POPUP ───
 function openSurvey() {
   var o = document.getElementById('survey-overlay');
   o.style.display = 'flex';
@@ -29,15 +31,36 @@ if (!sessionStorage.getItem('surveyShown')) {
 }
 
 // ─── SCROLL REVEAL ───
-var observer = new IntersectionObserver(function(entries) {
+// Re-animates every time an element enters the viewport (scrolling down OR back up)
+var REVEAL_SELECTOR = '.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-up-fast';
+
+var revealObserver = new IntersectionObserver(function(entries) {
   entries.forEach(function(entry) {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
+    } else {
+      // Remove visible so it re-animates next time it scrolls back into view
+      entry.target.classList.remove('visible');
     }
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(function(el) {
-  observer.observe(el);
+}, {
+  threshold: 0.12,
+  rootMargin: '0px 0px -50px 0px'
 });
+
+document.querySelectorAll(REVEAL_SELECTOR).forEach(function(el) {
+  revealObserver.observe(el);
+});
+
+// ─── NAV SCROLL EFFECT ───
+// Shrink + deepen nav background as user scrolls down
+var nav = document.querySelector('nav');
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 60) {
+    nav.style.background = 'rgba(10,15,12,0.98)';
+    nav.style.borderBottomColor = 'rgba(34,162,77,0.18)';
+  } else {
+    nav.style.background = 'rgba(10,15,12,0.92)';
+    nav.style.borderBottomColor = 'rgba(255,255,255,0.07)';
+  }
+}, { passive: true });
