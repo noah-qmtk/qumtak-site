@@ -1212,3 +1212,23 @@ a.btn-secondary:hover {
   .journey .journey-grid { grid-template-columns: 1fr; }
 }
 
+
+/* ─── SINGLE FEATURED TESTIMONIAL ─── */
+.testimonials-single {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.t-card-featured {
+  max-width: 640px;
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--green-border);
+  border-radius: 16px;
+  padding: 2.2rem 2.4rem;
+  box-shadow: 0 8px 40px rgba(34,162,77,0.1);
+}
+.t-card-featured .t-quote {
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
