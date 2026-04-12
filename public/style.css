@@ -18,7 +18,7 @@
   --white: #ffffff;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
   font-family: 'DM Sans', sans-serif;
@@ -26,6 +26,8 @@ body {
   background: var(--bg);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 /* ─── NAV ─── */
@@ -954,7 +956,7 @@ a.btn-secondary:hover {
 @media (max-width: 860px) {
   .who-inner { grid-template-columns: 1fr; gap: 2.5rem; }
   .who-image img { height: 300px; }
-  .who-quote-card { position: static; margin-top: 1rem; max-width: 100%; }
+  .who-quote-card { position: static; margin-top: 1rem; max-width: 100%; left: 0; }
 }
 
 /* ─── WHAT A SESSION LOOKS LIKE ─── */
@@ -1231,4 +1233,51 @@ a.btn-secondary:hover {
 .t-card-featured .t-quote {
   font-size: 1.05rem;
   line-height: 1.7;
+}
+
+/* ─── MOBILE OVERFLOW FIX ─── */
+/* Prevent any child element from causing horizontal scroll */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Contain all sections */
+section, nav, footer, .stats-bar, .glance-bar {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Fix who-quote-card negative offset bleeding on mobile */
+@media (max-width: 860px) {
+  .who-image { overflow: visible; }
+  .who-quote-card {
+    position: static !important;
+    left: auto !important;
+    bottom: auto !important;
+    margin-top: 1rem;
+    max-width: 100%;
+  }
+}
+
+/* Fix session steps connector line overflowing on mobile */
+@media (max-width: 900px) {
+  .session-steps::before { display: none; }
+}
+
+/* Fix partnership gap collapsing on tablet */
+@media (max-width: 960px) {
+  .partnership-grid { gap: 2.5rem; }
+}
+
+/* Fix glance bar items wrapping without overflow */
+@media (max-width: 640px) {
+  .glance-bar { overflow-x: hidden; }
+  .glance-item { min-width: 0; flex: 1 1 45%; }
+}
+
+/* Ensure nav doesn't cause overflow on very small screens */
+@media (max-width: 400px) {
+  nav { padding: 0 0.8rem; }
+  .nav-logo-text { font-size: 0.95rem; }
 }
