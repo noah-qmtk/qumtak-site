@@ -8,6 +8,19 @@ function toggleExpand(trigger) {
   trigger.nextElementSibling.classList.toggle('open');
 }
 
+// ─── FAQ TOGGLE ───
+function toggleFaq(item) {
+  var isOpen = item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-item.open').forEach(function(el) {
+    el.classList.remove('open');
+  });
+  // Open clicked if it wasn't open
+  if (!isOpen) {
+    item.classList.add('open');
+  }
+}
+
 // ─── CONTACT POPUP ───
 function openSurvey() {
   var o = document.getElementById('survey-overlay');
@@ -35,7 +48,6 @@ function submitContact(e) {
 }
 
 // ─── SCROLL REVEAL ───
-// Re-animates every time an element enters the viewport (scrolling down OR back up)
 var REVEAL_SELECTOR = '.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-up-fast';
 
 var revealObserver = new IntersectionObserver(function(entries) {
@@ -43,7 +55,6 @@ var revealObserver = new IntersectionObserver(function(entries) {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
     } else {
-      // Remove visible so it re-animates next time it scrolls back into view
       entry.target.classList.remove('visible');
     }
   });
@@ -57,7 +68,6 @@ document.querySelectorAll(REVEAL_SELECTOR).forEach(function(el) {
 });
 
 // ─── NAV SCROLL EFFECT ───
-// Shrink + deepen nav background as user scrolls down
 var nav = document.querySelector('nav');
 window.addEventListener('scroll', function() {
   if (window.scrollY > 60) {
