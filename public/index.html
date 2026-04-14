@@ -8,8 +8,225 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css">
-  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green: #22a24d;
+  --green-dark: #178038;
+  --green-dim: rgba(34,162,77,0.15);
+  --green-border: rgba(34,162,77,0.3);
+  --gold: #f0a500;
+  --bg: #0a0f0c;
+  --bg-card: #111810;
+  --bg-raised: #161d13;
+  --border: rgba(255,255,255,0.07);
+  --border-bright: rgba(255,255,255,0.13);
+  --text: #e8ede9;
+  --text-dim: rgba(232,237,233,0.55);
+  --text-mid: rgba(232,237,233,0.75);
+  --white: #ffffff;
+}
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 66px;
+  background: rgba(10,15,12,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo-icon { width: 56px; height: 56px; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.nav-logo-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
+.nav-logo-text { color: var(--white); font-weight: 700; font-size: 1.4rem; letter-spacing: -0.4px; font-family: 'Barlow Condensed', sans-serif; }
+.nav-cta { background: var(--green) !important; color: var(--white) !important; padding: 0.45rem 1.1rem; border-radius: 6px; font-weight: 700 !important; text-decoration: none; transition: background 0.2s !important; border: none; cursor: pointer; font-size: 0.875rem; }
+.nav-cta:hover { background: var(--green-dark) !important; }
+
+/* HERO COMPACT */
+.hero-compact { display: grid; grid-template-columns: 1.1fr 1fr; gap: 2rem; padding: 1.5rem 2.5rem; min-height: calc(100vh - 70px); align-items: center; background: var(--bg); position: relative; overflow: hidden; margin-top: 66px; }
+.hero-compact::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 60%, rgba(34,162,77,0.12) 0%, transparent 60%); pointer-events: none; }
+.hero-left { position: relative; z-index: 1; display: flex; flex-direction: column; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--green-border); background: var(--green-dim); color: #6fcf97; padding: 5px 14px; border-radius: 100px; font-size: 0.73rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 1rem; width: fit-content; }
+.hero-compact h1 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 700; color: var(--white); line-height: 1.05; letter-spacing: 0px; margin-bottom: 0.6rem; }
+.hero-sub { font-size: 0.95rem; color: var(--text-mid); max-width: 420px; line-height: 1.6; margin-bottom: 1.2rem; }
+.hero-ctas { display: flex; gap: 0.9rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+.btn-green { display: inline-flex; align-items: center; gap: 6px; background: var(--green); color: var(--white); padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; text-decoration: none; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+.btn-green:hover { background: var(--green-dark); transform: translateY(-1px); }
+.btn-outline { display: inline-flex; align-items: center; gap: 6px; background: transparent; color: var(--green); padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; text-decoration: none; border: 2px solid var(--green); cursor: pointer; transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s; }
+.btn-outline:hover { background: var(--green); color: var(--white); box-shadow: 0 0 22px rgba(34,162,77,0.65); transform: translateY(-1px); }
+
+/* GLANCE MINI GRID */
+.glance-mini { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 0.9rem; margin-top: 1rem; }
+.glance-mini-item { font-size: 0.82rem; color: #cccccc; line-height: 1.4; }
+.glance-mini-item strong { color: var(--white); font-weight: 600; display: block; margin-bottom: 2px; }
+
+/* STATS MINI STRIP */
+.stats-mini { display: flex; gap: 1.5rem; margin-top: 0.8rem; font-size: 0.9rem; color: #4CAF50; font-weight: 600; flex-wrap: wrap; }
+
+.hero-image { position: relative; overflow: hidden; border-radius: 12px; height: 100%; min-height: 400px; }
+.hero-image img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; display: block; }
+.hero-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--bg) 0%, transparent 35%), linear-gradient(to top, var(--bg) 0%, transparent 20%); }
+
+/* SECTION BASE */
+.section { padding: 3rem 2.5rem; }
+.section-inner { max-width: 1140px; margin: 0 auto; }
+.section-tag { display: inline-block; background: var(--green-dim); border: 1px solid var(--green-border); color: #6fcf97; font-size: 0.7rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; padding: 4px 12px; border-radius: 4px; margin-bottom: 0.8rem; }
+.section h2 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2rem, 3vw, 2.6rem); font-weight: 700; color: var(--white); line-height: 1.1; letter-spacing: 0px; margin-bottom: 0.8rem; }
+.section-sub { font-size: 0.95rem; color: var(--text-mid); line-height: 1.7; max-width: 560px; }
+
+/* THIS WEEK SESSION CARDS */
+.session-intro { text-align: center; margin-bottom: 2rem; }
+.session-intro h2 { margin-bottom: 0.3rem; }
+.session-sub { font-size: 0.9rem; color: var(--text-mid); margin-top: 0.5rem; }
+.session-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+.session-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+.session-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(34,162,77,0.12); border-color: rgba(34,162,77,0.35); }
+.session-card-num { font-family: 'Barlow Condensed', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--green); line-height: 1; margin-bottom: 0.8rem; display: inline-block; }
+.session-card-type { display: inline-block; background: var(--green-dim); border: 1px solid var(--green-border); color: #6fcf97; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.5px; padding: 2px 8px; border-radius: 100px; text-transform: uppercase; margin-bottom: 0.8rem; }
+.session-card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; line-height: 1.2; }
+.session-card-time { font-size: 0.78rem; color: var(--text-dim); margin-bottom: 0.8rem; display: block; }
+.session-card-desc { font-size: 0.82rem; color: var(--text-mid); line-height: 1.5; }
+.session-card-svg { width: 100%; height: auto; margin-top: 1rem; display: block; }
+
+/* WHY QUMTAK - 3 CARDS */
+.why-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+.why-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 1.6rem; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+.why-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(34,162,77,0.12); border-color: rgba(34,162,77,0.35); }
+.why-card-icon { font-size: 1.8rem; margin-bottom: 0.8rem; line-height: 1; }
+.why-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; line-height: 1.2; }
+.why-card p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.55; }
+
+/* PROGRAMS - 3 CARDS TIGHT */
+.programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 2rem; }
+.prog-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 1.6rem; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+.prog-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(34,162,77,0.12); border-color: rgba(34,162,77,0.35); }
+.prog-card.featured { background: rgba(34,162,77,0.08); border-color: rgba(34,162,77,0.35); }
+.prog-icon { font-size: 1.8rem; margin-bottom: 0.8rem; display: block; }
+.prog-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; }
+.prog-card p { font-size: 0.82rem; color: var(--text-mid); line-height: 1.55; margin-bottom: 0.8rem; }
+.prog-meta { font-size: 0.76rem; color: var(--text-dim); line-height: 1.5; }
+.prog-meta strong { color: var(--green); font-weight: 700; }
+.prog-link { display: inline-block; color: var(--green); text-decoration: none; font-weight: 700; font-size: 0.82rem; margin-top: 0.8rem; transition: opacity 0.2s; }
+.prog-link:hover { opacity: 0.8; }
+
+/* FAQ - 2 COLUMN ACCORDION */
+.faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; margin-top: 2rem; }
+.faq-item { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; cursor: pointer; transition: border-color 0.2s; }
+.faq-item:hover { border-color: rgba(34,162,77,0.35); }
+.faq-item.open { border-color: var(--green-border); background: rgba(34,162,77,0.06); }
+.faq-q { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem 1.3rem; font-size: 0.9rem; font-weight: 700; color: var(--white); line-height: 1.3; }
+.faq-chevron { color: var(--green); font-size: 0.7rem; transition: transform 0.25s ease; flex-shrink: 0; }
+.faq-item.open .faq-chevron { transform: rotate(180deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.16,1,0.3,1); }
+.faq-item.open .faq-a { max-height: 300px; }
+.faq-a-inner { padding: 0 1.3rem 1rem; font-size: 0.82rem; color: var(--text-mid); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 0.8rem; }
+
+/* LINKEDIN SECTION */
+.linkedin-section { background: var(--bg-card); border-top: 1px solid var(--border); padding: 3rem 2.5rem; }
+.linkedin-header { max-width: 960px; margin: 0 auto 2rem; text-align: center; }
+.linkedin-header h2 { margin-bottom: 0.5rem; }
+.linkedin-header p { font-size: 0.9rem; color: var(--text-mid); margin-bottom: 1rem; }
+.linkedin-posts-grid { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+.linkedin-post-card { border-radius: 12px; overflow: hidden; border: 1px solid var(--border-bright); background: var(--bg-raised); height: 380px; }
+.linkedin-post-card iframe { display: block; width: 100%; height: 100%; border: none; }
+
+/* FOOTER */
+footer { background: var(--bg-card); border-top: 1px solid var(--border); padding: 2.5rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; flex-wrap: wrap; }
+.footer-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.footer-brand-icon { width: 40px; height: 40px; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.footer-brand-icon img { width: 100%; height: 100%; object-fit: cover; }
+.footer-brand-text { color: var(--white); font-weight: 700; font-size: 1rem; font-family: 'Barlow Condensed', sans-serif; }
+.footer-socials { display: flex; gap: 0.6rem; margin-top: 0.6rem; }
+.social-btn { width: 32px; height: 32px; border-radius: 6px; background: var(--bg-raised); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 0.9rem; transition: background 0.2s, border-color 0.2s; }
+.social-btn:hover { background: var(--bg); border-color: var(--border-bright); }
+.footer-copy { color: var(--text-dim); font-size: 0.72rem; margin-top: 0.5rem; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-links span { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--green); margin-bottom: 0.3rem; }
+.footer-links a { color: var(--text-dim); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+.footer-links a:hover { color: var(--white); }
+
+/* CONTACT BUTTON & MODAL */
+#survey-btn { position: fixed; bottom: 1.6rem; right: 1.6rem; z-index: 9998; background: var(--green); color: var(--white); border: none; border-radius: 50px; cursor: pointer; padding: 0.8rem 1.4rem; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.9rem; box-shadow: 0 4px 24px rgba(34,162,77,0.45); display: flex; align-items: center; gap: 8px; white-space: nowrap; transition: transform 0.2s, box-shadow 0.2s; }
+#survey-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 32px rgba(34,162,77,0.6); }
+#survey-overlay { position: fixed; inset: 0; z-index: 9999; display: none; align-items: center; justify-content: center; padding: 1rem; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); }
+#survey-modal { background: #0d1410; border: 1px solid rgba(34,162,77,0.35); border-radius: 24px; width: 100%; max-width: 520px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.8); display: flex; flex-direction: column; animation: modalIn 0.4s cubic-bezier(0.22,1,0.36,1); }
+@keyframes modalIn { from { opacity: 0; transform: scale(0.93) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+#survey-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 1.4rem 1.8rem; border-bottom: 1px solid rgba(255,255,255,0.07); background: rgba(34,162,77,0.08); flex-shrink: 0; }
+#survey-modal-header img { width: 40px; height: 40px; border-radius: 10px; box-shadow: 0 2px 12px rgba(34,162,77,0.4); }
+#survey-close-btn { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); cursor: pointer; color: rgba(232,237,233,0.7); font-size: 1.1rem; line-height: 1; padding: 6px 12px; border-radius: 8px; transition: background 0.2s, color 0.2s; font-family: inherit; }
+#survey-close-btn:hover { background: rgba(255,255,255,0.13); color: #fff; }
+#contact-form { display: flex; flex-direction: column; gap: 0.75rem; padding: 2rem; flex: 1; }
+#contact-form input, #contact-form textarea { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 0.75rem 1rem; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+#contact-form input:focus, #contact-form textarea:focus { border-color: var(--green); }
+#contact-form textarea { resize: vertical; min-height: 100px; }
+#contact-form button { background: var(--green); color: var(--white); border: none; border-radius: 50px; padding: 0.9rem 2rem; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 24px rgba(34,162,77,0.45); transition: background 0.2s, transform 0.2s; margin-top: 0.25rem; }
+#contact-form button:hover { background: var(--green-dark); transform: translateY(-2px); }
+
+/* ANIMATIONS */
+.reveal, .reveal-left, .reveal-right { will-change: transform, opacity; opacity: 0; transform: translateY(40px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible, .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: translateY(0); }
+.reveal-left { transform: translateX(-50px); transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
+.reveal-left.visible { transform: translateX(0); }
+.reveal-right { transform: translateX(50px); transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
+.reveal-right.visible { transform: translateX(0); }
+.reveal-d1 { transition-delay: 0.06s; }
+.reveal-d2 { transition-delay: 0.14s; }
+.reveal-d3 { transition-delay: 0.22s; }
+@media (prefers-reduced-motion: reduce) { .reveal, .reveal-left, .reveal-right { opacity: 1 !important; transform: none !important; transition: none !important; } }
+
+/* RESPONSIVE */
+@media (max-width: 1080px) {
+  .hero-compact { grid-template-columns: 1fr; padding: 2rem 2rem; min-height: auto; }
+  .hero-image { order: -1; min-height: 300px; margin-bottom: 1.5rem; }
+  .glance-mini { grid-template-columns: repeat(2, 1fr); }
+  .session-cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .why-cards { grid-template-columns: repeat(2, 1fr); }
+  .programs-grid { grid-template-columns: repeat(2, 1fr); }
+  .faq-grid { grid-template-columns: 1fr; }
+  .linkedin-posts-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  nav { padding: 0 1rem; }
+  .nav-logo-text { font-size: 1rem; }
+  .hero-compact { padding: 1.5rem 1.2rem; }
+  .hero-compact h1 { font-size: 2rem; }
+  .hero-sub { font-size: 0.9rem; }
+  .hero-ctas { flex-direction: column; }
+  .hero-ctas a { width: 100%; justify-content: center; }
+  .glance-mini { grid-template-columns: 1fr; gap: 0.6rem; }
+  .glance-mini-item { font-size: 0.8rem; }
+  .stats-mini { gap: 1rem; font-size: 0.82rem; }
+  .section { padding: 2rem 1.2rem; }
+  .section h2 { font-size: 1.8rem; }
+  .session-cards-grid { grid-template-columns: 1fr; }
+  .why-cards { grid-template-columns: 1fr; }
+  .programs-grid { grid-template-columns: 1fr; }
+  .linkedin-posts-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 1.5rem; padding: 2rem 1.2rem; }
+  #survey-modal { max-width: 90vw; }
+}
+
+@media (max-width: 400px) {
+  .hero-compact h1 { font-size: 1.7rem; }
+  .nav-logo-text { font-size: 0.9rem; }
+}
+  </style>
 </head>
 <body>
 
@@ -19,328 +236,241 @@
     <div class="nav-logo-icon"><img src="/logo.png" alt="Qumtak Soccer Logo"></div>
     <span class="nav-logo-text">Qumtak</span>
   </a>
-  <ul class="nav-links">
-    <li><a href="#programs">Programs</a></li>
-    <li><a href="#why-qumtak">Why Qumtak</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="#partners">For ADs</a></li>
-    <li><a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank" class="nav-cta">Enroll Now</a></li>
-  </ul>
+  <button class="nav-cta" onclick="openSurvey()">Enroll Now</button>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-content reveal-left">
-    <div class="hero-eyebrow">⚽ &nbsp;Andover &amp; Reading, MA · Ages K–8</div>
-    <h1>Your child deserves<br><em>real coaching.</em><br>Not just rec soccer.</h1>
-    <p class="hero-sub">Qumtak delivers professional soccer development for kids without the club fees, travel, or tryouts. Small groups. Structured curriculum. A coach who actually knows the game.</p>
-    <div class="hero-actions">
-      <a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank" class="btn-green">Enroll in Group Classes →</a>
-      <a href="https://square.link/u/TOPIwZpf" target="_blank" class="btn-andover">Book Private Training →</a>
-      <a href="#partners" class="btn-ghost">For Athletic Directors</a>
+<!-- HERO + GLANCE COMBO -->
+<section class="hero-compact">
+  <div class="hero-left reveal-left">
+    <div class="hero-eyebrow">⚽ Andover & Reading, MA</div>
+    <h1>Real coaching.<br>Not just rec soccer.</h1>
+    <p class="hero-sub">Professional soccer development for kids — no tryouts, no club fees, no travel.</p>
+
+    <div class="hero-ctas">
+      <a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank" class="btn-green">Enroll Now →</a>
+      <a href="https://square.link/u/TOPIwZpf" target="_blank" class="btn-outline">Book Private Training →</a>
+    </div>
+
+    <!-- GLANCE MINI GRID -->
+    <div class="glance-mini">
+      <div class="glance-mini-item">📍 <strong>Sanborn Elementary, Andover</strong></div>
+      <div class="glance-mini-item">👦 <strong>Elementary (K–4)</strong></div>
+      <div class="glance-mini-item">🧒 <strong>Middle School (5–8)</strong></div>
+      <div class="glance-mini-item">📅 <strong>Apr 27–Jun 12</strong><br>Mon & Fri 5:50–6:50 PM</div>
+      <div class="glance-mini-item">💰 <strong>$260 residents</strong><br>$275 non-res</div>
+      <div class="glance-mini-item">✅ <strong>No tryouts</strong><br>All skill levels</div>
+    </div>
+
+    <!-- STATS MINI STRIP -->
+    <div class="stats-mini">
+      <span>4.75/5 rating</span>
+      <span>100% re-enroll</span>
+      <span>U19 Bundesliga coach</span>
     </div>
   </div>
+
   <div class="hero-image reveal-right">
     <img src="/hero.jpg" alt="Coach Shaya training young players in Andover, MA">
   </div>
 </section>
 
-<!-- AT A GLANCE -->
-<div class="glance-bar reveal">
-  <div class="glance-item">
-    <span class="glance-icon">📍</span>
-    <div>
-      <span class="glance-label">Location</span>
-      <span class="glance-val">Sanborn Elementary, Andover</span>
-    </div>
-  </div>
-  <div class="glance-divider"></div>
-  <div class="glance-item">
-    <span class="glance-icon">👦</span>
-    <div>
-      <span class="glance-label">Ages</span>
-      <span class="glance-val">Kindergarten through 8th grade</span>
-    </div>
-  </div>
-  <div class="glance-divider"></div>
-  <div class="glance-item">
-    <span class="glance-icon">📅</span>
-    <div>
-      <span class="glance-label">Spring 2026</span>
-      <span class="glance-val">Apr 27 – Jun 12 · Mon &amp; Fri 5:50–6:50 PM</span>
-    </div>
-  </div>
-  <div class="glance-divider"></div>
-  <div class="glance-item">
-    <span class="glance-icon">💰</span>
-    <div>
-      <span class="glance-label">Cost</span>
-      <span class="glance-val">$260 residents · $275 non-residents</span>
-    </div>
-  </div>
-  <div class="glance-divider"></div>
-  <div class="glance-item">
-    <span class="glance-icon">✅</span>
-    <div>
-      <span class="glance-label">No tryouts</span>
-      <span class="glance-val">Open enrollment · All skill levels welcome</span>
-    </div>
-  </div>
-</div>
-
-<!-- STATS BAR -->
-<div class="stats-bar reveal">
-  <div class="stat-item">
-    <span class="stat-num"><span>4.75</span>/5</span>
-    <span class="stat-label">Parent Rating · Spring 2026</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num"><span>100%</span></span>
-    <span class="stat-label">Re-Enroll Rate</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num"><span>1,000+</span></span>
-    <span class="stat-label">Kids Developed · AC Arlington Legacy</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num">U19 <span>Bundesliga</span></span>
-    <span class="stat-label">Coach's Playing Pedigree · Germany</span>
-  </div>
-</div>
-
-<!-- WHY PARENTS CHOOSE QUMTAK -->
-<section class="section why-section" id="why-qumtak">
+<!-- THIS WEEK'S SESSION -->
+<section class="section" style="background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
   <div class="section-inner">
-    <div class="why-header reveal">
-      <span class="section-tag">Why Parents Choose Qumtak</span>
-      <h2>The coaching gap that most rec programs don't fill.</h2>
-      <p class="section-sub">Most kids who play rec soccer love the game — but they leave every season without actually getting better. Qumtak was built to fix that.</p>
+    <div class="session-intro reveal">
+      <span class="section-tag">THIS WEEK</span>
+      <h2>Final Session — Celebration Day 🎉</h2>
+      <p class="session-sub">Saturdays 8 AM · Sanborn · new plan posted weekly</p>
     </div>
-    <div class="why-grid">
+
+    <div class="session-cards-grid">
+      <div class="session-card reveal reveal-d1">
+        <div class="session-card-num">01</div>
+        <div class="session-card-type">Warm-Up · 10 min</div>
+        <div class="session-card-title">Traffic Light + Trick</div>
+        <div class="session-card-desc">Red/Yellow/Green/Purple calls. Everyone works on moves and tricks together.</div>
+        <svg class="session-card-svg" viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="212" height="102" fill="#2d6a1f" stroke="#fff" stroke-width="1.5"/>
+          <line x1="110" y1="4" x2="110" y2="106" stroke="#fff" stroke-width="1"/>
+          <circle cx="40" cy="30" r="4" fill="#fff"/><circle cx="70" cy="55" r="4" fill="#fff"/><circle cx="45" cy="80" r="4" fill="#fff"/>
+          <circle cx="150" cy="35" r="4" fill="#fff"/><circle cx="180" cy="60" r="4" fill="#fff"/><circle cx="145" cy="85" r="4" fill="#fff"/>
+          <path d="M40 30 Q55 25 70 30 T85 40" stroke="#ffeb3b" stroke-width="1.5" fill="none" stroke-dasharray="3,2"/>
+          <path d="M150 35 Q165 30 180 35 T195 45" stroke="#ffeb3b" stroke-width="1.5" fill="none" stroke-dasharray="3,2"/>
+          <text x="8" y="16" fill="#fff" font-size="8" font-family="monospace">WARM-UP</text>
+        </svg>
+      </div>
+
+      <div class="session-card reveal reveal-d2">
+        <div class="session-card-num">02</div>
+        <div class="session-card-type">Technical · 15 min</div>
+        <div class="session-card-title">Partner Passing — Stationary</div>
+        <div class="session-card-desc">Pairs, one ball. Short clean passes. Technique focus.</div>
+        <svg class="session-card-svg" viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="212" height="102" fill="#2d6a1f" stroke="#fff" stroke-width="1.5"/>
+          <circle cx="50" cy="40" r="4" fill="#fff"/><circle cx="90" cy="40" r="4" fill="#fff"/>
+          <line x1="54" y1="40" x2="86" y2="40" stroke="#ffeb3b" stroke-width="1.5"/>
+          <circle cx="70" cy="40" r="2" fill="#fff" stroke="#000" stroke-width="0.5"/>
+          <circle cx="130" cy="40" r="4" fill="#fff"/><circle cx="170" cy="40" r="4" fill="#fff"/>
+          <line x1="134" y1="40" x2="166" y2="40" stroke="#ffeb3b" stroke-width="1.5"/>
+          <circle cx="50" cy="80" r="4" fill="#fff"/><circle cx="90" cy="80" r="4" fill="#fff"/>
+          <line x1="54" y1="80" x2="86" y2="80" stroke="#ffeb3b" stroke-width="1.5"/>
+          <circle cx="130" cy="80" r="4" fill="#fff"/><circle cx="170" cy="80" r="4" fill="#fff"/>
+          <line x1="134" y1="80" x2="166" y2="80" stroke="#ffeb3b" stroke-width="1.5"/>
+          <text x="8" y="16" fill="#fff" font-size="8" font-family="monospace">PAIRS</text>
+        </svg>
+      </div>
+
+      <div class="session-card reveal reveal-d3">
+        <div class="session-card-num">03</div>
+        <div class="session-card-type">Technical · 15 min</div>
+        <div class="session-card-title">Partner Passing — Moving</div>
+        <div class="session-card-desc">Same pairs, now moving. Pass and follow.</div>
+        <svg class="session-card-svg" viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="212" height="102" fill="#2d6a1f" stroke="#fff" stroke-width="1.5"/>
+          <circle cx="40" cy="55" r="4" fill="#fff"/>
+          <circle cx="100" cy="55" r="4" fill="#fff"/>
+          <line x1="44" y1="55" x2="96" y2="55" stroke="#ffeb3b" stroke-width="1.5"/>
+          <polygon points="96,55 92,53 92,57" fill="#ffeb3b"/>
+          <path d="M40 55 L40 85" stroke="#fff" stroke-width="1" stroke-dasharray="3,2"/>
+          <polygon points="40,85 38,81 42,81" fill="#fff"/>
+          <path d="M100 55 L160 55" stroke="#fff" stroke-width="1" stroke-dasharray="3,2"/>
+          <polygon points="160,55 156,53 156,57" fill="#fff"/>
+          <circle cx="160" cy="55" r="4" fill="#fff" opacity="0.5"/>
+          <text x="8" y="16" fill="#fff" font-size="8" font-family="monospace">MOVING</text>
+        </svg>
+      </div>
+
+      <div class="session-card reveal reveal-d1">
+        <div class="session-card-num">04</div>
+        <div class="session-card-type">Competition · 10 min</div>
+        <div class="session-card-title">Dribbling Relay</div>
+        <div class="session-card-desc">Teams race through cones. First team done wins.</div>
+        <svg class="session-card-svg" viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="212" height="102" fill="#2d6a1f" stroke="#fff" stroke-width="1.5"/>
+          <polygon points="60,35 57,41 63,41" fill="#ff9800"/>
+          <polygon points="100,35 97,41 103,41" fill="#ff9800"/>
+          <polygon points="140,35 137,41 143,41" fill="#ff9800"/>
+          <polygon points="180,35 177,41 183,41" fill="#ff9800"/>
+          <circle cx="25" cy="38" r="4" fill="#fff"/>
+          <path d="M29 38 Q60 30 100 42 T180 38" stroke="#fff" stroke-width="1.5" fill="none" stroke-dasharray="1,2"/>
+          <polygon points="60,75 57,81 63,81" fill="#ff9800"/>
+          <polygon points="100,75 97,81 103,81" fill="#ff9800"/>
+          <polygon points="140,75 137,81 143,81" fill="#ff9800"/>
+          <polygon points="180,75 177,81 183,81" fill="#ff9800"/>
+          <circle cx="25" cy="78" r="4" fill="#fff"/>
+          <path d="M29 78 Q60 70 100 82 T180 78" stroke="#fff" stroke-width="1.5" fill="none" stroke-dasharray="1,2"/>
+          <text x="8" y="16" fill="#fff" font-size="8" font-family="monospace">RELAY</text>
+        </svg>
+      </div>
+
+      <div class="session-card reveal reveal-d2">
+        <div class="session-card-num">05</div>
+        <div class="session-card-type">Game · 20 min</div>
+        <div class="session-card-title">Scrimmage — Age Split</div>
+        <div class="session-card-desc">Elementary one end, Middle School the other. Real goals.</div>
+        <svg class="session-card-svg" viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="212" height="102" fill="#2d6a1f" stroke="#fff" stroke-width="1.5"/>
+          <line x1="110" y1="4" x2="110" y2="106" stroke="#fff" stroke-width="1.5" stroke-dasharray="4,2"/>
+          <rect x="4" y="40" width="8" height="30" fill="none" stroke="#fff" stroke-width="1"/>
+          <rect x="208" y="40" width="8" height="30" fill="none" stroke="#fff" stroke-width="1"/>
+          <circle cx="30" cy="35" r="3.5" fill="#fff"/><circle cx="55" cy="55" r="3.5" fill="#fff"/><circle cx="30" cy="75" r="3.5" fill="#fff"/>
+          <circle cx="85" cy="35" r="3.5" fill="#ffeb3b"/><circle cx="85" cy="75" r="3.5" fill="#ffeb3b"/>
+          <circle cx="135" cy="35" r="3.5" fill="#fff"/><circle cx="135" cy="75" r="3.5" fill="#fff"/>
+          <circle cx="165" cy="35" r="3.5" fill="#ffeb3b"/><circle cx="190" cy="55" r="3.5" fill="#ffeb3b"/><circle cx="165" cy="75" r="3.5" fill="#ffeb3b"/>
+          <text x="8" y="16" fill="#fff" font-size="7" font-family="monospace">ELEM</text>
+          <text x="180" y="16" fill="#fff" font-size="7" font-family="monospace">MS</text>
+        </svg>
+      </div>
+
+      <div class="session-card reveal reveal-d3">
+        <div class="session-card-num">06</div>
+        <div class="session-card-type">Special · Gift</div>
+        <div class="session-card-title">End of Season 🎁</div>
+        <div class="session-card-desc">Every player takes home a surprise.</div>
+        <svg class="session-card-svg" viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="212" height="102" fill="#2d6a1f" stroke="#fff" stroke-width="1.5"/>
+          <g transform="translate(85,30)">
+            <rect x="0" y="12" width="50" height="35" fill="#f0a500" stroke="#fff" stroke-width="1"/>
+            <rect x="22" y="12" width="6" height="35" fill="#c8102e"/>
+            <rect x="0" y="12" width="50" height="6" fill="#c8102e"/>
+            <path d="M25 12 Q15 0 8 5 Q10 12 25 12 Q40 12 42 5 Q35 0 25 12" fill="#c8102e" stroke="#fff" stroke-width="0.5"/>
+          </g>
+          <circle cx="30" cy="85" r="4" fill="#fff"/>
+          <circle cx="190" cy="85" r="4" fill="#fff"/>
+          <circle cx="110" cy="90" r="4" fill="#fff"/>
+          <text x="8" y="16" fill="#fff" font-size="8" font-family="monospace">CELEBRATE</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY QUMTAK -->
+<section class="section">
+  <div class="section-inner">
+    <div style="margin-bottom: 1rem;">
+      <span class="section-tag">Why Qumtak</span>
+      <h2>The coaching difference</h2>
+    </div>
+
+    <div class="why-cards">
       <div class="why-card reveal reveal-d1">
         <div class="why-card-icon">🎯</div>
-        <h3>Structured sessions, not free play</h3>
-        <p>Every session has a curriculum. We work on specific skills each week — ball mastery, 1v1, passing sequences, game IQ — so kids improve in a measurable, intentional way.</p>
+        <h3>Structured sessions, real curriculum</h3>
+        <p>Every session builds specific skills. Not free play, not babysitting.</p>
       </div>
+
       <div class="why-card reveal reveal-d2">
         <div class="why-card-icon">👦</div>
         <h3>Grouped by age and ability</h3>
-        <p>Kids are grouped so they're always appropriately challenged. Beginners don't feel lost. Advanced players don't coast. Every child is pushed to their next level.</p>
+        <p>Elementary and Middle School separated. Every child appropriately challenged.</p>
       </div>
-      <div class="why-card reveal reveal-d3">
-        <div class="why-card-icon">💪</div>
-        <h3>Confidence, not just tactics</h3>
-        <p>Coach Shaya builds kids up. The environment is positive, encouraging, and high-energy. Kids leave feeling good about themselves — and ready to come back.</p>
-      </div>
-      <div class="why-card reveal reveal-d1">
-        <div class="why-card-icon">📊</div>
-        <h3>Data-driven and accountable</h3>
-        <p>As a professional data analyst, Coach Shaya tracks individual progress. Parents know what their child is working on. No vague feedback — real development, documented.</p>
-      </div>
-      <div class="why-card reveal reveal-d2">
-        <div class="why-card-icon">🏡</div>
-        <h3>Local, convenient, affordable</h3>
-        <p>No 45-minute drives. No $3,000 club fees. No tryouts. Qumtak runs in your town, on a schedule families can keep, at a price that makes sense.</p>
-      </div>
+
       <div class="why-card reveal reveal-d3">
         <div class="why-card-icon">⭐</div>
-        <h3>A coach with real credentials</h3>
-        <p>Coach Shaya played professionally in Germany's U19 Bundesliga and grew up at AC Arlington — one of Massachusetts' most decorated youth clubs. He brings that standard to your neighborhood.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WHO THIS IS FOR -->
-<section class="section who-section" id="who">
-  <div class="section-inner">
-    <div class="who-inner">
-      <div class="who-text reveal-left">
-        <span class="section-tag">Who This Is For</span>
-        <h2>Is Qumtak right for my child?</h2>
-        <div class="who-list">
-          <div class="who-item">
-            <span class="who-check">✓</span>
-            <span>Kids in Kindergarten through 8th grade — grouped by age so every child is with peers at a similar level</span>
-          </div>
-          <div class="who-item">
-            <span class="who-check">✓</span>
-            <span>Beginners who want to learn the fundamentals in a supportive environment</span>
-          </div>
-          <div class="who-item">
-            <span class="who-check">✓</span>
-            <span>Rec players ready to take their game to the next level</span>
-          </div>
-          <div class="who-item">
-            <span class="who-check">✓</span>
-            <span>Players preparing for club tryouts who want to sharpen specific skills</span>
-          </div>
-          <div class="who-item">
-            <span class="who-check">✓</span>
-            <span>Families who want structured development without club-level commitment</span>
-          </div>
-          <div class="who-item">
-            <span class="who-check">✓</span>
-            <span>Any child who loves soccer and wants to get better at it</span>
-          </div>
-        </div>
-        <a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank" class="btn-green" style="margin-top:1.8rem; display:inline-flex;">Enroll in Andover →</a>
-      </div>
-      <div class="who-image reveal-right">
-        <img src="/coach1.jpg" alt="Coach Shaya working with young players">
-        <div class="who-quote-card">
-          <span class="stars">★★★★★</span>
-          <p>"My child improved in dribbling and shooting. Coach Shaya creates a positive and encouraging environment."</p>
-          <span class="t-author">— Pace W., Andover parent · Spring 2026</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WHAT A SESSION LOOKS LIKE -->
-<section class="section session-section" id="session">
-  <div class="section-inner">
-    <div class="session-header reveal">
-      <span class="section-tag">What a Session Looks Like</span>
-      <h2>Every hour is planned. Every minute counts.</h2>
-      <p class="section-sub">Sessions run 60 minutes with a clear structure designed to maximize touches on the ball and build real skills — not just burn energy.</p>
-    </div>
-    <div class="session-steps">
-      <div class="session-step reveal reveal-d1">
-        <div class="session-step-num">01</div>
-        <div class="session-step-body">
-          <h4>Warm-Up &amp; Ball Mastery <span class="session-time">~10 min</span></h4>
-          <p>Individual ball work to get every player comfortable and focused. Moves, juggling, first touch.</p>
-        </div>
-      </div>
-      <div class="session-step reveal reveal-d2">
-        <div class="session-step-num">02</div>
-        <div class="session-step-body">
-          <h4>Technical Skill Block <span class="session-time">~20 min</span></h4>
-          <p>The focus of the day — passing, shooting, 1v1 defense, receiving, finishing. Coached with clear instruction and repetition.</p>
-        </div>
-      </div>
-      <div class="session-step reveal reveal-d3">
-        <div class="session-step-num">03</div>
-        <div class="session-step-body">
-          <h4>Small-Sided Games <span class="session-time">~20 min</span></h4>
-          <p>Applying the skill in competition. Small groups and small-sided formats create more touches and more decisions than 11v11 ever could. Goalies, proper goals, real game pressure.</p>
-        </div>
-      </div>
-      <div class="session-step reveal reveal-d4">
-        <div class="session-step-num">04</div>
-        <div class="session-step-body">
-          <h4>Full Scrimmage &amp; Debrief <span class="session-time">~10 min</span></h4>
-          <p>Players put everything together in a real game. Coach gives individual feedback. Kids leave knowing exactly what to work on next.</p>
-        </div>
+        <h3>Coach with real credentials</h3>
+        <p>U19 Bundesliga in Germany. AC Arlington pedigree. 1,000+ kids developed.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PROGRAMS -->
-<section class="section programs" id="programs">
+<section class="section" style="background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
   <div class="section-inner">
-    <div class="programs-header reveal">
-      <div>
-        <span class="section-tag">Programs</span>
-        <h2>Training for every player.</h2>
-      </div>
-      <p class="section-sub">Group classes, private training, and town partnerships. No tryouts. No travel. No excuses.</p>
+    <div style="margin-bottom: 1rem;">
+      <span class="section-tag">Programs</span>
+      <h2>Training for every player</h2>
     </div>
-    <div class="programs-grid">
 
-      <div class="prog-card featured">
-        <span class="prog-icon">⚽</span>
+    <div class="programs-grid">
+      <div class="prog-card featured reveal">
+        <div class="prog-icon">⚽</div>
         <h3>Weekly Group Classes</h3>
-        <p>The core program. Structured weekly training focused on technical skills, soccer IQ, and confidence. Ages K–8, grouped by age and ability.</p>
+        <p>Structured weekly training focused on technical skills, soccer IQ, and confidence. Ages K–8.</p>
         <div class="prog-meta">
-          <strong>Spring 2026:</strong> Apr 27 – Jun 12 · Mon &amp; Fri 5:50–6:50 PM<br>
+          <strong>Spring 2026:</strong> Apr 27–Jun 12 · Mon & Fri 5:50–6:50 PM<br>
           📍 Sanborn Elementary, Andover<br>
           $260 residents · $275 non-residents<br>
-          <a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank" style="color:var(--green);text-decoration:none;font-weight:600;">Register on Andover Rec →</a>
-        </div>
-        <div class="expand-row" onclick="toggleExpand(this)">
-          <span>What we cover</span><span class="chev">▼</span>
-        </div>
-        <div class="expand-body">
-          <div class="expand-inner">
-            <ul>
-              <li>Ball mastery &amp; technical skill work</li>
-              <li>Passing, shooting, 1v1 defending</li>
-              <li>Position play &amp; soccer IQ development</li>
-              <li>Small-sided games and full scrimmages</li>
-              <li>Individual progress tracking per player</li>
-            </ul>
-          </div>
+          <a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank" class="prog-link">Register on Andover Rec →</a>
         </div>
       </div>
 
       <div class="prog-card reveal reveal-d1">
-        <span class="prog-icon">🎯</span>
+        <div class="prog-icon">🎯</div>
         <h3>1-on-1 Private Training</h3>
-        <p>Targeted sessions built around your child's specific needs. Accelerate development, prep for tryouts, or address individual weaknesses — on your schedule.</p>
-        <div class="prog-meta"><strong>By appointment</strong> · <a href="https://square.link/u/TOPIwZpf" target="_blank" style="color:var(--green);text-decoration:none;font-weight:600;">Book now →</a></div>
-        <div class="expand-row" onclick="toggleExpand(this)">
-          <span>Who it's for</span><span class="chev">▼</span>
-        </div>
-        <div class="expand-body">
-          <div class="expand-inner">
-            <ul>
-              <li>Players preparing for club tryouts</li>
-              <li>Athletes wanting intensive technical improvement</li>
-              <li>Kids who benefit from more 1-on-1 attention</li>
-              <li>Any age, any ability level</li>
-            </ul>
-          </div>
+        <p>Targeted sessions built around your child's specific needs. By appointment.</p>
+        <div class="prog-meta">
+          <a href="https://square.link/u/TOPIwZpf" target="_blank" class="prog-link">Book now →</a>
         </div>
       </div>
 
       <div class="prog-card reveal reveal-d2">
-        <span class="prog-icon">🤝</span>
+        <div class="prog-icon">🤝</div>
         <h3>Town Partnership Programs</h3>
-        <p>For rec departments and athletic directors. Qumtak embeds as your professional coaching partner — curriculum, tracking, and parent communication included.</p>
-        <div class="prog-meta"><strong>Active:</strong> Andover · <strong>Expanding:</strong> Reading &amp; beyond</div>
-        <div class="expand-row" onclick="toggleExpand(this)">
-          <span>How it works</span><span class="chev">▼</span>
-        </div>
-        <div class="expand-body">
-          <div class="expand-inner">
-            <ul>
-              <li>Integrated into your rec league as coaching partner</li>
-              <li>Clinics, workshops &amp; seasonal programs</li>
-              <li>Regular progress reports for admin and parents</li>
-              <li>No hiring, no HR — just elite coaching, delivered</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="section testimonials-section" id="testimonials">
-  <div class="section-inner">
-    <div class="testimonials-header reveal">
-      <span class="section-tag">What Parents Are Saying</span>
-      <h2>Real feedback from Andover families.</h2>
-    </div>
-    <div class="testimonials-single reveal">
-      <div class="t-card t-card-featured">
-        <span class="stars">★★★★★</span>
-        <p class="t-quote">"My child improved in dribbling and shooting. It is getting better after kids are grouped by age. Coach Shaya creates a positive and encouraging environment."</p>
-        <p class="t-author">— Pace W., Andover · Spring 2026</p>
-      </div>
-    </div>
-    <div class="testimonials-footer reveal">
-      <div class="rating-summary">
-        <span class="rating-big">4.75</span>
-        <div>
-          <span class="stars small">★★★★★</span>
-          <span class="rating-label">Average parent rating · Spring 2026 · 5 families surveyed · 100% would re-enroll</span>
+        <p>For rec departments and athletic directors. Active in Andover, expanding to Reading.</p>
+        <div class="prog-meta">
+          <a href="mailto:noah@qmtk.org" class="prog-link">Contact Coach Shaya →</a>
         </div>
       </div>
     </div>
@@ -348,61 +478,61 @@
 </section>
 
 <!-- FAQ -->
-<section class="section faq-section" id="faq">
+<section class="section">
   <div class="section-inner">
-    <div class="faq-header reveal">
-      <span class="section-tag">Parent FAQ</span>
-      <h2>Questions parents ask before enrolling.</h2>
+    <div style="margin-bottom: 1.5rem;">
+      <span class="section-tag">FAQ</span>
+      <h2>Questions parents ask</h2>
     </div>
-    <div class="faq-grid">
 
+    <div class="faq-grid">
       <div class="faq-item reveal reveal-d1" onclick="toggleFaq(this)">
         <div class="faq-q">
           <span>What ages is this for?</span>
           <span class="faq-chevron">▼</span>
         </div>
         <div class="faq-a">
-          <div class="faq-a-inner">Group classes are open to kids in Kindergarten through 8th grade. Players are grouped by age and ability — younger and older players are separated so every child is appropriately challenged and no one feels out of place. Based on parent feedback, we are actively working toward dedicated elementary and middle school tracks. Private training is available for any age.</div>
+          <div class="faq-a-inner">Kindergarten through 8th grade. Elementary and Middle School groups run separately with dedicated coaches starting next season.</div>
         </div>
       </div>
 
       <div class="faq-item reveal reveal-d2" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span>Are sessions split by age?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Yes. Elementary and Middle School groups run separately. Dedicated coaches for each age starting next season.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal reveal-d1" onclick="toggleFaq(this)">
         <div class="faq-q">
           <span>Does my child need prior experience?</span>
           <span class="faq-chevron">▼</span>
         </div>
         <div class="faq-a">
-          <div class="faq-a-inner">No. Beginners are absolutely welcome. Qumtak is designed to build fundamentals from the ground up. If your child has never kicked a ball in a structured setting, this is a great starting point.</div>
-        </div>
-      </div>
-
-      <div class="faq-item reveal reveal-d1" onclick="toggleFaq(this)">
-        <div class="faq-q">
-          <span>Where are classes held?</span>
-          <span class="faq-chevron">▼</span>
-        </div>
-        <div class="faq-a">
-          <div class="faq-a-inner">Spring 2026 group classes run at Sanborn Elementary in Andover, MA. Private training locations are flexible — contact us to arrange a session near you. Reading-area sessions are coming soon.</div>
+          <div class="faq-a-inner">No. Beginners are absolutely welcome. Qumtak is designed to build fundamentals from the ground up.</div>
         </div>
       </div>
 
       <div class="faq-item reveal reveal-d2" onclick="toggleFaq(this)">
         <div class="faq-q">
-          <span>How much does it cost?</span>
+          <span>How do I know what's happening each week?</span>
           <span class="faq-chevron">▼</span>
         </div>
         <div class="faq-a">
-          <div class="faq-a-inner">Spring 2026 group classes are $260 for Andover residents and $275 for non-residents — covering the full session (Apr 27–Jun 12, Monday and Friday 5:50–6:50 PM). Private training rates are available upon inquiry.</div>
+          <div class="faq-a-inner">Check this site — we post the full weekly session plan every week so you know exactly what's happening.</div>
         </div>
       </div>
 
       <div class="faq-item reveal reveal-d1" onclick="toggleFaq(this)">
         <div class="faq-q">
-          <span>Are there tryouts? Can any child join?</span>
+          <span>Are there tryouts?</span>
           <span class="faq-chevron">▼</span>
         </div>
         <div class="faq-a">
-          <div class="faq-a-inner">No tryouts. Ever. Qumtak is open enrollment — any child in the age range can sign up. We believe elite coaching should be accessible to every kid, regardless of current skill level.</div>
+          <div class="faq-a-inner">No tryouts. Ever. Qumtak is open enrollment — any child in the age range can sign up. We believe elite coaching should be accessible to every kid.</div>
         </div>
       </div>
 
@@ -412,27 +542,27 @@
           <span class="faq-chevron">▼</span>
         </div>
         <div class="faq-a">
-          <div class="faq-a-inner">Group classes in Andover are registered through the Andover Recreation Department on MyRec. Click the "Enroll Now" button on this page. For private training, book directly through the link above or contact Coach Shaya at noah@qmtk.org.</div>
+          <div class="faq-a-inner">Group classes in Andover are registered through the Andover Recreation Department on MyRec. Click Enroll on this page. For private training, book through the link above or email noah@qmtk.org.</div>
         </div>
       </div>
 
       <div class="faq-item reveal reveal-d1" onclick="toggleFaq(this)">
         <div class="faq-q">
-          <span>What should my child bring to sessions?</span>
+          <span>What should my child bring?</span>
           <span class="faq-chevron">▼</span>
         </div>
         <div class="faq-a">
-          <div class="faq-a-inner">Soccer cleats or athletic shoes, shin guards, a ball (if they have one — extras are available), and water. Dress for the weather — sessions run rain or shine unless fields are unsafe.</div>
+          <div class="faq-a-inner">Soccer cleats or athletic shoes, shin guards, a ball (extras available), and water. Dress for the weather — sessions run rain or shine unless fields are unsafe.</div>
         </div>
       </div>
 
       <div class="faq-item reveal reveal-d2" onclick="toggleFaq(this)">
         <div class="faq-q">
-          <span>Do sessions include real scrimmages?</span>
+          <span>Do sessions include scrimmages?</span>
           <span class="faq-chevron">▼</span>
         </div>
         <div class="faq-a">
-          <div class="faq-a-inner">Yes. Every session ends with competitive scrimmage time — real game situations with goalies and proper goals. Parents have told us this is one of their kids' favorite parts, and we agree: the best way to develop is to play. Technical drills always connect back to the game.</div>
+          <div class="faq-a-inner">Yes. Every session ends with competitive scrimmage time — real game situations with goalies and proper goals. The best way to develop is to play.</div>
         </div>
       </div>
 
@@ -442,149 +572,28 @@
           <span class="faq-chevron">▼</span>
         </div>
         <div class="faq-a">
-          <div class="faq-a-inner">Yes. Qumtak is actively working to launch sessions in Reading. If you're a Reading parent interested in classes, or a Reading Recreation official interested in a partnership, reach out at noah@qmtk.org.</div>
+          <div class="faq-a-inner">Yes. Qumtak is actively working to launch sessions in Reading. Interested Reading parents or rec officials should reach out to noah@qmtk.org.</div>
         </div>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- COACH STORY (condensed / secondary) -->
-<section class="section journey" id="journey">
-  <div class="section-inner">
-    <div class="journey-intro">
-      <span class="section-tag">The Coach</span>
-      <h2>Why Coach Shaya's background matters for your child.</h2>
-      <p class="section-sub">Great coaching isn't just enthusiasm — it's knowing what elite looks like and how to break it down for young players. Here's what Coach Shaya brings to every session.</p>
-    </div>
-
-    <div class="journey-grid">
-
-      <div class="journey-card active reveal reveal-d1" onclick="toggleJourney(this)">
-        <div class="journey-card-top">
-          <span class="journey-num">01</span>
-          <div class="journey-year">Origin · 2000s–2010s</div>
-          <div class="journey-club">AC Arlington</div>
-          <div class="journey-location">Arlington, MA</div>
+      <div class="faq-item reveal reveal-d2" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span>Where are classes held?</span>
+          <span class="faq-chevron">▼</span>
         </div>
-        <div class="journey-toggle">
-          <span>The Foundation</span>
-          <span class="journey-chevron">▼</span>
-        </div>
-        <div class="journey-body">
-          <div class="journey-body-inner">
-            <img src="/ac-team.jpg" alt="AC Arlington State Champions team"
-              class="journey-photo" style="height:200px; object-position: center 60%;">
-            <p>Shaya grew up inside AC Arlington — one of Massachusetts' most decorated youth clubs, with over <strong style="color:var(--white)">1,000 kids</strong> developed. The club won the MA State Championship, the VW Tournament, and the MA Futsal State Championship (2009). That culture of excellence and community is the blueprint for Qumtak.</p>
-            <span class="journey-badge">🏆 State Champs · VW Tournament · Futsal Champs 2009</span>
-          </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Spring 2026 group classes run at Sanborn Elementary in Andover. Private training locations are flexible. Reading-area sessions are coming soon.</div>
         </div>
       </div>
 
-      <div class="journey-card active reveal reveal-d2" onclick="toggleJourney(this)">
-        <div class="journey-card-top">
-          <span class="journey-num">02</span>
-          <div class="journey-year">Peak · 2015/16</div>
-          <div class="journey-club">Alemannia Klosterhardt</div>
-          <div class="journey-location">Oberhausen, Germany</div>
+      <div class="faq-item reveal reveal-d1" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          <span>How much does it cost?</span>
+          <span class="faq-chevron">▼</span>
         </div>
-        <div class="journey-toggle">
-          <span>European Pedigree</span>
-          <span class="journey-chevron">▼</span>
+        <div class="faq-a">
+          <div class="faq-a-inner">Spring 2026 group classes are $260 for Andover residents and $275 for non-residents — covering the full session (Apr 27–Jun 12, Mon & Fri 5:50–6:50 PM). Private training rates available upon inquiry.</div>
         </div>
-        <div class="journey-body">
-          <div class="journey-body-inner">
-            <img src="/klosterhardt.jpg" alt="Alemannia Klosterhardt U19 Bundesliga West team photo"
-              class="journey-photo" style="height:180px; object-fit: cover; object-position: left 25%;">
-            <p style="font-size:0.72rem; color:var(--green); margin-bottom:0.6rem; font-weight:600;">📍 Coach Shaya — back row, third from left</p>
-            <p>After playing in Germany, Shaya competed at Alemannia Klosterhardt in the <strong style="color:var(--white)">U19 Bundesliga West</strong> — Germany's top-tier youth competition. That experience shaped his understanding of elite development, tactical discipline, and what it actually takes to build high-level players.</p>
-            <span class="journey-badge">⭐ U19 Bundesliga West · 2015/16</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="journey-card active reveal reveal-d3" onclick="toggleJourney(this)">
-        <div class="journey-card-top">
-          <span class="journey-num">03</span>
-          <div class="journey-year">Now · 2025–Present</div>
-          <div class="journey-club">Qumtak Soccer</div>
-          <div class="journey-location">Andover &amp; Reading, MA</div>
-        </div>
-        <div class="journey-toggle">
-          <span>Bringing It Home</span>
-          <span class="journey-chevron">▼</span>
-        </div>
-        <div class="journey-body">
-          <div class="journey-body-inner">
-            <img src="/hero.jpg" alt="Coach Shaya training players at Qumtak Soccer"
-              class="journey-photo" style="height:260px; object-position: center 20%;">
-            <p>Shaya returned to Massachusetts combining a professional data analytics career with a European playing background and the AC Arlington DNA. Qumtak is the result — elite methodology, community-first values, and no gatekeeping. Every kid deserves this level of coaching.</p>
-            <span class="journey-badge gold">🌎 Building the Future of US Soccer</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- PARTNERSHIP / AD -->
-<section class="section partnership" id="partners">
-  <div class="section-inner">
-    <div class="partnership-grid">
-      <div>
-        <span class="section-tag">For Athletic Directors &amp; Towns</span>
-        <h2>Bring professional soccer development to your community.</h2>
-        <p class="section-sub">Already active in Andover and expanding now. Qumtak partners directly with Recreation Departments and Athletic Directors — delivering structured, curriculum-based youth soccer without the overhead of hiring full-time staff.</p>
-        <br>
-        <a href="mailto:noah@qmtk.org?subject=Partnership%20Inquiry" class="btn-green">Schedule a Partnership Call →</a>
-      </div>
-      <div class="features">
-        <div class="feature">
-          <div class="feature-icon">📋</div>
-          <div class="feature-text">
-            <strong>Curriculum-Based Coaching</strong>
-            <span>Every session has structure, purpose, and measurable outcomes — not just free play.</span>
-          </div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">📊</div>
-          <div class="feature-text">
-            <strong>Data-Driven Development</strong>
-            <span>Player progress tracked and reported by a professional data analyst. Results you can show parents.</span>
-          </div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">🏘️</div>
-          <div class="feature-text">
-            <strong>No Gatekeeping</strong>
-            <span>No tryouts. No travel. No club fees. Elite coaching made accessible to every kid in your town.</span>
-          </div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">📞</div>
-          <div class="feature-text">
-            <strong>Direct Contact</strong>
-            <span>noah@qmtk.org · Response within 24 hours.</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FINAL CTA -->
-<section class="section cta-section">
-  <div class="section-inner">
-    <div class="cta-inner reveal">
-      <span class="section-tag">Get Started</span>
-      <h2>Give your child the coaching they deserve.</h2>
-      <p>Spots for Spring 2026 are open now. Andover group classes fill up fast — register through Andover Rec today.</p>
-      <div class="cta-btns reveal">
-        <a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank" class="btn-gold">Enroll in Group Classes →</a>
-        <a href="https://square.link/u/TOPIwZpf" target="_blank" class="btn-green">Book Private Training →</a>
-        <a href="mailto:noah@qmtk.org" class="btn-ghost">Ask a Question</a>
       </div>
     </div>
   </div>
@@ -592,20 +601,20 @@
 
 <!-- LINKEDIN -->
 <section class="linkedin-section">
-  <div class="linkedin-posts-header reveal">
+  <div class="linkedin-header reveal">
     <span class="section-tag">Follow Along</span>
-    <h2>On the pitch &amp; behind the scenes.</h2>
+    <h2>On the pitch & behind the scenes</h2>
     <p>Real sessions, real players, real development. Follow along on LinkedIn.</p>
-    <a href="https://www.linkedin.com/company/qumtak/" target="_blank" class="btn-green" style="width: fit-content; margin-top: 0.5rem;">View LinkedIn Profile →</a>
+    <a href="https://www.linkedin.com/company/qumtak/" target="_blank" class="btn-green" style="width: fit-content; margin: 1rem auto 0;">View Profile →</a>
   </div>
   <div class="linkedin-posts-grid">
-    <div class="linkedin-post-card reveal-up-fast">
+    <div class="linkedin-post-card reveal-d1">
       <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7395536051513020416" height="500" width="100%" frameborder="0" allowfullscreen="" title="LinkedIn post 1"></iframe>
     </div>
-    <div class="linkedin-post-card reveal-up-fast" style="animation-delay:0.1s">
+    <div class="linkedin-post-card reveal-d2">
       <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7416190716105756672" height="500" width="100%" frameborder="0" allowfullscreen="" title="LinkedIn post 2"></iframe>
     </div>
-    <div class="linkedin-post-card reveal-up-fast" style="animation-delay:0.2s">
+    <div class="linkedin-post-card reveal-d3">
       <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7399279131047120896" height="500" width="100%" frameborder="0" allowfullscreen="" title="LinkedIn post 3"></iframe>
     </div>
   </div>
@@ -614,32 +623,28 @@
 <!-- FOOTER -->
 <footer>
   <div>
-    <a href="#" class="nav-logo footer-brand">
-      <div class="nav-logo-icon"><img src="/logo.png" alt="Qumtak Soccer Logo"></div>
-      <span class="nav-logo-text">Qumtak Soccer</span>
+    <a href="#" class="footer-brand">
+      <div class="footer-brand-icon"><img src="/logo.png" alt="Qumtak Soccer Logo"></div>
+      <div class="footer-brand-text">Qumtak</div>
     </a>
-    <p class="footer-tagline">Professional soccer development for kids — without the club fees, travel, or tryouts.</p>
+    <p class="footer-copy">© 2026 Qumtak Soccer · Professional soccer development</p>
     <div class="footer-socials">
       <a href="https://www.instagram.com/qmtk.soccer" target="_blank" class="social-btn" title="Instagram">📸</a>
       <a href="https://www.facebook.com/profile.php?id=61584861148256" target="_blank" class="social-btn" title="Facebook">📘</a>
       <a href="https://www.linkedin.com/company/qumtak/" target="_blank" class="social-btn" title="LinkedIn">💼</a>
     </div>
-    <p class="footer-copy">© 2026 Qumtak Soccer · qmtk.org</p>
   </div>
   <ul class="footer-links">
     <span>Navigation</span>
     <li><a href="#programs">Programs</a></li>
-    <li><a href="#why-qumtak">Why Qumtak</a></li>
+    <li><a href="#why">Why Qumtak</a></li>
     <li><a href="#faq">FAQ</a></li>
-    <li><a href="#partners">For Athletic Directors</a></li>
-    <li><a href="#journey">Coach's Story</a></li>
   </ul>
   <ul class="footer-links">
     <span>Enroll</span>
-    <li><a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank">Group Classes (Andover Rec)</a></li>
+    <li><a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank">Group Classes</a></li>
     <li><a href="https://square.link/u/TOPIwZpf" target="_blank">Private Training</a></li>
     <li><a href="mailto:noah@qmtk.org">noah@qmtk.org</a></li>
-    <li><a href="tel:+18573890779">+1 857-389-0779</a></li>
   </ul>
 </footer>
 
@@ -661,50 +666,18 @@
         <div style="color:#fff; font-family:'Barlow Condensed',sans-serif; font-size:1.8rem; font-weight:700; margin-bottom:0.3rem;">Send Us a Message</div>
         <div style="color:rgba(232,237,233,0.6); font-size:0.88rem;">Ask about classes, private training, or anything else</div>
       </div>
-      <form id="contact-form" onsubmit="submitContact(event)" style="display:flex; flex-direction:column; gap:0.75rem;">
-        <input type="text" id="contact-name" placeholder="Your name" required style="
-          background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15);
-          border-radius:10px; padding:0.75rem 1rem; color:#fff;
-          font-family:'DM Sans',sans-serif; font-size:0.95rem; outline:none;
-          transition:border 0.2s;
-        " onfocus="this.style.borderColor='#22a24d'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
-        <input type="email" id="contact-email" placeholder="Your email" required style="
-          background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15);
-          border-radius:10px; padding:0.75rem 1rem; color:#fff;
-          font-family:'DM Sans',sans-serif; font-size:0.95rem; outline:none;
-          transition:border 0.2s;
-        " onfocus="this.style.borderColor='#22a24d'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
-        <textarea id="contact-msg" placeholder="Your message" rows="4" required style="
-          background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15);
-          border-radius:10px; padding:0.75rem 1rem; color:#fff;
-          font-family:'DM Sans',sans-serif; font-size:0.95rem; outline:none;
-          resize:vertical; transition:border 0.2s;
-        " onfocus="this.style.borderColor='#22a24d'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'"></textarea>
-        <button type="submit" style="
-          background:#22a24d; color:#fff; border:none; border-radius:50px;
-          padding:0.9rem 2rem; font-family:'DM Sans',sans-serif; font-weight:700;
-          font-size:1rem; cursor:pointer; box-shadow:0 4px 24px rgba(34,162,77,0.45);
-          transition:background 0.2s, transform 0.2s; margin-top:0.25rem;
-        " onmouseover="this.style.background='#178038';this.style.transform='translateY(-2px)'"
-           onmouseout="this.style.background='#22a24d';this.style.transform='none'">
-          Send Message →
-        </button>
+      <form id="contact-form" onsubmit="submitContact(event)">
+        <input type="text" id="contact-name" placeholder="Your name" required>
+        <input type="email" id="contact-email" placeholder="Your email" required>
+        <textarea id="contact-msg" placeholder="Your message" rows="4" required></textarea>
+        <button type="submit">Send Message →</button>
       </form>
     </div>
   </div>
 </div>
 
 <!-- Contact trigger button -->
-<button id="survey-btn" onclick="openSurvey()" style="
-  position:fixed; bottom:1.6rem; right:1.6rem; z-index:9998;
-  background:var(--green); color:#fff;
-  border:none; border-radius:50px; cursor:pointer;
-  padding:0.8rem 1.4rem;
-  font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.9rem;
-  box-shadow:0 4px 24px rgba(34,162,77,0.45);
-  display:flex; align-items:center; gap:8px;
-  white-space:nowrap;
-">
+<button id="survey-btn" onclick="openSurvey()">
   <span style="font-size:1rem;">✉️</span>
   <span style="display:flex; flex-direction:column; align-items:flex-start; line-height:1.2;">
     <span style="font-size:0.7rem; font-weight:600; opacity:0.85; text-transform:uppercase; letter-spacing:0.6px;">Questions?</span>
@@ -712,6 +685,44 @@
   </span>
 </button>
 
-<script src="/main.js"></script>
+<script>
+  function toggleFaq(el) {
+    el.classList.toggle('open');
+  }
+
+  function openSurvey() {
+    document.getElementById('survey-overlay').style.display = 'flex';
+  }
+
+  function closeSurvey() {
+    document.getElementById('survey-overlay').style.display = 'none';
+  }
+
+  function submitContact(e) {
+    e.preventDefault();
+    const name = document.getElementById('contact-name').value;
+    const email = document.getElementById('contact-email').value;
+    const msg = document.getElementById('contact-msg').value;
+    const subject = 'Qumtak Contact Form';
+    const body = 'Name: ' + name + '\nEmail: ' + email + '\nMessage: ' + msg;
+    window.location.href = 'mailto:noah@qmtk.org?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    setTimeout(() => closeSurvey(), 500);
+  }
+
+  const observerOptions = { threshold: 0.15, rootMargin: '0px 0px -50px 0px' };
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-d1, .reveal-d2, .reveal-d3').forEach(el => {
+    observer.observe(el);
+  });
+
+  document.getElementById('survey-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeSurvey();
+  });
+</script>
 </body>
 </html>
