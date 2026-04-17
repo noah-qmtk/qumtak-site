@@ -70,12 +70,12 @@ nav {
 .nav-mobile-menu.open { display: flex; }
 
 /* HERO COMPACT */
-.hero-compact { display: grid; grid-template-columns: 1.1fr 1fr; gap: 2rem; padding: 1.5rem 2.5rem; min-height: calc(100vh - 70px); align-items: center; background: var(--bg); position: relative; overflow: hidden; margin-top: 66px; }
+.hero-compact { display: grid; grid-template-columns: 1.1fr 1fr; gap: 2rem; padding: 4rem 2.5rem 3rem; background: var(--bg); position: relative; overflow: hidden; margin-top: 66px; align-items: start; }
 .hero-compact::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 60%, rgba(34,162,77,0.12) 0%, transparent 60%); pointer-events: none; }
 .hero-left { position: relative; z-index: 1; display: flex; flex-direction: column; }
 .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--green-border); background: var(--green-dim); color: #6fcf97; padding: 5px 14px; border-radius: 100px; font-size: 0.73rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 1rem; width: fit-content; }
-.hero-compact h1 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 700; color: var(--white); line-height: 1.05; letter-spacing: 0px; margin-bottom: 0.6rem; }
-.hero-sub { font-size: 0.95rem; color: var(--text-mid); max-width: 420px; line-height: 1.6; margin-bottom: 1.2rem; }
+.hero-compact h1 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; color: var(--white); line-height: 1.0; letter-spacing: -0.5px; margin-bottom: 0.8rem; }
+.hero-sub { font-size: 1.1rem; color: var(--text-mid); max-width: 480px; line-height: 1.65; margin-bottom: 1.4rem; }
 .hero-ctas { display: flex; gap: 0.9rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
 .btn-green { display: inline-flex; align-items: center; gap: 6px; background: var(--green); color: var(--white); padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; text-decoration: none; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; }
 .btn-green:hover { background: var(--green-dark); transform: translateY(-1px); }
@@ -84,11 +84,11 @@ nav {
 
 /* GLANCE MINI GRID */
 .glance-mini { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 0.9rem; margin-top: 1rem; }
-.glance-mini-item { font-size: 0.82rem; color: #cccccc; line-height: 1.4; }
+.glance-mini-item { font-size: 0.95rem; color: #dddddd; line-height: 1.5; }
 .glance-mini-item strong { color: var(--white); font-weight: 600; display: block; margin-bottom: 2px; }
 
 /* STATS MINI STRIP */
-.stats-mini { display: flex; gap: 1.5rem; margin-top: 0.8rem; font-size: 0.9rem; color: #4CAF50; font-weight: 600; flex-wrap: wrap; }
+.stats-mini { display: flex; gap: 1.5rem; margin-top: 1rem; font-size: 1rem; color: #4CAF50; font-weight: 700; flex-wrap: wrap; }
 
 .hero-image { position: relative; overflow: hidden; border-radius: 12px; height: 100%; min-height: 400px; }
 .hero-image img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; display: block; }
@@ -99,7 +99,7 @@ nav {
 .section-inner { max-width: 1140px; margin: 0 auto; }
 .section-tag { display: inline-block; background: var(--green-dim); border: 1px solid var(--green-border); color: #6fcf97; font-size: 0.7rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; padding: 4px 12px; border-radius: 4px; margin-bottom: 0.8rem; }
 .section h2 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2rem, 3vw, 2.6rem); font-weight: 700; color: var(--white); line-height: 1.1; letter-spacing: 0px; margin-bottom: 0.8rem; }
-.section-sub { font-size: 0.95rem; color: var(--text-mid); line-height: 1.7; max-width: 560px; }
+.section-sub { font-size: 1.05rem; color: var(--text-mid); line-height: 1.75; max-width: 580px; }
 
 /* THIS WEEK SESSION CARDS */
 .session-intro { text-align: center; margin-bottom: 2rem; }
@@ -110,9 +110,9 @@ nav {
 .session-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(34,162,77,0.12); border-color: rgba(34,162,77,0.35); }
 .session-card-num { font-family: 'Barlow Condensed', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--green); line-height: 1; margin-bottom: 0.8rem; display: inline-block; }
 .session-card-type { display: inline-block; background: var(--green-dim); border: 1px solid var(--green-border); color: #6fcf97; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.5px; padding: 2px 8px; border-radius: 100px; text-transform: uppercase; margin-bottom: 0.8rem; }
-.session-card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; line-height: 1.2; }
+.session-card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; line-height: 1.2; }
 .session-card-time { font-size: 0.78rem; color: var(--text-dim); margin-bottom: 0.8rem; display: block; }
-.session-card-desc { font-size: 0.82rem; color: var(--text-mid); line-height: 1.5; }
+.session-card-desc { font-size: 0.95rem; color: var(--text-mid); line-height: 1.55; }
 .session-card-svg { width: 100%; height: auto; margin-top: 1rem; display: block; }
 
 /* WHY QUMTAK - 3 CARDS */
@@ -120,8 +120,8 @@ nav {
 .why-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 1.6rem; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
 .why-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(34,162,77,0.12); border-color: rgba(34,162,77,0.35); }
 .why-card-icon { font-size: 1.8rem; margin-bottom: 0.8rem; line-height: 1; }
-.why-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; line-height: 1.2; }
-.why-card p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.55; }
+.why-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; line-height: 1.2; }
+.why-card p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.6; }
 
 /* PROGRAMS - 3 CARDS TIGHT */
 .programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 2rem; }
@@ -129,8 +129,8 @@ nav {
 .prog-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(34,162,77,0.12); border-color: rgba(34,162,77,0.35); }
 .prog-card.featured { background: rgba(34,162,77,0.08); border-color: rgba(34,162,77,0.35); }
 .prog-icon { font-size: 1.8rem; margin-bottom: 0.8rem; display: block; }
-.prog-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; }
-.prog-card p { font-size: 0.82rem; color: var(--text-mid); line-height: 1.55; margin-bottom: 0.8rem; }
+.prog-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; }
+.prog-card p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.6; margin-bottom: 0.8rem; }
 .prog-meta { font-size: 0.76rem; color: var(--text-dim); line-height: 1.5; }
 .prog-meta strong { color: var(--green); font-weight: 700; }
 .prog-link { display: inline-block; color: var(--green); text-decoration: none; font-weight: 700; font-size: 0.82rem; margin-top: 0.8rem; transition: opacity 0.2s; }
@@ -141,12 +141,12 @@ nav {
 .faq-item { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; cursor: pointer; transition: border-color 0.2s; }
 .faq-item:hover { border-color: rgba(34,162,77,0.35); }
 .faq-item.open { border-color: var(--green-border); background: rgba(34,162,77,0.06); }
-.faq-q { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem 1.3rem; font-size: 0.9rem; font-weight: 700; color: var(--white); line-height: 1.3; }
+.faq-q { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem 1.3rem; font-size: 1rem; font-weight: 700; color: var(--white); line-height: 1.3; }
 .faq-chevron { color: var(--green); font-size: 0.7rem; transition: transform 0.25s ease; flex-shrink: 0; }
 .faq-item.open .faq-chevron { transform: rotate(180deg); }
 .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.16,1,0.3,1); }
 .faq-item.open .faq-a { max-height: 300px; }
-.faq-a-inner { padding: 0 1.3rem 1rem; font-size: 0.82rem; color: var(--text-mid); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 0.8rem; }
+.faq-a-inner { padding: 0 1.3rem 1rem; font-size: 0.95rem; color: var(--text-mid); line-height: 1.65; border-top: 1px solid var(--border); padding-top: 0.8rem; }
 
 /* LINKEDIN SECTION */
 .linkedin-section { background: var(--bg-card); border-top: 1px solid var(--border); padding: 3rem 2.5rem; }
@@ -203,7 +203,7 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
 
 /* RESPONSIVE */
 @media (max-width: 1080px) {
-  .hero-compact { grid-template-columns: 1fr; padding: 2rem 2rem; min-height: auto; }
+  .hero-compact { grid-template-columns: 1fr; padding: 2.5rem 1.5rem 2rem; }
   .hero-image { order: -1; min-height: 300px; margin-bottom: 1.5rem; }
   .glance-mini { grid-template-columns: repeat(2, 1fr); }
   .session-cards-grid { grid-template-columns: repeat(2, 1fr); }
@@ -219,7 +219,7 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
   .nav-links { display: none; }
   .nav-hamburger { display: flex; }
   .hero-compact { padding: 1.5rem 1.2rem; }
-  .hero-compact h1 { font-size: 2rem; }
+  .hero-compact h1 { font-size: 2.6rem; }
   .hero-sub { font-size: 0.9rem; }
   .hero-ctas { flex-direction: column; }
   .hero-ctas a { width: 100%; justify-content: center; }
@@ -240,7 +240,19 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
   .hero-compact h1 { font-size: 1.7rem; }
   .nav-logo-text { font-size: 0.9rem; }
 }
-  </style>
+  
+/* ── SOCCER BALL GAME ── */
+#soccer-ball-wrapper { position: fixed; bottom: 5rem; left: 1.5rem; z-index: 9990; user-select: none; }
+#soccer-ball { width: 52px; height: 52px; cursor: pointer; border-radius: 50%; transition: transform 0.05s; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5)); animation: ballFloat 3s ease-in-out infinite; }
+#soccer-ball:active { transform: scale(0.88); }
+#ball-score { position: absolute; top: -28px; left: 50%; transform: translateX(-50%); background: var(--green); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.85rem; padding: 2px 8px; border-radius: 20px; white-space: nowrap; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+#ball-score.show { opacity: 1; }
+#ball-kick-fx { position: fixed; pointer-events: none; z-index: 9991; font-size: 1.4rem; opacity: 0; transition: opacity 0.1s; }
+@keyframes ballFloat { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-6px); } }
+@keyframes ballBounce { 0% { transform: scale(1); } 30% { transform: scale(0.82,1.15); } 55% { transform: scale(1.12,0.88); } 75% { transform: scale(0.95,1.05); } 100% { transform: scale(1); } }
+@keyframes fxPop { 0% { opacity: 1; transform: translate(-50%,-50%) scale(0.5); } 60% { opacity: 1; transform: translate(-50%,-120%) scale(1.2); } 100% { opacity: 0; transform: translate(-50%,-180%) scale(0.8); } }
+
+</style>
 </head>
 <body>
 
@@ -770,5 +782,58 @@ function closeMobileNav() {
   document.getElementById('nav-mobile-menu').classList.remove('open');
 }
 
+
+<!-- SOCCER BALL GAME -->
+<div id="soccer-ball-wrapper">
+  <div id="ball-score">⚽ <span id="ball-count">0</span> kicks!</div>
+  <svg id="soccer-ball" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" onclick="kickBall(event)" title="Click me!">
+    <circle cx="50" cy="50" r="48" fill="white" stroke="#222" stroke-width="2"/>
+    <polygon points="50,10 62,32 88,32 68,50 76,76 50,60 24,76 32,50 12,32 38,32" fill="#1a1a1a" opacity="0.85"/>
+    <polygon points="50,10 38,32 62,32" fill="#1a1a1a" opacity="0.85"/>
+    <circle cx="50" cy="50" r="48" fill="none" stroke="#ddd" stroke-width="0.5"/>
+  </svg>
+</div>
+<div id="ball-kick-fx">⚽</div>
+
+<script>
+
+// ── Soccer ball game ──
+var ballKicks = 0;
+var ballTimeout;
+function kickBall(e) {
+  ballKicks++;
+  var ball = document.getElementById('soccer-ball');
+  var score = document.getElementById('ball-score');
+  var scoreNum = document.getElementById('ball-count');
+  var fx = document.getElementById('ball-kick-fx');
+
+  // Bounce animation
+  ball.style.animation = 'none';
+  ball.offsetHeight; // reflow
+  ball.style.animation = 'ballBounce 0.4s ease forwards';
+  setTimeout(function(){ ball.style.animation = 'ballFloat 3s ease-in-out infinite'; }, 420);
+
+  // Kick FX emoji near cursor
+  fx.style.left = e.clientX + 'px';
+  fx.style.top = e.clientY + 'px';
+  fx.style.animation = 'none';
+  fx.offsetHeight;
+  fx.style.animation = 'fxPop 0.6s ease forwards';
+
+  // Score badge
+  scoreNum.textContent = ballKicks;
+  score.classList.add('show');
+  clearTimeout(ballTimeout);
+  ballTimeout = setTimeout(function(){ score.classList.remove('show'); }, 2000);
+
+  // Milestone messages
+  var msgs = {5:'Nice footwork! ⚽',10:'10 kicks! Bundesliga ready 🔥',25:'25! You could train with us 💪',50:'50 kicks! Sign up already 😄',100:'100 kicks!! Future pro ⭐'};
+  if (msgs[ballKicks]) {
+    scoreNum.textContent = msgs[ballKicks];
+    score.classList.add('show');
+  }
+}
+
+</script>
 </body>
 </html>
