@@ -252,6 +252,7 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
   height: 100%;
   pointer-events: none;
   z-index: 9995;
+  display: none;
 }
 #ball-canvas.active {
   pointer-events: auto;
@@ -275,13 +276,33 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
   white-space: nowrap;
 }
 
+
+#egg-hint {
+  position: fixed;
+  bottom: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(34,162,77,0.92);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 7px 18px;
+  border-radius: 20px;
+  z-index: 9997;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s;
+  white-space: nowrap;
+}
+
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav id="main-nav">
-  <a href="#hero" class="nav-logo">
+  <a href="#hero" class="nav-logo" id="nav-logo" onclick="logoClick(event)">
     <div class="nav-logo-icon"><img src="/logo.png" alt="Qumtak Soccer Logo"></div>
     <span class="nav-logo-text">Qumtak</span>
   </a>
@@ -813,9 +834,37 @@ function closeMobileNav() {
 <!-- PHYSICS BALL -->
 <canvas id="ball-canvas"></canvas>
 <div id="ball-hint">⚽ Click anywhere to kick!</div>
+<div id="egg-hint"></div>
 
 
 <script>
+// ── Easter egg: 5 logo clicks unlocks the ball ──
+var logoClicks = 0;
+var eggUnlocked = false;
+var eggTimeout;
+
+function logoClick(e) {
+  if (eggUnlocked) return;
+  e.preventDefault();
+  logoClicks++;
+  var hint = document.getElementById('egg-hint');
+  var remaining = 5 - logoClicks;
+
+  if (logoClicks < 5) {
+    hint.textContent = remaining === 4 ? '🤫 Psst...' : remaining === 3 ? '🔍 Keep clicking...' : remaining === 2 ? '👀 Almost there...' : '🔓 One more!';
+    hint.style.opacity = '1';
+    clearTimeout(eggTimeout);
+    eggTimeout = setTimeout(function(){ hint.style.opacity = '0'; }, 1200);
+  } else {
+    // Unlocked!
+    eggUnlocked = true;
+    hint.textContent = '🎉 Easter egg unlocked! ⚽ Click anywhere to drop the ball!';
+    hint.style.opacity = '1';
+    document.getElementById('ball-canvas').style.display = 'block';
+    setTimeout(function(){ hint.style.opacity = '0'; }, 3500);
+  }
+}
+
 (function() {
   var canvas = document.getElementById('ball-canvas');
   var hint = document.getElementById('ball-hint');
@@ -1021,6 +1070,7 @@ function closeMobileNav() {
   var milestones = {3:'Nice one! 🔥', 10:'10 kicks! ⚽', 25:'25 kicks! Bundesliga ready 💪', 50:'50?! Sign up already 😄'};
 
   canvas.addEventListener('click', function(e) {
+    if (!eggUnlocked) return;
     var cx = e.clientX, cy = e.clientY;
 
     if (!ball.active) {
@@ -1064,11 +1114,7 @@ function closeMobileNav() {
     }
   });
 
-  // Show hint on load
-  setTimeout(function() {
-    showHint('⚽ Click anywhere to drop the ball!');
-    hint.style.opacity = '1';
-  }, 1500);
+  // Ball starts hidden — revealed by easter egg
 
   loop();
 })();
