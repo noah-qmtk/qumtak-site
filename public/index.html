@@ -149,7 +149,7 @@ nav {
 .faq-a-inner { padding: 0 1.3rem 1rem; font-size: 0.95rem; color: var(--text-mid); line-height: 1.65; border-top: 1px solid var(--border); padding-top: 0.8rem; }
 
 /* LINKEDIN SECTION */
-.linkedin-section { background: var(--bg-card); border-top: 1px solid var(--border); padding: 3rem 2.5rem; }
+.linkedin-section { background: var(--bg-card); border-top: 1px solid var(--border); padding: 2rem 2.5rem 1.5rem; }
 .linkedin-header { max-width: 960px; margin: 0 auto 2rem; text-align: center; }
 .linkedin-header h2 { margin-bottom: 0.5rem; }
 .linkedin-header p { font-size: 0.9rem; color: var(--text-mid); margin-bottom: 1rem; }
@@ -158,7 +158,7 @@ nav {
 .linkedin-post-card iframe { display: block; width: 100%; height: 100%; border: none; }
 
 /* FOOTER */
-footer { background: var(--bg-card); border-top: 1px solid var(--border); padding: 2.5rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; flex-wrap: wrap; }
+footer { background: var(--bg-card); border-top: 1px solid var(--border); padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; flex-wrap: wrap; }
 .footer-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .footer-brand-icon { width: 40px; height: 40px; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .footer-brand-icon img { width: 100%; height: 100%; object-fit: cover; }
@@ -251,76 +251,7 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
 
 
 
-/* ── EASTER EGG POPUP ── */
-#egg-popup {
-  display: none;
-  position: fixed;
-  bottom: 5rem;
-  right: 1.5rem;
-  width: 320px;
-  height: 320px;
-  background: #0d1410;
-  border: 1px solid rgba(34,162,77,0.4);
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.7);
-  z-index: 99999;
-  flex-direction: column;
-  overflow: hidden;
-  animation: popIn 0.3s cubic-bezier(0.22,1,0.36,1);
-}
-#egg-popup.open { display: flex; }
-@keyframes popIn {
-  from { opacity: 0; transform: scale(0.85) translateY(20px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
-}
-#egg-popup-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid rgba(34,162,77,0.2);
-  flex-shrink: 0;
-}
-#egg-popup-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1rem;
-  font-weight: 800;
-  color: #22a24d;
-}
-#egg-popup-kicks {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.75rem;
-  color: rgba(232,237,233,0.5);
-}
-#egg-popup-close {
-  background: none;
-  border: none;
-  color: rgba(232,237,233,0.5);
-  font-size: 1rem;
-  cursor: pointer;
-  padding: 2px 6px;
-  line-height: 1;
-  transition: color 0.2s;
-}
-#egg-popup-close:hover { color: #fff; }
-#egg-popup-canvas {
-  flex: 1;
-  width: 100%;
-  cursor: crosshair;
-  display: block;
-}
-#egg-popup-hint {
-  position: absolute;
-  bottom: 0.6rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem;
-  color: rgba(232,237,233,0.45);
-  pointer-events: none;
-  white-space: nowrap;
-  transition: opacity 0.4s;
-}
+
 
 </style>
 </head>
@@ -328,7 +259,7 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
 
 <!-- NAV -->
 <nav id="main-nav">
-  <a href="#hero" class="nav-logo" id="nav-logo" onclick="logoClick(event)">
+  <a href="#hero" class="nav-logo" id="nav-logo">
     <div class="nav-logo-icon"><img src="/logo.png" alt="Qumtak Soccer Logo"></div>
     <span class="nav-logo-text">Qumtak</span>
   </a>
@@ -853,167 +784,10 @@ function closeMobileNav() {
   document.getElementById('nav-mobile-menu').classList.remove('open');
 }
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- EASTER EGG POPUP -->
-<div id="egg-popup">
-  <div id="egg-popup-header">
-    <span id="egg-popup-title">⚽ Kickabout</span>
-    <span id="egg-popup-kicks">0 kicks</span>
-    <button id="egg-popup-close" onclick="document.getElementById('egg-popup').classList.remove('open')">✕</button>
-  </div>
-  <canvas id="egg-popup-canvas"></canvas>
-  <div id="egg-popup-hint">click to drop the ball</div>
 </div>
 
 
-<script>
-// ── Easter egg: 5 logo clicks ──
-var _logoClicks = 0;
-var _eggOpen = false;
-var _toastTimer;
 
-function logoClick(e) {
-  e.preventDefault();
-  _logoClicks++;
-  if (_logoClicks < 5) {
-    var msgs = ['🤫 Psst...', '🔍 Keep clicking...', '👀 Almost...', '🔓 One more!'];
-    _eggToast(msgs[_logoClicks - 1]);
-  } else {
-    _logoClicks = 0; // reset so they can reopen
-    _openEgg();
-  }
-}
-
-function _eggToast(msg) {
-  var old = document.getElementById('_egg_toast');
-  if (old) old.remove();
-  var t = document.createElement('div');
-  t.id = '_egg_toast';
-  t.style.cssText = 'position:fixed;bottom:1.4rem;left:50%;transform:translateX(-50%);background:rgba(34,162,77,0.92);color:#fff;font-family:DM Sans,sans-serif;font-size:0.82rem;font-weight:700;padding:6px 18px;border-radius:20px;z-index:99998;pointer-events:none;transition:opacity 0.4s;white-space:nowrap;';
-  t.textContent = msg;
-  document.body.appendChild(t);
-  clearTimeout(_toastTimer);
-  _toastTimer = setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ if(t.parentNode) t.remove(); }, 400); }, 1500);
-}
-
-function _openEgg() {
-  var popup = document.getElementById('egg-popup');
-  popup.classList.add('open');
-  if (!_eggOpen) { _eggOpen = true; _initBall(); }
-}
-
-function _initBall() {
-  var canvas = document.getElementById('egg-popup-canvas');
-  var hint = document.getElementById('egg-popup-hint');
-  var kicksEl = document.getElementById('egg-popup-kicks');
-  var ctx = canvas.getContext('2d');
-  var R = 18;
-  var ball = { x:0, y:0, vx:0, vy:0, spin:0, active:false };
-  var kicks = 0;
-  var particles = [];
-  var milestones = {5:'Nice! 🔥', 15:'Bundesliga ready 💪', 30:'Sign up already 😄'};
-
-  function W() { return canvas.offsetWidth; }
-  function H() { return canvas.offsetHeight; }
-
-  function resize() {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  function drawBall(x, y, a) {
-    var ctx2 = ctx;
-    ctx2.save();
-    ctx2.translate(x, y);
-    ctx2.beginPath();
-    ctx2.ellipse(0, R*0.85, R*0.7, R*0.15, 0, 0, Math.PI*2);
-    ctx2.fillStyle = 'rgba(0,0,0,0.25)'; ctx2.fill();
-    ctx2.rotate(a);
-    ctx2.beginPath(); ctx2.arc(0,0,R,0,Math.PI*2);
-    var g = ctx2.createRadialGradient(-R*.3,-R*.3,R*.05,0,0,R);
-    g.addColorStop(0,'#fff'); g.addColorStop(1,'#ccc');
-    ctx2.fillStyle=g; ctx2.fill();
-    ctx2.fillStyle='#111';
-    _pent(ctx2,0,0,R*.38);
-    for(var i=0;i<5;i++){var ang=i*2*Math.PI/5-Math.PI/2;_pent(ctx2,Math.cos(ang)*R*.68,Math.sin(ang)*R*.68,R*.27);}
-    ctx2.beginPath(); ctx2.arc(-R*.28,-R*.3,R*.16,0,Math.PI*2);
-    ctx2.fillStyle='rgba(255,255,255,0.6)'; ctx2.fill();
-    ctx2.restore();
-  }
-
-  function _pent(c,cx,cy,r){
-    c.beginPath();
-    for(var i=0;i<5;i++){var a=i*2*Math.PI/5-Math.PI/2;i?c.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r):c.moveTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r);}
-    c.closePath(); c.fill();
-  }
-
-  function spark(x,y){
-    for(var i=0;i<6;i++){var a=Math.random()*Math.PI*2,s=2+Math.random()*4;particles.push({x:x,y:y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:1});}
-  }
-
-  canvas.addEventListener('click', function(e){
-    resize();
-    var rect = canvas.getBoundingClientRect();
-    var cx = e.clientX - rect.left;
-    var cy = e.clientY - rect.top;
-    if (!ball.active) {
-      ball.x=cx; ball.y=cy; ball.vx=(Math.random()-.5)*3; ball.vy=1; ball.active=true;
-      hint.style.opacity='0';
-      return;
-    }
-    var dx=ball.x-cx, dy=ball.y-cy, dist=Math.sqrt(dx*dx+dy*dy);
-    if (dist < 70) {
-      var len=dist||1, pow=12+(1-Math.min(dist,55)/55)*8;
-      ball.vx=(dx/len)*pow; ball.vy=(dy/len)*pow-3;
-      spark(ball.x,ball.y);
-      kicks++;
-      kicksEl.textContent = kicks + (kicks===1?' kick':' kicks');
-      if(milestones[kicks]){ hint.textContent=milestones[kicks]; hint.style.opacity='1'; setTimeout(function(){hint.style.opacity='0';},1800); }
-    } else {
-      ball.x=cx; ball.y=cy; ball.vx=(Math.random()-.5)*3; ball.vy=-1;
-      spark(cx,cy);
-    }
-  });
-
-  function loop(){
-    resize();
-    var w=canvas.width, h=canvas.height;
-    ctx.clearRect(0,0,w,h);
-    if (ball.active){
-      ball.vy+=0.5; ball.vx*=0.988; ball.vy*=0.988;
-      ball.x+=ball.vx; ball.y+=ball.vy; ball.spin+=ball.vx*0.05;
-      if(ball.x<R){ball.x=R;ball.vx=Math.abs(ball.vx)*0.65;}
-      if(ball.x>w-R){ball.x=w-R;ball.vx=-Math.abs(ball.vx)*0.65;}
-      if(ball.y<R){ball.y=R;ball.vy=Math.abs(ball.vy)*0.65;}
-      if(ball.y>h-R){ball.y=h-R;ball.vy=-Math.abs(ball.vy)*0.65;ball.vx*=0.87;if(Math.abs(ball.vy)<0.6)ball.vy=0;}
-      particles=particles.filter(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=0.12;p.life-=0.07;return p.life>0;});
-      particles.forEach(function(p){ctx.beginPath();ctx.arc(p.x,p.y,3*p.life,0,Math.PI*2);ctx.fillStyle='rgba(34,162,77,'+p.life+')';ctx.fill();});
-      drawBall(ball.x,ball.y,ball.spin);
-    }
-    requestAnimationFrame(loop);
-  }
-  loop();
-}
-</script>
 
 </body>
 </html>
