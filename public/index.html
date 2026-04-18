@@ -249,104 +249,77 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
 
 
 
-/* ── EASTER EGG GAME SCREEN ── */
-#egg-game-screen {
+
+
+/* ── EASTER EGG POPUP ── */
+#egg-popup {
   display: none;
   position: fixed;
-  inset: 0;
+  bottom: 5rem;
+  right: 1.5rem;
+  width: 320px;
+  height: 320px;
+  background: #0d1410;
+  border: 1px solid rgba(34,162,77,0.4);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7);
   z-index: 99999;
-  background: #060a07;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  overflow: hidden;
+  animation: popIn 0.3s cubic-bezier(0.22,1,0.36,1);
 }
-#egg-game-screen.open { display: flex; }
-
-#egg-game-header {
-  width: 100%;
+#egg-popup.open { display: flex; }
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+#egg-popup-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.2rem 2rem;
+  padding: 0.75rem 1rem;
   border-bottom: 1px solid rgba(34,162,77,0.2);
-  background: rgba(10,15,12,0.95);
   flex-shrink: 0;
 }
-#egg-game-title {
+#egg-popup-title {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.4rem;
+  font-size: 1rem;
   font-weight: 800;
   color: #22a24d;
-  letter-spacing: 0.5px;
 }
-#egg-game-subtitle {
-  font-size: 0.82rem;
+#egg-popup-kicks {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
   color: rgba(232,237,233,0.5);
-  font-family: 'DM Sans', sans-serif;
 }
-#egg-game-kicks {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #fff;
-}
-#egg-close-btn {
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.15);
-  color: rgba(232,237,233,0.7);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 6px 14px;
-  border-radius: 8px;
+#egg-popup-close {
+  background: none;
+  border: none;
+  color: rgba(232,237,233,0.5);
+  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s;
+  padding: 2px 6px;
+  line-height: 1;
+  transition: color 0.2s;
 }
-#egg-close-btn:hover { background: rgba(255,255,255,0.14); color: #fff; }
-
-#egg-arena {
+#egg-popup-close:hover { color: #fff; }
+#egg-popup-canvas {
   flex: 1;
   width: 100%;
-  position: relative;
-  overflow: hidden;
-  background: radial-gradient(ellipse at 50% 80%, rgba(34,162,77,0.08) 0%, transparent 70%);
-}
-#egg-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
   cursor: crosshair;
+  display: block;
 }
-#egg-drop-hint {
+#egg-popup-hint {
   position: absolute;
-  bottom: 2rem;
+  bottom: 0.6rem;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(34,162,77,0.9);
-  color: #fff;
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 700;
-  padding: 8px 20px;
-  border-radius: 20px;
+  font-size: 0.72rem;
+  color: rgba(232,237,233,0.45);
   pointer-events: none;
-  transition: opacity 0.5s;
   white-space: nowrap;
-}
-#egg-milestone {
-  position: absolute;
-  top: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: #22a24d;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s;
-  white-space: nowrap;
+  transition: opacity 0.4s;
 }
 
 </style>
@@ -892,253 +865,150 @@ function closeMobileNav() {
 
 
 
-<!-- EASTER EGG GAME SCREEN -->
-<div id="egg-game-screen">
-  <div id="egg-game-header">
-    <div>
-      <div id="egg-game-title">⚽ Qumtak Kickabout</div>
-      <div id="egg-game-subtitle">You found the easter egg!</div>
-    </div>
-    <div id="egg-game-kicks">0 kicks</div>
-    <button id="egg-close-btn" onclick="closeEggGame()">Back to site ✕</button>
+
+
+
+
+
+
+<!-- EASTER EGG POPUP -->
+<div id="egg-popup">
+  <div id="egg-popup-header">
+    <span id="egg-popup-title">⚽ Kickabout</span>
+    <span id="egg-popup-kicks">0 kicks</span>
+    <button id="egg-popup-close" onclick="document.getElementById('egg-popup').classList.remove('open')">✕</button>
   </div>
-  <div id="egg-arena">
-    <canvas id="egg-canvas"></canvas>
-    <div id="egg-drop-hint">Click anywhere to drop the ball!</div>
-    <div id="egg-milestone"></div>
-  </div>
+  <canvas id="egg-popup-canvas"></canvas>
+  <div id="egg-popup-hint">click to drop the ball</div>
 </div>
 
 
 <script>
 // ── Easter egg: 5 logo clicks ──
-var logoClicks = 0;
-var eggUnlocked = false;
+var _logoClicks = 0;
+var _eggOpen = false;
+var _toastTimer;
 
 function logoClick(e) {
-  if (eggUnlocked) return;
   e.preventDefault();
-  logoClicks++;
-  var remaining = 5 - logoClicks;
-  var msgs = ['','🤫 Psst...','🔍 Keep clicking...','👀 Almost there...','🔓 One more!'];
-  if (logoClicks < 5) {
-    showEggToast(msgs[logoClicks]);
+  _logoClicks++;
+  if (_logoClicks < 5) {
+    var msgs = ['🤫 Psst...', '🔍 Keep clicking...', '👀 Almost...', '🔓 One more!'];
+    _eggToast(msgs[_logoClicks - 1]);
   } else {
-    eggUnlocked = true;
-    openEggGame();
+    _logoClicks = 0; // reset so they can reopen
+    _openEgg();
   }
 }
 
-var toastTimer;
-function showEggToast(msg) {
-  var old = document.getElementById('egg-toast');
+function _eggToast(msg) {
+  var old = document.getElementById('_egg_toast');
   if (old) old.remove();
-  var toast = document.createElement('div');
-  toast.id = 'egg-toast';
-  toast.style.cssText = 'position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:rgba(34,162,77,0.92);color:#fff;font-family:DM Sans,sans-serif;font-size:0.85rem;font-weight:700;padding:7px 20px;border-radius:20px;z-index:99998;pointer-events:none;transition:opacity 0.4s;white-space:nowrap;';
-  toast.textContent = msg;
-  document.body.appendChild(toast);
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(function(){ toast.style.opacity='0'; setTimeout(function(){ if(toast.parentNode) toast.remove(); },400); }, 1600);
+  var t = document.createElement('div');
+  t.id = '_egg_toast';
+  t.style.cssText = 'position:fixed;bottom:1.4rem;left:50%;transform:translateX(-50%);background:rgba(34,162,77,0.92);color:#fff;font-family:DM Sans,sans-serif;font-size:0.82rem;font-weight:700;padding:6px 18px;border-radius:20px;z-index:99998;pointer-events:none;transition:opacity 0.4s;white-space:nowrap;';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ if(t.parentNode) t.remove(); }, 400); }, 1500);
 }
 
-function openEggGame() {
-  document.getElementById('egg-game-screen').classList.add('open');
-  initBallGame();
+function _openEgg() {
+  var popup = document.getElementById('egg-popup');
+  popup.classList.add('open');
+  if (!_eggOpen) { _eggOpen = true; _initBall(); }
 }
 
-function closeEggGame() {
-  document.getElementById('egg-game-screen').classList.remove('open');
-}
-
-// ── Physics ball game ──
-function initBallGame() {
-  var canvas = document.getElementById('egg-canvas');
+function _initBall() {
+  var canvas = document.getElementById('egg-popup-canvas');
+  var hint = document.getElementById('egg-popup-hint');
+  var kicksEl = document.getElementById('egg-popup-kicks');
   var ctx = canvas.getContext('2d');
-  var hint = document.getElementById('egg-drop-hint');
-  var milestone = document.getElementById('egg-milestone');
-  var kicksDisplay = document.getElementById('egg-game-kicks');
+  var R = 18;
+  var ball = { x:0, y:0, vx:0, vy:0, spin:0, active:false };
+  var kicks = 0;
+  var particles = [];
+  var milestones = {5:'Nice! 🔥', 15:'Bundesliga ready 💪', 30:'Sign up already 😄'};
 
-  var W, H;
+  function W() { return canvas.offsetWidth; }
+  function H() { return canvas.offsetHeight; }
+
   function resize() {
-    W = canvas.width = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
   }
   resize();
   window.addEventListener('resize', resize);
 
-  var RADIUS = 30;
-  var ball = { x: 0, y: 0, vx: 0, vy: 0, spin: 0, active: false };
-  var GRAVITY = 0.5;
-  var FRICTION = 0.988;
-  var GROUND_FRICTION = 0.87;
-  var BOUNCE = 0.65;
-  var kicks = 0;
-  var particles = [];
-
-  var milestones = {5:'Nice one! 🔥',10:'10 kicks!',20:'Bundesliga ready 💪',50:'You could coach with us 😄',100:'🏆 Legend status'};
-
-  function drawBall(x, y, angle) {
-    ctx.save();
-    ctx.translate(x, y);
-
-    // Shadow
-    ctx.beginPath();
-    ctx.ellipse(0, RADIUS*0.9, RADIUS*0.75, RADIUS*0.18, 0, 0, Math.PI*2);
-    ctx.fillStyle = 'rgba(0,0,0,0.3)';
-    ctx.fill();
-
-    ctx.rotate(angle);
-
-    // Body
-    ctx.beginPath();
-    ctx.arc(0, 0, RADIUS, 0, Math.PI*2);
-    var g = ctx.createRadialGradient(-RADIUS*0.3, -RADIUS*0.3, RADIUS*0.05, 0, 0, RADIUS);
-    g.addColorStop(0, '#ffffff');
-    g.addColorStop(0.5, '#eeeeee');
-    g.addColorStop(1, '#cccccc');
-    ctx.fillStyle = g;
-    ctx.fill();
-
-    // Pentagons
-    ctx.fillStyle = '#111';
-    pentagon(ctx, 0, 0, RADIUS*0.38);
-    for (var i=0;i<5;i++) {
-      var a = i*2*Math.PI/5 - Math.PI/2;
-      pentagon(ctx, Math.cos(a)*RADIUS*0.68, Math.sin(a)*RADIUS*0.68, RADIUS*0.27);
-    }
-
-    // Shine
-    ctx.beginPath();
-    ctx.arc(-RADIUS*0.28, -RADIUS*0.3, RADIUS*0.16, 0, Math.PI*2);
-    ctx.fillStyle = 'rgba(255,255,255,0.6)';
-    ctx.fill();
-
-    ctx.restore();
+  function drawBall(x, y, a) {
+    var ctx2 = ctx;
+    ctx2.save();
+    ctx2.translate(x, y);
+    ctx2.beginPath();
+    ctx2.ellipse(0, R*0.85, R*0.7, R*0.15, 0, 0, Math.PI*2);
+    ctx2.fillStyle = 'rgba(0,0,0,0.25)'; ctx2.fill();
+    ctx2.rotate(a);
+    ctx2.beginPath(); ctx2.arc(0,0,R,0,Math.PI*2);
+    var g = ctx2.createRadialGradient(-R*.3,-R*.3,R*.05,0,0,R);
+    g.addColorStop(0,'#fff'); g.addColorStop(1,'#ccc');
+    ctx2.fillStyle=g; ctx2.fill();
+    ctx2.fillStyle='#111';
+    _pent(ctx2,0,0,R*.38);
+    for(var i=0;i<5;i++){var ang=i*2*Math.PI/5-Math.PI/2;_pent(ctx2,Math.cos(ang)*R*.68,Math.sin(ang)*R*.68,R*.27);}
+    ctx2.beginPath(); ctx2.arc(-R*.28,-R*.3,R*.16,0,Math.PI*2);
+    ctx2.fillStyle='rgba(255,255,255,0.6)'; ctx2.fill();
+    ctx2.restore();
   }
 
-  function pentagon(ctx, cx, cy, r) {
-    ctx.beginPath();
-    for (var i=0;i<5;i++) {
-      var a = i*2*Math.PI/5 - Math.PI/2;
-      i===0 ? ctx.moveTo(cx+Math.cos(a)*r, cy+Math.sin(a)*r) : ctx.lineTo(cx+Math.cos(a)*r, cy+Math.sin(a)*r);
-    }
-    ctx.closePath();
-    ctx.fill();
+  function _pent(c,cx,cy,r){
+    c.beginPath();
+    for(var i=0;i<5;i++){var a=i*2*Math.PI/5-Math.PI/2;i?c.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r):c.moveTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r);}
+    c.closePath(); c.fill();
   }
 
-  function spawnParticles(x, y) {
-    for (var i=0;i<8;i++) {
-      var a = Math.random()*Math.PI*2;
-      var s = 2+Math.random()*5;
-      particles.push({x:x,y:y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:1,size:3+Math.random()*4});
-    }
+  function spark(x,y){
+    for(var i=0;i<6;i++){var a=Math.random()*Math.PI*2,s=2+Math.random()*4;particles.push({x:x,y:y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:1});}
   }
 
-  function showMilestone(msg) {
-    milestone.textContent = msg;
-    milestone.style.opacity = '1';
-    setTimeout(function(){ milestone.style.opacity = '0'; }, 2000);
-  }
-
-  var hintTimer;
-  function setHint(msg, duration) {
-    hint.textContent = msg;
-    hint.style.opacity = '1';
-    clearTimeout(hintTimer);
-    if (duration) hintTimer = setTimeout(function(){ hint.style.opacity = '0'; }, duration);
-  }
-
-  canvas.addEventListener('click', function(e) {
+  canvas.addEventListener('click', function(e){
+    resize();
     var rect = canvas.getBoundingClientRect();
     var cx = e.clientX - rect.left;
     var cy = e.clientY - rect.top;
-
     if (!ball.active) {
-      ball.x = cx; ball.y = cy;
-      ball.vx = (Math.random()-0.5)*3;
-      ball.vy = 1;
-      ball.active = true;
-      hint.style.opacity = '0';
+      ball.x=cx; ball.y=cy; ball.vx=(Math.random()-.5)*3; ball.vy=1; ball.active=true;
+      hint.style.opacity='0';
       return;
     }
-
-    var dx = ball.x - cx, dy = ball.y - cy;
-    var dist = Math.sqrt(dx*dx+dy*dy);
-
-    if (dist < 80) {
-      var len = dist || 1;
-      var power = 15 + (1 - Math.min(dist,60)/60)*9;
-      ball.vx = (dx/len)*power;
-      ball.vy = (dy/len)*power - 4;
-      spawnParticles(ball.x, ball.y);
+    var dx=ball.x-cx, dy=ball.y-cy, dist=Math.sqrt(dx*dx+dy*dy);
+    if (dist < 70) {
+      var len=dist||1, pow=12+(1-Math.min(dist,55)/55)*8;
+      ball.vx=(dx/len)*pow; ball.vy=(dy/len)*pow-3;
+      spark(ball.x,ball.y);
       kicks++;
-      kicksDisplay.textContent = kicks + (kicks===1?' kick':' kicks');
-      if (milestones[kicks]) showMilestone(milestones[kicks]);
+      kicksEl.textContent = kicks + (kicks===1?' kick':' kicks');
+      if(milestones[kicks]){ hint.textContent=milestones[kicks]; hint.style.opacity='1'; setTimeout(function(){hint.style.opacity='0';},1800); }
     } else {
-      // Click elsewhere — warp ball there
-      ball.x = cx; ball.y = cy;
-      ball.vx = (Math.random()-0.5)*4;
-      ball.vy = -2;
-      spawnParticles(cx, cy);
+      ball.x=cx; ball.y=cy; ball.vx=(Math.random()-.5)*3; ball.vy=-1;
+      spark(cx,cy);
     }
   });
 
-  document.addEventListener('keydown', function(e) {
-    if (e.code === 'Space' && document.getElementById('egg-game-screen').classList.contains('open')) {
-      if (ball.active) {
-        e.preventDefault();
-        ball.vy = -18; ball.vx += (Math.random()-0.5)*6;
-        spawnParticles(ball.x, ball.y);
-        kicks++;
-        kicksDisplay.textContent = kicks + (kicks===1?' kick':' kicks');
-      }
-    }
-  });
-
-  setHint('Click anywhere to drop the ball!', 0);
-
-  function loop() {
-    if (!document.getElementById('egg-game-screen').classList.contains('open')) {
-      requestAnimationFrame(loop); return;
-    }
-
+  function loop(){
     resize();
-    ctx.clearRect(0,0,W,H);
-
-    if (ball.active) {
-      ball.vy += GRAVITY;
-      ball.vx *= FRICTION;
-      ball.vy *= FRICTION;
-      ball.x += ball.vx;
-      ball.y += ball.vy;
-      ball.spin += ball.vx * 0.04;
-
-      // Walls
-      if (ball.x < RADIUS) { ball.x = RADIUS; ball.vx = Math.abs(ball.vx)*BOUNCE; }
-      if (ball.x > W-RADIUS) { ball.x = W-RADIUS; ball.vx = -Math.abs(ball.vx)*BOUNCE; }
-      if (ball.y < RADIUS) { ball.y = RADIUS; ball.vy = Math.abs(ball.vy)*BOUNCE; }
-      if (ball.y > H-RADIUS) {
-        ball.y = H-RADIUS;
-        ball.vy = -Math.abs(ball.vy)*BOUNCE;
-        ball.vx *= GROUND_FRICTION;
-        if (Math.abs(ball.vy) < 0.8) ball.vy = 0;
-      }
-
-      // Particles
-      particles = particles.filter(function(p){
-        p.x+=p.vx; p.y+=p.vy; p.vy+=0.15; p.life-=0.07; return p.life>0;
-      });
-      particles.forEach(function(p){
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.size*p.life,0,Math.PI*2);
-        ctx.fillStyle='rgba(34,162,77,'+p.life+')';
-        ctx.fill();
-      });
-
-      drawBall(ball.x, ball.y, ball.spin);
+    var w=canvas.width, h=canvas.height;
+    ctx.clearRect(0,0,w,h);
+    if (ball.active){
+      ball.vy+=0.5; ball.vx*=0.988; ball.vy*=0.988;
+      ball.x+=ball.vx; ball.y+=ball.vy; ball.spin+=ball.vx*0.05;
+      if(ball.x<R){ball.x=R;ball.vx=Math.abs(ball.vx)*0.65;}
+      if(ball.x>w-R){ball.x=w-R;ball.vx=-Math.abs(ball.vx)*0.65;}
+      if(ball.y<R){ball.y=R;ball.vy=Math.abs(ball.vy)*0.65;}
+      if(ball.y>h-R){ball.y=h-R;ball.vy=-Math.abs(ball.vy)*0.65;ball.vx*=0.87;if(Math.abs(ball.vy)<0.6)ball.vy=0;}
+      particles=particles.filter(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=0.12;p.life-=0.07;return p.life>0;});
+      particles.forEach(function(p){ctx.beginPath();ctx.arc(p.x,p.y,3*p.life,0,Math.PI*2);ctx.fillStyle='rgba(34,162,77,'+p.life+')';ctx.fill();});
+      drawBall(ball.x,ball.y,ball.spin);
     }
-
     requestAnimationFrame(loop);
   }
   loop();
