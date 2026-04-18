@@ -1078,11 +1078,12 @@ function logoClick(e) {
     if (!ball.active) {
       // First click anywhere — place ball near click
       ball.x = cx;
-      ball.y = Math.min(cy, H - RADIUS - 2);
-      ball.vx = 0; ball.vy = 0;
+      ball.y = cy;
+      ball.vx = (Math.random() - 0.5) * 3;
+      ball.vy = 1;
       ball.active = true;
       canvas.classList.add('active');
-      showHint('Click to kick!');
+      showHint('Click the ball to kick it!');
       return;
     }
 
@@ -1100,8 +1101,12 @@ function logoClick(e) {
       kicks++;
       if (milestones[kicks]) showHint(milestones[kicks]);
     } else {
-      // Click away from ball — teleport ball gently toward click
-      showHint('Click the ball to kick it! ⚽');
+      // Click away from ball — drop it at that spot with a little toss
+      ball.x = cx;
+      ball.y = cy;
+      ball.vx = (Math.random() - 0.5) * 4;
+      ball.vy = -2;
+      spawnParticles(cx, cy);
     }
   });
 
