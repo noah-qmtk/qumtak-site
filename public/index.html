@@ -244,55 +244,108 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
  60% { opacity: 1; transform: translate(-50%,-120%) scale(1.2); } 100% { opacity: 0; transform: translate(-50%,-180%) scale(0.8); } }
 
 
-/* ── PHYSICS BALL ── */
-#ball-canvas {
+
+
+
+
+
+/* ── EASTER EGG GAME SCREEN ── */
+#egg-game-screen {
+  display: none;
   position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #060a07;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+#egg-game-screen.open { display: flex; }
+
+#egg-game-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 2rem;
+  border-bottom: 1px solid rgba(34,162,77,0.2);
+  background: rgba(10,15,12,0.95);
+  flex-shrink: 0;
+}
+#egg-game-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #22a24d;
+  letter-spacing: 0.5px;
+}
+#egg-game-subtitle {
+  font-size: 0.82rem;
+  color: rgba(232,237,233,0.5);
+  font-family: 'DM Sans', sans-serif;
+}
+#egg-game-kicks {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+}
+#egg-close-btn {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(232,237,233,0.7);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#egg-close-btn:hover { background: rgba(255,255,255,0.14); color: #fff; }
+
+#egg-arena {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 80%, rgba(34,162,77,0.08) 0%, transparent 70%);
+}
+#egg-canvas {
+  position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
-  z-index: 9995;
-  display: none;
+  cursor: crosshair;
 }
-#ball-canvas.active {
-  pointer-events: auto;
-}
-#ball-hint {
-  position: fixed;
-  bottom: 1rem;
+#egg-drop-hint {
+  position: absolute;
+  bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(34,162,77,0.9);
   color: #fff;
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding: 6px 16px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 8px 20px;
   border-radius: 20px;
-  z-index: 9996;
   pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.4s;
+  transition: opacity 0.5s;
   white-space: nowrap;
 }
-
-
-#egg-hint {
-  position: fixed;
-  bottom: 1.2rem;
+#egg-milestone {
+  position: absolute;
+  top: 1.5rem;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(34,162,77,0.92);
-  color: #fff;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 700;
-  padding: 7px 18px;
-  border-radius: 20px;
-  z-index: 9997;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #22a24d;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.5s;
+  transition: opacity 0.3s;
   white-space: nowrap;
 }
 
@@ -833,298 +886,263 @@ function closeMobileNav() {
 
 
 
-<!-- PHYSICS BALL -->
-<canvas id="ball-canvas"></canvas>
-<div id="ball-hint">⚽ Click anywhere to kick!</div>
-<div id="egg-hint"></div>
+
+
+
+
+
+
+<!-- EASTER EGG GAME SCREEN -->
+<div id="egg-game-screen">
+  <div id="egg-game-header">
+    <div>
+      <div id="egg-game-title">⚽ Qumtak Kickabout</div>
+      <div id="egg-game-subtitle">You found the easter egg!</div>
+    </div>
+    <div id="egg-game-kicks">0 kicks</div>
+    <button id="egg-close-btn" onclick="closeEggGame()">Back to site ✕</button>
+  </div>
+  <div id="egg-arena">
+    <canvas id="egg-canvas"></canvas>
+    <div id="egg-drop-hint">Click anywhere to drop the ball!</div>
+    <div id="egg-milestone"></div>
+  </div>
+</div>
 
 
 <script>
-// ── Easter egg: 5 logo clicks unlocks the ball ──
+// ── Easter egg: 5 logo clicks ──
 var logoClicks = 0;
 var eggUnlocked = false;
-var eggTimeout;
 
 function logoClick(e) {
   if (eggUnlocked) return;
   e.preventDefault();
   logoClicks++;
-  var hint = document.getElementById('egg-hint');
   var remaining = 5 - logoClicks;
-
+  var msgs = ['','🤫 Psst...','🔍 Keep clicking...','👀 Almost there...','🔓 One more!'];
   if (logoClicks < 5) {
-    hint.textContent = remaining === 4 ? '🤫 Psst...' : remaining === 3 ? '🔍 Keep clicking...' : remaining === 2 ? '👀 Almost there...' : '🔓 One more!';
-    hint.style.opacity = '1';
-    clearTimeout(eggTimeout);
-    eggTimeout = setTimeout(function(){ hint.style.opacity = '0'; }, 1200);
+    showEggToast(msgs[logoClicks]);
   } else {
-    // Unlocked!
     eggUnlocked = true;
-    hint.textContent = '🎉 Easter egg unlocked! ⚽ Click anywhere to drop the ball!';
-    hint.style.opacity = '1';
-    document.getElementById('ball-canvas').style.display = 'block';
-    setTimeout(function(){ hint.style.opacity = '0'; }, 3500);
+    openEggGame();
   }
 }
 
-(function() {
-  var canvas = document.getElementById('ball-canvas');
-  var hint = document.getElementById('ball-hint');
+var toastTimer;
+function showEggToast(msg) {
+  var old = document.getElementById('egg-toast');
+  if (old) old.remove();
+  var toast = document.createElement('div');
+  toast.id = 'egg-toast';
+  toast.style.cssText = 'position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:rgba(34,162,77,0.92);color:#fff;font-family:DM Sans,sans-serif;font-size:0.85rem;font-weight:700;padding:7px 20px;border-radius:20px;z-index:99998;pointer-events:none;transition:opacity 0.4s;white-space:nowrap;';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ toast.style.opacity='0'; setTimeout(function(){ if(toast.parentNode) toast.remove(); },400); }, 1600);
+}
+
+function openEggGame() {
+  document.getElementById('egg-game-screen').classList.add('open');
+  initBallGame();
+}
+
+function closeEggGame() {
+  document.getElementById('egg-game-screen').classList.remove('open');
+}
+
+// ── Physics ball game ──
+function initBallGame() {
+  var canvas = document.getElementById('egg-canvas');
   var ctx = canvas.getContext('2d');
+  var hint = document.getElementById('egg-drop-hint');
+  var milestone = document.getElementById('egg-milestone');
+  var kicksDisplay = document.getElementById('egg-game-kicks');
 
   var W, H;
-  var RADIUS = 28;
-  var ball = {
-    x: 120, y: 120,
-    vx: 0, vy: 0,
-    spin: 0,           // rotation angle in radians
-    spinRate: 0,       // how fast it's spinning
-    active: false,
-    onGround: false
-  };
-
-  var GRAVITY = 0.45;
-  var FRICTION = 0.985;      // air friction
-  var GROUND_FRICTION = 0.88; // rolling friction
-  var BOUNCE = 0.62;          // energy kept on bounce
-  var MIN_SPEED = 0.15;       // stop threshold
-
   function resize() {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
   }
   resize();
   window.addEventListener('resize', resize);
 
-  // Draw a proper soccer ball
+  var RADIUS = 30;
+  var ball = { x: 0, y: 0, vx: 0, vy: 0, spin: 0, active: false };
+  var GRAVITY = 0.5;
+  var FRICTION = 0.988;
+  var GROUND_FRICTION = 0.87;
+  var BOUNCE = 0.65;
+  var kicks = 0;
+  var particles = [];
+
+  var milestones = {5:'Nice one! 🔥',10:'10 kicks!',20:'Bundesliga ready 💪',50:'You could coach with us 😄',100:'🏆 Legend status'};
+
   function drawBall(x, y, angle) {
     ctx.save();
     ctx.translate(x, y);
-    ctx.rotate(angle);
 
     // Shadow
     ctx.beginPath();
-    ctx.ellipse(0, RADIUS * 0.9, RADIUS * 0.8, RADIUS * 0.2, 0, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(0,0,0,0.25)';
+    ctx.ellipse(0, RADIUS*0.9, RADIUS*0.75, RADIUS*0.18, 0, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(0,0,0,0.3)';
     ctx.fill();
 
-    ctx.translate(0, 0);
+    ctx.rotate(angle);
 
-    // White ball body
+    // Body
     ctx.beginPath();
-    ctx.arc(0, 0, RADIUS, 0, Math.PI * 2);
-    var grad = ctx.createRadialGradient(-RADIUS*0.3, -RADIUS*0.3, RADIUS*0.05, 0, 0, RADIUS);
-    grad.addColorStop(0, '#ffffff');
-    grad.addColorStop(0.6, '#e8e8e8');
-    grad.addColorStop(1, '#cccccc');
-    ctx.fillStyle = grad;
+    ctx.arc(0, 0, RADIUS, 0, Math.PI*2);
+    var g = ctx.createRadialGradient(-RADIUS*0.3, -RADIUS*0.3, RADIUS*0.05, 0, 0, RADIUS);
+    g.addColorStop(0, '#ffffff');
+    g.addColorStop(0.5, '#eeeeee');
+    g.addColorStop(1, '#cccccc');
+    ctx.fillStyle = g;
     ctx.fill();
 
-    // Black pentagons — classic soccer ball pattern
-    ctx.fillStyle = '#1a1a1a';
-    ctx.strokeStyle = '#1a1a1a';
-    ctx.lineWidth = 1;
-
-    // Center pentagon
-    drawPentagon(ctx, 0, 0, RADIUS * 0.38);
-
-    // 5 surrounding pentagons
-    for (var i = 0; i < 5; i++) {
-      var angle2 = (i * 2 * Math.PI / 5) - Math.PI / 2;
-      var px = Math.cos(angle2) * RADIUS * 0.68;
-      var py = Math.sin(angle2) * RADIUS * 0.68;
-      drawPentagon(ctx, px, py, RADIUS * 0.28);
+    // Pentagons
+    ctx.fillStyle = '#111';
+    pentagon(ctx, 0, 0, RADIUS*0.38);
+    for (var i=0;i<5;i++) {
+      var a = i*2*Math.PI/5 - Math.PI/2;
+      pentagon(ctx, Math.cos(a)*RADIUS*0.68, Math.sin(a)*RADIUS*0.68, RADIUS*0.27);
     }
 
     // Shine
     ctx.beginPath();
-    ctx.arc(-RADIUS * 0.3, -RADIUS * 0.32, RADIUS * 0.18, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    ctx.arc(-RADIUS*0.28, -RADIUS*0.3, RADIUS*0.16, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(255,255,255,0.6)';
     ctx.fill();
 
     ctx.restore();
   }
 
-  function drawPentagon(ctx, cx, cy, r) {
+  function pentagon(ctx, cx, cy, r) {
     ctx.beginPath();
-    for (var i = 0; i < 5; i++) {
-      var a = (i * 2 * Math.PI / 5) - Math.PI / 2;
-      var px = cx + Math.cos(a) * r;
-      var py = cy + Math.sin(a) * r;
-      if (i === 0) ctx.moveTo(px, py);
-      else ctx.lineTo(px, py);
+    for (var i=0;i<5;i++) {
+      var a = i*2*Math.PI/5 - Math.PI/2;
+      i===0 ? ctx.moveTo(cx+Math.cos(a)*r, cy+Math.sin(a)*r) : ctx.lineTo(cx+Math.cos(a)*r, cy+Math.sin(a)*r);
     }
     ctx.closePath();
     ctx.fill();
   }
 
-  // Kick particles
-  var particles = [];
   function spawnParticles(x, y) {
-    for (var i = 0; i < 7; i++) {
-      var angle = Math.random() * Math.PI * 2;
-      var speed = 2 + Math.random() * 4;
-      particles.push({
-        x: x, y: y,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        life: 1.0,
-        size: 3 + Math.random() * 4
-      });
+    for (var i=0;i<8;i++) {
+      var a = Math.random()*Math.PI*2;
+      var s = 2+Math.random()*5;
+      particles.push({x:x,y:y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:1,size:3+Math.random()*4});
     }
   }
 
-  var GROUND = 0; // set in loop to H - RADIUS - 2
-
-  function step() {
-    GROUND = H - RADIUS - 2;
-
-    // Apply gravity
-    ball.vy += GRAVITY;
-
-    // Air friction
-    ball.vx *= FRICTION;
-    ball.vy *= FRICTION;
-
-    ball.x += ball.vx;
-    ball.y += ball.vy;
-
-    // Spin based on horizontal velocity
-    ball.spinRate = ball.vx * 0.04;
-    ball.spin += ball.spinRate;
-
-    // Ground collision
-    if (ball.y >= GROUND) {
-      ball.y = GROUND;
-      ball.vy = -Math.abs(ball.vy) * BOUNCE;
-      ball.vx *= GROUND_FRICTION;
-      ball.onGround = true;
-      if (Math.abs(ball.vy) < 0.8) ball.vy = 0;
-    } else {
-      ball.onGround = false;
-    }
-
-    // Wall collisions
-    if (ball.x <= RADIUS) {
-      ball.x = RADIUS;
-      ball.vx = Math.abs(ball.vx) * BOUNCE;
-    }
-    if (ball.x >= W - RADIUS) {
-      ball.x = W - RADIUS;
-      ball.vx = -Math.abs(ball.vx) * BOUNCE;
-    }
-
-    // Ceiling
-    if (ball.y <= RADIUS) {
-      ball.y = RADIUS;
-      ball.vy = Math.abs(ball.vy) * BOUNCE;
-    }
-
-    // Update particles
-    particles = particles.filter(function(p) {
-      p.x += p.vx; p.y += p.vy;
-      p.vy += 0.15;
-      p.life -= 0.06;
-      return p.life > 0;
-    });
-  }
-
-  function render() {
-    ctx.clearRect(0, 0, W, H);
-
-    if (!ball.active) return;
-
-    // Draw particles
-    particles.forEach(function(p) {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(34,162,77,' + p.life + ')';
-      ctx.fill();
-    });
-
-    drawBall(ball.x, ball.y, ball.spin);
-  }
-
-  var rafId;
-  function loop() {
-    step();
-    render();
-    rafId = requestAnimationFrame(loop);
-  }
-
-  // Hit detection — click near ball = kick
-  function getKickForce(cx, cy) {
-    var dx = ball.x - cx;
-    var dy = ball.y - cy;
-    var dist = Math.sqrt(dx*dx + dy*dy);
-    return dist;
+  function showMilestone(msg) {
+    milestone.textContent = msg;
+    milestone.style.opacity = '1';
+    setTimeout(function(){ milestone.style.opacity = '0'; }, 2000);
   }
 
   var hintTimer;
-  function showHint(msg) {
+  function setHint(msg, duration) {
     hint.textContent = msg;
     hint.style.opacity = '1';
     clearTimeout(hintTimer);
-    hintTimer = setTimeout(function() { hint.style.opacity = '0'; }, 1800);
+    if (duration) hintTimer = setTimeout(function(){ hint.style.opacity = '0'; }, duration);
   }
 
-  var kicks = 0;
-  var milestones = {3:'Nice one! 🔥', 10:'10 kicks! ⚽', 25:'25 kicks! Bundesliga ready 💪', 50:'50?! Sign up already 😄'};
-
   canvas.addEventListener('click', function(e) {
-    if (!eggUnlocked) return;
-    var cx = e.clientX, cy = e.clientY;
+    var rect = canvas.getBoundingClientRect();
+    var cx = e.clientX - rect.left;
+    var cy = e.clientY - rect.top;
 
     if (!ball.active) {
-      // First click anywhere — place ball near click
-      ball.x = cx;
-      ball.y = cy;
-      ball.vx = (Math.random() - 0.5) * 3;
+      ball.x = cx; ball.y = cy;
+      ball.vx = (Math.random()-0.5)*3;
       ball.vy = 1;
       ball.active = true;
-      canvas.classList.add('active');
-      showHint('Click the ball to kick it!');
+      hint.style.opacity = '0';
       return;
     }
 
-    // Check if clicking near the ball (within 80px = generous hit area)
-    var dist = getKickForce(cx, cy);
+    var dx = ball.x - cx, dy = ball.y - cy;
+    var dist = Math.sqrt(dx*dx+dy*dy);
+
     if (dist < 80) {
-      // Kick! Direction away from click point
-      var dx = ball.x - cx;
-      var dy = ball.y - cy;
-      var len = Math.sqrt(dx*dx + dy*dy) || 1;
-      var power = 14 + (1 - Math.min(dist, 60) / 60) * 8; // closer = more power
-      ball.vx = (dx / len) * power;
-      ball.vy = (dy / len) * power - 3; // slight upward bias
+      var len = dist || 1;
+      var power = 15 + (1 - Math.min(dist,60)/60)*9;
+      ball.vx = (dx/len)*power;
+      ball.vy = (dy/len)*power - 4;
       spawnParticles(ball.x, ball.y);
       kicks++;
-      if (milestones[kicks]) showHint(milestones[kicks]);
+      kicksDisplay.textContent = kicks + (kicks===1?' kick':' kicks');
+      if (milestones[kicks]) showMilestone(milestones[kicks]);
     } else {
-      // Click away from ball — drop it at that spot with a little toss
-      ball.x = cx;
-      ball.y = cy;
-      ball.vx = (Math.random() - 0.5) * 4;
+      // Click elsewhere — warp ball there
+      ball.x = cx; ball.y = cy;
+      ball.vx = (Math.random()-0.5)*4;
       ball.vy = -2;
       spawnParticles(cx, cy);
     }
   });
 
-  // Keyboard: press Space to kick ball upward
   document.addEventListener('keydown', function(e) {
-    if (e.code === 'Space' && ball.active) {
-      e.preventDefault();
-      ball.vy = -16;
-      ball.vx += (Math.random() - 0.5) * 6;
-      spawnParticles(ball.x, ball.y);
-      kicks++;
+    if (e.code === 'Space' && document.getElementById('egg-game-screen').classList.contains('open')) {
+      if (ball.active) {
+        e.preventDefault();
+        ball.vy = -18; ball.vx += (Math.random()-0.5)*6;
+        spawnParticles(ball.x, ball.y);
+        kicks++;
+        kicksDisplay.textContent = kicks + (kicks===1?' kick':' kicks');
+      }
     }
   });
 
-  // Ball starts hidden — revealed by easter egg
+  setHint('Click anywhere to drop the ball!', 0);
 
+  function loop() {
+    if (!document.getElementById('egg-game-screen').classList.contains('open')) {
+      requestAnimationFrame(loop); return;
+    }
+
+    resize();
+    ctx.clearRect(0,0,W,H);
+
+    if (ball.active) {
+      ball.vy += GRAVITY;
+      ball.vx *= FRICTION;
+      ball.vy *= FRICTION;
+      ball.x += ball.vx;
+      ball.y += ball.vy;
+      ball.spin += ball.vx * 0.04;
+
+      // Walls
+      if (ball.x < RADIUS) { ball.x = RADIUS; ball.vx = Math.abs(ball.vx)*BOUNCE; }
+      if (ball.x > W-RADIUS) { ball.x = W-RADIUS; ball.vx = -Math.abs(ball.vx)*BOUNCE; }
+      if (ball.y < RADIUS) { ball.y = RADIUS; ball.vy = Math.abs(ball.vy)*BOUNCE; }
+      if (ball.y > H-RADIUS) {
+        ball.y = H-RADIUS;
+        ball.vy = -Math.abs(ball.vy)*BOUNCE;
+        ball.vx *= GROUND_FRICTION;
+        if (Math.abs(ball.vy) < 0.8) ball.vy = 0;
+      }
+
+      // Particles
+      particles = particles.filter(function(p){
+        p.x+=p.vx; p.y+=p.vy; p.vy+=0.15; p.life-=0.07; return p.life>0;
+      });
+      particles.forEach(function(p){
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.size*p.life,0,Math.PI*2);
+        ctx.fillStyle='rgba(34,162,77,'+p.life+')';
+        ctx.fill();
+      });
+
+      drawBall(ball.x, ball.y, ball.spin);
+    }
+
+    requestAnimationFrame(loop);
+  }
   loop();
-})();
+}
 </script>
 
 </body>
