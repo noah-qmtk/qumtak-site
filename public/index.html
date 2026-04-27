@@ -128,6 +128,11 @@ nav {
 .prog-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 1.6rem; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
 .prog-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(34,162,77,0.12); border-color: rgba(34,162,77,0.35); }
 .prog-card.featured { background: rgba(34,162,77,0.08); border-color: rgba(34,162,77,0.35); }
+.prog-card.featured:hover { box-shadow: 0 10px 32px rgba(34,162,77,0.22); }
+.prog-card.private { background: rgba(99,102,241,0.08); border-color: rgba(99,102,241,0.3); }
+.prog-card.private:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(99,102,241,0.15); border-color: rgba(99,102,241,0.55); }
+.prog-card.partnership { background: rgba(234,179,8,0.07); border-color: rgba(234,179,8,0.28); }
+.prog-card.partnership:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(234,179,8,0.12); border-color: rgba(234,179,8,0.5); }
 .prog-icon { font-size: 1.8rem; margin-bottom: 0.8rem; display: block; }
 .prog-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; }
 .prog-card p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.6; margin-bottom: 0.8rem; }
@@ -135,6 +140,8 @@ nav {
 .prog-meta strong { color: var(--green); font-weight: 700; }
 .prog-link { display: inline-block; color: var(--green); text-decoration: none; font-weight: 700; font-size: 0.82rem; margin-top: 0.8rem; transition: opacity 0.2s; }
 .prog-link:hover { opacity: 0.8; }
+.prog-card.private .prog-link { color: #818cf8; }
+.prog-card.partnership .prog-link { color: #facc15; }
 
 /* FAQ - 2 COLUMN ACCORDION */
 .faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; margin-top: 2rem; }
@@ -684,27 +691,29 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
           <strong>🌿 Outdoor — Spring Season</strong><br>
           Apr 27–Jun 12 · Mon &amp; Fri 5:50–6:50 PM<br>
           📍 Sanborn Elementary School — Lower Field, Andover<br>
-          $260 residents · $275 non-residents<br>
-          <a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank" class="prog-link">Register on Andover Rec →</a>
+          $260 residents · $275 non-residents
         </div>
+        <a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank" class="btn-green" style="display:inline-block;margin-top:1.2rem;font-size:0.9rem;padding:0.55rem 1.2rem;">Enroll Now →</a>
       </div>
 
-      <div class="prog-card reveal reveal-d1">
+      <div class="prog-card private reveal reveal-d1">
         <div class="prog-icon">🎯</div>
         <h3>1-on-1 Private Training</h3>
         <p>Targeted sessions built around your child's specific needs. By appointment.</p>
         <div class="prog-meta">
-          <a href="https://square.link/u/TOPIwZpf" target="_blank" class="prog-link">Book now →</a>
+          Not sure yet? Start with a free intro call — $20 deposit counts toward your first session.
         </div>
+        <a href="https://square.link/u/TOPIwZpf" target="_blank" style="display:inline-block;margin-top:1.2rem;padding:0.55rem 1.2rem;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.5);color:#818cf8;border-radius:8px;font-size:0.9rem;font-weight:700;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='rgba(99,102,241,0.28)'" onmouseout="this.style.background='rgba(99,102,241,0.15)'">Book Private Session →</a>
       </div>
 
-      <div class="prog-card reveal reveal-d2">
+      <div class="prog-card partnership reveal reveal-d2">
         <div class="prog-icon">🤝</div>
         <h3>Town Partnership Programs</h3>
         <p>For rec departments and athletic directors. Active in Andover, expanding to Reading.</p>
         <div class="prog-meta">
-          <a href="mailto:noah@qmtk.org" class="prog-link">Contact Coach Shaya →</a>
+          Interested in bringing Qumtak to your town? Let's talk.
         </div>
+        <a href="mailto:noah@qmtk.org?subject=Partnership%20Inquiry" style="display:inline-block;margin-top:1.2rem;padding:0.55rem 1.2rem;background:rgba(234,179,8,0.1);border:1px solid rgba(234,179,8,0.4);color:#facc15;border-radius:8px;font-size:0.9rem;font-weight:700;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='rgba(234,179,8,0.22)'" onmouseout="this.style.background='rgba(234,179,8,0.1)'">Get in Touch →</a>
       </div>
     </div>
   </div>
