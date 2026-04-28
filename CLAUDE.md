@@ -1,4 +1,4 @@
-# Qumtak Soccer — Site Guide for Claude
+# qmtk Soccer — Site Guide for Claude
 
 ## Stack
 Pure static HTML/CSS/JS. No framework, no build step.  
@@ -11,7 +11,7 @@ Live at: **qmtk.org**
 | `public/index.html` | Page structure, all HTML content, section order | Adding/removing sections, changing text, adding new elements |
 | `public/style.css` | All styling — layout, colors, fonts, responsive breakpoints | Changing appearance, spacing, colors, mobile behavior |
 | `public/main.js` | All JavaScript — survey popup, scroll animations, card toggles | Adding interactivity, changing popup behavior, new animations |
-| `public/logo.png` | Qumtak logo (128×128) used in nav + footer | Replacing logo |
+| `public/logo.png` | qmtk logo (128×128) used in nav + footer | Replacing logo |
 | `public/hero.jpg` | Hero section photo (1200×1600 portrait) | Replacing hero image |
 | `public/ac-team.jpg` | Card 01 — AC Arlington (900×1949 portrait) | Replacing image |
 | `public/monchengladbach.jpg` | Card 02 — Mönchengladbach (700×900 portrait) | Replacing image |

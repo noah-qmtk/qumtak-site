@@ -1,4 +1,4 @@
-# Qumtak Soccer — qmtk.org
+# qmtk Soccer — qmtk.org
 
 Elite youth soccer coaching in Andover & Reading, MA.
 

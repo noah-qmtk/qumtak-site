@@ -41,7 +41,7 @@ function submitContact(e) {
   var name    = document.getElementById('contact-name').value.trim();
   var email   = document.getElementById('contact-email').value.trim();
   var message = document.getElementById('contact-msg').value.trim();
-  var subject = encodeURIComponent('Qumtak Inquiry from ' + name);
+  var subject = encodeURIComponent('qmtk Inquiry from ' + name);
   var body    = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
   window.location.href = 'mailto:noah@qmtk.org?subject=' + subject + '&body=' + body;
   setTimeout(function() { closeSurvey(); }, 800);
