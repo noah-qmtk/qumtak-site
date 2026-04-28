@@ -78,6 +78,8 @@ nav {
 .hero-compact h1 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; color: var(--white); line-height: 1.0; letter-spacing: -0.5px; margin-bottom: 0.8rem; }
 .hero-sub { font-size: 1.1rem; color: var(--text-mid); max-width: 480px; line-height: 1.65; margin-bottom: 1.4rem; }
 .hero-ctas { display: flex; gap: 0.9rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+.btn-hero-primary { font-size: 1.05rem; padding: 0.95rem 1.6rem; box-shadow: 0 4px 14px rgba(34,162,77,0.35); }
+.btn-hero-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(34,162,77,0.5); }
 .btn-green { display: inline-flex; align-items: center; gap: 6px; background: var(--green); color: var(--white); padding: 0.9rem 1.9rem; border-radius: 8px; font-weight: 700; font-size: 1rem; text-decoration: none; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; }
 .btn-green:hover { background: var(--green-dark); transform: translateY(-1px); }
 .btn-outline { display: inline-flex; align-items: center; gap: 6px; background: transparent; color: var(--green); padding: 0.9rem 1.9rem; border-radius: 8px; font-weight: 700; font-size: 1rem; text-decoration: none; border: 2px solid var(--green); cursor: pointer; transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s; }
@@ -308,19 +310,20 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
 <section class="hero-compact" id="hero">
   <div class="hero-left reveal-left">
     <div class="hero-eyebrow">⚽ Andover &amp; Reading, MA</div>
-    <h1>Real coaching.<br>Not just rec soccer.</h1>
-    <p class="hero-sub">Professional soccer development for kids — no tryouts, no club fees, no travel.</p>
+    <h1>Start with a call.<br>Then we'll find the right fit.</h1>
+    <p class="hero-sub">A 15-minute call with the coach. We'll talk about your child's goals, current level, and the right next step — group classes, 1-on-1 training, or both.</p>
 
     <div class="hero-ctas">
-      <a href="https://book.squareup.com/appointments/k3bd6dhwcv4kgw/location/L2TKVGY8K0CVH/services/REDVYNFYMDIUZXKGIP34TGAA" target="_blank" class="btn-green">Book Intro Call →</a>
-      <a href="https://book.squareup.com/appointments/k3bd6dhwcv4kgw/location/L2TKVGY8K0CVH/services/HHPAWUMAFNCQA2QNRV5XU36D" target="_blank" class="btn-outline">Book Private Training →</a>
+      <a href="https://book.squareup.com/appointments/k3bd6dhwcv4kgw/location/L2TKVGY8K0CVH/services/REDVYNFYMDIUZXKGIP34TGAA" target="_blank" class="btn-green btn-hero-primary">Book your intro call →</a>
     </div>
-    <p style="font-size:0.78rem;color:var(--text-dim);margin-top:0.6rem;">$20 deposit — applies to your first session.</p>
+    <p style="font-size:0.78rem;color:var(--text-dim);margin-top:0.6rem;">$20 deposit — applies in full to your first session.</p>
+    <p style="font-size:0.85rem;color:var(--text-mid);margin-top:1rem;">Already know you want 1-on-1? <a href="https://book.squareup.com/appointments/k3bd6dhwcv4kgw/location/L2TKVGY8K0CVH/services/HHPAWUMAFNCQA2QNRV5XU36D" target="_blank" style="color:#6fcf97;text-decoration:underline;font-weight:600;">Book private training →</a></p>
 
     <!-- SOCIAL PROOF -->
     <div class="stats-mini" style="margin-top:1.6rem;">
       <span>⭐⭐⭐⭐⭐ 5-star rated</span>
       <span>100% re-enroll</span>
+      <span>No pressure. No sales pitch.</span>
     </div>
   </div>
 
