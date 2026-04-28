@@ -55,6 +55,7 @@ nav {
 .nav-logo-icon { width: 56px; height: 56px; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .nav-logo-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
 .nav-logo-text { color: var(--white); font-weight: 700; font-size: 1.4rem; letter-spacing: -0.4px; font-family: 'Barlow Condensed', sans-serif; }
+.nav-logo-text .brand-suffix { font-weight: 500; font-size: 0.85em; letter-spacing: 0; opacity: 0.85; margin-left: 0.3em; }
 .nav-cta { background: var(--green) !important; color: var(--white) !important; padding: 0.45rem 1.1rem; border-radius: 6px; font-weight: 700 !important; text-decoration: none; transition: background 0.2s !important; border: none; cursor: pointer; font-size: 0.875rem; }
 .nav-cta:hover { background: var(--green-dark) !important; }
 .nav-links { display: flex; align-items: center; gap: 1.5rem; }
@@ -181,6 +182,7 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
 .footer-brand-icon { width: 40px; height: 40px; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .footer-brand-icon img { width: 100%; height: 100%; object-fit: cover; }
 .footer-brand-text { color: var(--white); font-weight: 700; font-size: 1rem; font-family: 'Barlow Condensed', sans-serif; }
+.footer-brand-text .brand-suffix { font-weight: 500; font-size: 0.85em; opacity: 0.85; margin-left: 0.3em; }
 .footer-socials { display: flex; gap: 0.6rem; margin-top: 0.6rem; }
 .social-btn { width: 32px; height: 32px; border-radius: 6px; background: var(--bg-raised); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 0.9rem; transition: background 0.2s, border-color 0.2s; }
 .social-btn:hover { background: var(--bg); border-color: var(--border-bright); }
@@ -279,7 +281,7 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
 <nav id="main-nav">
   <a href="#hero" class="nav-logo" id="nav-logo">
     <div class="nav-logo-icon"><img src="/logo.png" alt="qmtk Soccer Logo"></div>
-    <span class="nav-logo-text">qmtk</span>
+    <span class="nav-logo-text">qmtk<span class="brand-suffix">Soccer</span></span>
   </a>
   <div class="nav-links" id="nav-links">
     <a href="#sessions">Sessions</a>
@@ -859,7 +861,7 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
   <div>
     <a href="#" class="footer-brand">
       <div class="footer-brand-icon"><img src="/logo.png" alt="qmtk Soccer Logo"></div>
-      <div class="footer-brand-text">qmtk</div>
+      <div class="footer-brand-text">qmtk<span class="brand-suffix">Soccer</span></div>
     </a>
     <p class="footer-copy">© 2026 qmtk Soccer · Professional soccer development</p>
     <div class="footer-socials">
