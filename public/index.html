@@ -331,6 +331,23 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
 
 
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1771205577188699');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -1032,6 +1049,23 @@ function closeMobileNav() {
 
 
 
+<!-- qmtk: Track Square booking link clicks as Meta Lead events -->
+<script>
+document.addEventListener('click', function(e) {
+  var link = e.target.closest('a');
+  if (link && link.href && link.href.indexOf('book.squareup.com') !== -1) {
+    if (typeof fbq !== 'undefined') {
+      fbq('track', 'Lead', {
+        content_name: 'Square Booking Click',
+        content_category: link.href.indexOf('REDVYNFYMDIUZXKGIP34TGAA') !== -1 ? 'Intro Call' :
+                          link.href.indexOf('HHPAWUMAFNCQA2QNRV5XU36D') !== -1 ? 'Private Training' :
+                          'Other Booking'
+      });
+    }
+  }
+}, true);
+</script>
+<!-- End qmtk Square click tracker -->
 </body>
 </html>
 
