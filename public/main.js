@@ -67,6 +67,39 @@ document.querySelectorAll(REVEAL_SELECTOR).forEach(function(el) {
   revealObserver.observe(el);
 });
 
+// ─── NEXT SESSION DATE ───
+// Spring 2026 schedule: Apr 27 – Jun 12, Mon (1) & Fri (5), 5:50–6:50 PM
+function updateNextSessionDate() {
+  var el = document.getElementById('next-session-date');
+  if (!el) return;
+  var SEASON_START = new Date(2026, 3, 27);             // Apr 27, 2026
+  var SEASON_END   = new Date(2026, 5, 12, 18, 50, 0);  // Jun 12, 6:50 PM
+  var SESSION_DAYS = [1, 5];                            // Mon, Fri
+  var START_H = 17, START_M = 50;                       // 5:50 PM start
+  var DURATION_MIN = 60;
+  var now = new Date();
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var found = null;
+  var d = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  for (var i = 0; i < 70; i++) {
+    if (SESSION_DAYS.indexOf(d.getDay()) !== -1) {
+      var start = new Date(d.getFullYear(), d.getMonth(), d.getDate(), START_H, START_M);
+      var end   = new Date(start.getTime() + DURATION_MIN * 60000);
+      if (end >= now && start >= SEASON_START && start <= SEASON_END) {
+        found = start;
+        break;
+      }
+    }
+    d.setDate(d.getDate() + 1);
+  }
+  if (found) {
+    el.textContent = months[found.getMonth()] + ' ' + found.getDate();
+  } else {
+    el.textContent = 'Next Season';
+  }
+}
+updateNextSessionDate();
+
 // ─── NAV SCROLL EFFECT ───
 var nav = document.querySelector('nav');
 window.addEventListener('scroll', function() {
