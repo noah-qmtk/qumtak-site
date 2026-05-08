@@ -42,7 +42,7 @@ nav {
 }
 .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .nav-logo-icon {
-  width: 56px; height: 56px; border-radius: 12px;
+  width: 84px; height: 84px; border-radius: 12px;
   overflow: hidden;
   display: flex; align-items: center; justify-content: center;
 }
