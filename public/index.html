@@ -173,6 +173,27 @@ nav {
 .session-card-desc { font-size: 0.95rem; color: var(--text-mid); line-height: 1.55; }
 .session-card-svg { width: 100%; height: auto; margin-top: 1rem; display: block; }
 
+/* WEEKLY TRAINING PLAN — age tabs + flow */
+.age-tabs { display: flex; gap: 0.75rem; max-width: 640px; margin: 0 auto 2.25rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 0.4rem; }
+.age-tab { flex: 1; background: transparent; border: 1px solid transparent; border-radius: 10px; padding: 0.85rem 0.9rem; cursor: pointer; color: rgba(232,237,233,0.6); text-align: center; transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; font-family: inherit; }
+.age-tab:hover { color: rgba(232,237,233,0.9); background: rgba(255,255,255,0.03); }
+.age-tab.active { background: rgba(34,162,77,0.14); border-color: rgba(34,162,77,0.45); color: #fff; }
+.age-tab-label { font-family: 'Barlow Condensed', sans-serif; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase; line-height: 1.1; }
+.age-tab-sub { font-size: 0.75rem; margin-top: 0.25rem; opacity: 0.8; }
+
+.plan-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.plan-step { position: relative; background: var(--bg-raised); border: 1px solid rgba(255,255,255,0.06); border-top: 3px solid var(--step-color, var(--green)); border-radius: 12px; padding: 1.25rem 1.1rem; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+.plan-step:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(0,0,0,0.25); }
+.plan-step-head { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.7rem; }
+.plan-step-time { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; color: #111; background: var(--step-color, var(--green)); padding: 0.2rem 0.55rem; border-radius: 12px; }
+.plan-step-tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: rgba(232,237,233,0.65); }
+.plan-step-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 700; color: #fff; line-height: 1.2; margin: 0 0 0.55rem; text-transform: uppercase; letter-spacing: 0.3px; }
+.plan-step-desc { font-size: 0.9rem; color: rgba(232,237,233,0.75); line-height: 1.6; margin: 0 0 0.9rem; }
+.plan-step-focus { margin-top: auto; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 0.7rem 0.85rem; }
+.plan-step-focus-label { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.7px; text-transform: uppercase; color: var(--step-color, var(--green)); margin-bottom: 0.4rem; }
+.plan-step-focus ul { margin: 0; padding-left: 1rem; color: rgba(232,237,233,0.75); font-size: 0.82rem; line-height: 1.55; }
+.plan-step-focus li { margin-bottom: 0.15rem; }
+
 /* WHY qmtk - 3 CARDS */
 .why-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
 .why-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 1.6rem; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
@@ -284,6 +305,7 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
   .hero-image { order: -1; min-height: 300px; margin-bottom: 1.5rem; }
   .glance-mini { grid-template-columns: repeat(2, 1fr); }
   .session-cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .plan-flow { grid-template-columns: repeat(2, 1fr); }
   .why-cards { grid-template-columns: repeat(2, 1fr); }
   .programs-grid { grid-template-columns: repeat(2, 1fr); }
   .faq-grid { grid-template-columns: 1fr; }
@@ -307,6 +329,8 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
   .section { padding: 2rem 1.2rem; }
   .section h2 { font-size: 1.8rem; }
   .session-cards-grid { grid-template-columns: 1fr; }
+  .plan-flow { grid-template-columns: 1fr; }
+  .age-tabs { flex-direction: column; }
   .why-cards { grid-template-columns: 1fr; }
   .programs-grid { grid-template-columns: 1fr; }
   .instagram-posts-grid { grid-template-columns: 1fr; }
@@ -363,7 +387,6 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
     <a href="#why">Why qmtk</a>
     <a href="#programs">Programs</a>
     <a href="#faq">FAQ</a>
-    <a href="/coaches/">Coaches</a>
   </div>
   <div class="nav-right">
     <a href="https://book.squareup.com/appointments/k3bd6dhwcv4kgw/location/L2TKVGY8K0CVH/services/REDVYNFYMDIUZXKGIP34TGAA" target="_blank" class="nav-cta">Book Intro Call</a>
@@ -377,7 +400,6 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
   <a href="#why" onclick="closeMobileNav()">Why qmtk</a>
   <a href="#programs" onclick="closeMobileNav()">Programs</a>
   <a href="#faq" onclick="closeMobileNav()">FAQ</a>
-  <a href="/coaches/" onclick="closeMobileNav()">Coaches</a>
   <a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank" class="nav-mobile-enroll">Enroll Now</a>
 </div>
 
@@ -407,402 +429,134 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
   </div>
 </section>
 
-<!-- SESSION PREVIEW -->
+<!-- WEEKLY TRAINING PLAN -->
 <section class="section" id="sessions" style="background:var(--bg-alt, #0f1f14);">
   <div class="section-inner">
-    <div style="text-align:center; margin-bottom:2.5rem;">
-      <div style="display:inline-block; background:rgba(74,222,128,0.12); border:1px solid rgba(74,222,128,0.3); border-radius:20px; padding:0.35rem 1rem; font-size:0.75rem; font-weight:700; color:#4ade80; letter-spacing:1px; text-transform:uppercase; margin-bottom:1rem;">NEXT SESSION</div>
-      <h2 style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(2rem,5vw,3rem); font-weight:800; color:#fff; margin:0 0 0.75rem; text-transform:uppercase; letter-spacing:0.5px;">Session Preview: <span id="next-session-date">May 4</span></h2>
-      <p style="color:rgba(232,237,233,0.65); font-size:1rem; max-width:560px; margin:0 auto;">Sanborn Elementary School Lower Field &nbsp;|&nbsp; 5:50&ndash;6:50 PM &nbsp;|&nbsp; Andover, MA</p>
+    <div style="text-align:center; margin-bottom:2rem;">
+      <div style="display:inline-block; background:rgba(74,222,128,0.12); border:1px solid rgba(74,222,128,0.3); border-radius:20px; padding:0.35rem 1rem; font-size:0.75rem; font-weight:700; color:#4ade80; letter-spacing:1px; text-transform:uppercase; margin-bottom:1rem;">Weekly Training Plan</div>
+      <h2 style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(2rem,5vw,3rem); font-weight:800; color:#fff; margin:0 0 0.75rem; text-transform:uppercase; letter-spacing:0.5px;">This Week: <span id="next-session-date">May 4</span></h2>
+      <p style="color:rgba(232,237,233,0.65); font-size:1rem; max-width:620px; margin:0 auto;">Sanborn Elementary School Lower Field &nbsp;|&nbsp; 5:50&ndash;6:50 PM &nbsp;|&nbsp; Andover, MA</p>
+      <p style="color:rgba(232,237,233,0.55); font-size:0.9rem; max-width:620px; margin:0.75rem auto 0;">Every session: opening game &rarr; two skill lessons &rarr; scrimmage. Separate plans for our youngest players and our elementary group.</p>
     </div>
 
-    <!-- Timeline bar: proportional to 60-min session -->
-    <div style="display:flex; gap:2px; border-radius:8px; overflow:hidden; margin-bottom:2.5rem; font-size:0.78rem; font-weight:700; font-family:'Barlow Condensed',sans-serif; letter-spacing:0.5px;">
-      <div style="flex:10; background:#f5a623; color:#111; text-align:center; padding:0.55rem 0.3rem;">0&ndash;10 MIN<br><span style="font-weight:400; font-size:0.7rem;">Sharks &amp; Minnows</span></div>
-      <div style="width:2px; background:#1a1a2e;"></div>
-      <div style="flex:3; background:#3a7bd5; color:#fff; text-align:center; padding:0.55rem 0.3rem;">10&ndash;13<br><span style="font-weight:400; font-size:0.7rem;">&#128167; Water</span></div>
-      <div style="width:2px; background:#1a1a2e;"></div>
-      <div style="flex:30; background:#4a90e2; color:#fff; text-align:center; padding:0.55rem 0.3rem;">13&ndash;43 MIN<br><span style="font-weight:400; font-size:0.7rem;">3 Stations &middot; Rotate</span></div>
-      <div style="width:2px; background:#1a1a2e;"></div>
-      <div style="flex:2; background:#3a7bd5; color:#fff; text-align:center; padding:0.55rem 0.3rem;">43&ndash;45<br><span style="font-weight:400; font-size:0.7rem;">&#128167;</span></div>
-      <div style="width:2px; background:#1a1a2e;"></div>
-      <div style="flex:15; background:#2d7a3a; color:#fff; text-align:center; padding:0.55rem 0.3rem;">45&ndash;60 MIN<br><span style="font-weight:400; font-size:0.7rem;">Scrimmage</span></div>
+    <div class="age-tabs reveal">
+      <button class="age-tab active" data-group="prek" onclick="switchAgeGroup('prek')">
+        <div class="age-tab-label">Pre-K &amp; Kindergarten</div>
+        <div class="age-tab-sub">Ages 3&ndash;5 &middot; 45 min</div>
+      </button>
+      <button class="age-tab" data-group="elem" onclick="switchAgeGroup('elem')">
+        <div class="age-tab-label">Grades 1&ndash;5</div>
+        <div class="age-tab-sub">Ages 6&ndash;11 &middot; 60 min</div>
+      </button>
     </div>
 
-    <!-- Segment 1: Sharks vs Minnows -->
-    <div class="reveal" style="margin-bottom:3rem;">
-      <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
-        <div style="background:#f5a623; color:#111; font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; font-weight:800; padding:0.25rem 0.75rem; border-radius:20px; text-transform:uppercase; letter-spacing:0.5px; white-space:nowrap;">0&ndash;10 MIN</div>
-        <h3 style="font-family:'Barlow Condensed',sans-serif; font-size:1.6rem; font-weight:700; color:#fff; margin:0; text-transform:uppercase;">Warm-Up: Sharks vs Minnows</h3>
-      </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; align-items:start;">
-        <div>
-          <p style="color:rgba(232,237,233,0.75); line-height:1.7; margin:0 0 1rem;">Everyone gets a ball and splits into age groups. In each group, one or two players are &ldquo;Sharks&rdquo; and the rest are &ldquo;Minnows.&rdquo; Minnows dribble to avoid the sharks, who try to kick their balls out. High-energy, competitive, and gets every player moving with the ball right from the start.</p>
-          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:1rem;">
-            <div style="color:#f5a623; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:0.6rem;">Key Focus</div>
-            <ul style="color:rgba(232,237,233,0.7); font-size:0.9rem; line-height:1.8; margin:0; padding-left:1.2rem;">
-              <li>Ball at feet at all times &mdash; shield and protect</li>
-              <li>Quick change of direction and close dribble control</li>
-              <li>Split by age group for the right challenge level</li>
-            </ul>
+    <div class="plan-block reveal" id="plan-prek">
+      <div class="plan-flow">
+        <div class="plan-step" style="--step-color:#f5a623;">
+          <div class="plan-step-head">
+            <span class="plan-step-time">0&ndash;10 MIN</span>
+            <span class="plan-step-tag">Opening Game</span>
+          </div>
+          <h3 class="plan-step-title">Red Light, Green Light</h3>
+          <p class="plan-step-desc">Every player gets a ball. Coach calls &ldquo;green light&rdquo; &mdash; players dribble forward. &ldquo;Red light&rdquo; &mdash; everyone freezes with a foot on top of the ball. Builds listening, control, and confidence right from the start.</p>
+          <div class="plan-step-focus">
+            <div class="plan-step-focus-label">What they learn</div>
+            <ul><li>Soft touches with the inside of the foot</li><li>Stopping the ball &mdash; foot on top</li><li>Following directions, quick reactions</li></ul>
           </div>
         </div>
-        <div style="min-width:0;">
-          <svg viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:500px;border-radius:8px;">
-  <defs>
-    <marker id="sm_aR" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e24a4a"/></marker>
-  </defs>
-  <rect width="500" height="320" fill="#2d7a3a" rx="8"/>
-  <rect x="20" y="20" width="460" height="280" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
-  <line x1="250" y1="20" x2="250" y2="300" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-dasharray="8,5"/>
-  <rect x="50" y="3" width="400" height="22" rx="4" fill="rgba(0,0,0,0.55)"/>
-  <text x="250" y="18" text-anchor="middle" fill="white" font-size="12" font-weight="bold" font-family="sans-serif">SHARKS vs MINNOWS  0-10 MIN</text>
-  <rect x="25" y="26" width="120" height="16" rx="3" fill="rgba(245,166,35,0.85)"/>
-  <text x="85" y="38" text-anchor="middle" fill="#111" font-size="9" font-weight="bold" font-family="sans-serif">YOUNGER GROUP</text>
-  <circle cx="70" cy="100" r="11" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="70" y="104" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">M</text>
-  <circle cx="70" cy="118" r="4" fill="white" stroke="#333" stroke-width="1"/>
-  <circle cx="155" cy="135" r="11" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="155" y="139" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">M</text>
-  <circle cx="155" cy="153" r="4" fill="white" stroke="#333" stroke-width="1"/>
-  <circle cx="80" cy="215" r="11" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="80" y="219" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">M</text>
-  <circle cx="80" cy="233" r="4" fill="white" stroke="#333" stroke-width="1"/>
-  <circle cx="185" cy="255" r="11" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="185" y="259" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">M</text>
-  <circle cx="185" cy="273" r="4" fill="white" stroke="#333" stroke-width="1"/>
-  <circle cx="200" cy="170" r="11" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="200" y="174" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">M</text>
-  <circle cx="120" cy="175" r="12" fill="#e24a4a" stroke="white" stroke-width="2"/><text x="120" y="180" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">S</text>
-  <line x1="132" y1="168" x2="148" y2="145" stroke="#e24a4a" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#sm_aR)"/>
-  <rect x="260" y="26" width="120" height="16" rx="3" fill="rgba(74,144,226,0.85)"/>
-  <text x="320" y="38" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">OLDER GROUP</text>
-  <circle cx="310" cy="90" r="11" fill="#4a90e2" stroke="white" stroke-width="1.5"/><text x="310" y="94" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">M</text>
-  <circle cx="310" cy="108" r="4" fill="white" stroke="#333" stroke-width="1"/>
-  <circle cx="390" cy="125" r="11" fill="#4a90e2" stroke="white" stroke-width="1.5"/><text x="390" y="129" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">M</text>
-  <circle cx="390" cy="143" r="4" fill="white" stroke="#333" stroke-width="1"/>
-  <circle cx="435" cy="200" r="11" fill="#4a90e2" stroke="white" stroke-width="1.5"/><text x="435" y="204" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">M</text>
-  <circle cx="435" cy="218" r="4" fill="white" stroke="#333" stroke-width="1"/>
-  <circle cx="295" cy="255" r="11" fill="#4a90e2" stroke="white" stroke-width="1.5"/><text x="295" y="259" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">M</text>
-  <circle cx="460" cy="105" r="11" fill="#4a90e2" stroke="white" stroke-width="1.5"/><text x="460" y="109" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">M</text>
-  <circle cx="370" cy="195" r="12" fill="#e24a4a" stroke="white" stroke-width="2"/><text x="370" y="200" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">S</text>
-  <line x1="382" y1="188" x2="398" y2="135" stroke="#e24a4a" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#sm_aR)"/>
-  <rect x="20" y="302" width="460" height="14" rx="3" fill="rgba(0,0,0,0.45)"/>
-  <circle cx="35" cy="309" r="5" fill="#e24a4a"/><text x="44" y="313" fill="white" font-size="8" font-family="sans-serif">Shark (defender)</text>
-  <circle cx="155" cy="309" r="5" fill="#f5a623"/><text x="164" y="313" fill="white" font-size="8" font-family="sans-serif">Younger Minnow + ball</text>
-  <circle cx="315" cy="309" r="5" fill="#4a90e2"/><text x="324" y="313" fill="white" font-size="8" font-family="sans-serif">Older Minnow + ball</text>
-</svg>
-        </div>
-      </div>
-    </div>
 
-    <!-- Water Break 1 -->
-    <div class="reveal" style="margin-bottom:3rem; text-align:center;">
-      <div style="display:inline-flex; align-items:center; gap:1rem; background:rgba(58,123,213,0.1); border:1px solid rgba(58,123,213,0.3); border-radius:12px; padding:0.85rem 2.5rem;">
-        <span style="font-size:1.5rem;">&#128167;</span>
-        <div style="text-align:left;">
-          <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; font-weight:800; color:#4a90e2; text-transform:uppercase; letter-spacing:0.8px;">Water Break &mdash; 3 Minutes</div>
-          <div style="color:rgba(232,237,233,0.5); font-size:0.8rem;">10&ndash;13 MIN &nbsp;&middot;&nbsp; Hydrate before station work</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Segment 2: STATIONS ROTATION (3 stations · 10 min each) -->
-    <div class="reveal" style="margin-bottom:2rem;">
-      <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem; flex-wrap:wrap;">
-        <div style="background:#4a90e2; color:#fff; font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; font-weight:800; padding:0.25rem 0.75rem; border-radius:20px; text-transform:uppercase; letter-spacing:0.5px; white-space:nowrap;">13&ndash;43 MIN</div>
-        <h3 style="font-family:'Barlow Condensed',sans-serif; font-size:1.6rem; font-weight:700; color:#fff; margin:0; text-transform:uppercase;">Skill Stations &mdash; Rotate Every 10 Min</h3>
-      </div>
-      <p style="color:rgba(232,237,233,0.75); line-height:1.7; margin:0 0 1.5rem; max-width:720px;">Players split into 3 small groups and rotate through 3 stations. Each group spends 10 minutes at every station, then rotates clockwise on the whistle. More touches, less standing in line, and every player works on every skill.</p>
-
-      <!-- Master rotation diagram -->
-      <div style="margin-bottom:2rem;">
-        <svg viewBox="0 0 600 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:720px;border-radius:8px;display:block;margin:0 auto;">
-          <defs>
-            <marker id="rot_aY" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FFD700"/></marker>
-          </defs>
-          <rect width="600" height="320" fill="#2d7a3a" rx="8"/>
-          <rect x="20" y="20" width="560" height="280" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
-          <rect x="100" y="3" width="400" height="22" rx="4" fill="rgba(0,0,0,0.55)"/>
-          <text x="300" y="18" text-anchor="middle" fill="white" font-size="12" font-weight="bold" font-family="sans-serif">STATION ROTATION  13-43 MIN</text>
-
-          <!-- Station A box (left) -->
-          <rect x="50" y="80" width="140" height="170" rx="10" fill="rgba(74,144,226,0.25)" stroke="#4a90e2" stroke-width="2"/>
-          <rect x="55" y="85" width="130" height="20" rx="4" fill="#4a90e2"/>
-          <text x="120" y="100" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="sans-serif">STATION A</text>
-          <text x="120" y="125" text-anchor="middle" fill="white" font-size="10" font-weight="bold" font-family="sans-serif">Partner Passing</text>
-          <text x="120" y="140" text-anchor="middle" fill="white" font-size="10" font-weight="bold" font-family="sans-serif">&amp; Control</text>
-          <circle cx="90" cy="180" r="9" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="90" y="184" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">A</text>
-          <circle cx="120" cy="180" r="4" fill="white"/>
-          <circle cx="150" cy="180" r="9" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="150" y="184" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">B</text>
-          <text x="120" y="215" text-anchor="middle" fill="#FFD700" font-size="9" font-weight="bold" font-family="sans-serif">2-touch rule</text>
-          <text x="120" y="232" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="8" font-family="sans-serif">stationary pairs</text>
-
-          <!-- Station B box (center) -->
-          <rect x="230" y="80" width="140" height="170" rx="10" fill="rgba(58,123,213,0.25)" stroke="#3a7bd5" stroke-width="2"/>
-          <rect x="235" y="85" width="130" height="20" rx="4" fill="#3a7bd5"/>
-          <text x="300" y="100" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="sans-serif">STATION B</text>
-          <text x="300" y="125" text-anchor="middle" fill="white" font-size="10" font-weight="bold" font-family="sans-serif">Pass &amp; Drive</text>
-          <text x="300" y="140" text-anchor="middle" fill="white" font-size="10" font-weight="bold" font-family="sans-serif">On the Move</text>
-          <circle cx="260" cy="180" r="9" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="260" y="184" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">A</text>
-          <circle cx="285" cy="180" r="4" fill="white"/>
-          <circle cx="335" cy="200" r="9" fill="#4a90e2" stroke="white" stroke-width="1.5"/><text x="335" y="204" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">B</text>
-          <line x1="270" y1="180" x2="320" y2="195" stroke="#FFD700" stroke-width="2" stroke-dasharray="4,3"/>
-          <text x="300" y="225" text-anchor="middle" fill="#FFD700" font-size="9" font-weight="bold" font-family="sans-serif">pass &amp; move</text>
-
-          <!-- Station C box (right) -->
-          <rect x="410" y="80" width="140" height="170" rx="10" fill="rgba(255,215,0,0.18)" stroke="#FFD700" stroke-width="2"/>
-          <rect x="415" y="85" width="130" height="20" rx="4" fill="#1a5c2a" stroke="#FFD700" stroke-width="1"/>
-          <text x="480" y="100" text-anchor="middle" fill="#FFD700" font-size="11" font-weight="bold" font-family="sans-serif">STATION C</text>
-          <text x="480" y="125" text-anchor="middle" fill="white" font-size="10" font-weight="bold" font-family="sans-serif">Shooting</text>
-          <text x="480" y="140" text-anchor="middle" fill="white" font-size="10" font-weight="bold" font-family="sans-serif">Mini Games</text>
-          <rect x="465" y="160" width="30" height="10" fill="none" stroke="#FFD700" stroke-width="2"/>
-          <text x="480" y="168" text-anchor="middle" fill="#FFD700" font-size="6" font-weight="bold" font-family="sans-serif">GOAL</text>
-          <circle cx="450" cy="200" r="9" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="450" y="204" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">P</text>
-          <circle cx="480" cy="210" r="9" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="480" y="214" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">P</text>
-          <circle cx="510" cy="200" r="9" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="510" y="204" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">P</text>
-          <line x1="480" y1="200" x2="480" y2="172" stroke="#FFD700" stroke-width="2" marker-end="url(#rot_aY)"/>
-          <text x="480" y="232" text-anchor="middle" fill="#FFD700" font-size="9" font-weight="bold" font-family="sans-serif">drive &amp; finish</text>
-
-          <!-- Rotation arrows (clockwise) -->
-          <path d="M 195 130 Q 215 110 230 130" fill="none" stroke="#FFD700" stroke-width="2.5" marker-end="url(#rot_aY)"/>
-          <path d="M 375 130 Q 395 110 410 130" fill="none" stroke="#FFD700" stroke-width="2.5" marker-end="url(#rot_aY)"/>
-          <path d="M 480 260 Q 300 295 120 260" fill="none" stroke="#FFD700" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#rot_aY)"/>
-          <text x="300" y="288" text-anchor="middle" fill="#FFD700" font-size="10" font-weight="bold" font-family="sans-serif">Rotate every 10 minutes</text>
-        </svg>
-      </div>
-
-      <!-- Station A detail -->
-      <div style="background:rgba(74,144,226,0.06); border:1px solid rgba(74,144,226,0.25); border-radius:10px; padding:1.25rem; margin-bottom:1rem;">
-        <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.8rem; flex-wrap:wrap;">
-          <span style="background:#4a90e2; color:#fff; font-family:'Barlow Condensed',sans-serif; font-size:0.7rem; font-weight:800; padding:0.2rem 0.65rem; border-radius:14px; text-transform:uppercase; letter-spacing:0.5px;">Station A</span>
-          <h4 style="font-family:'Barlow Condensed',sans-serif; font-size:1.25rem; font-weight:700; color:#fff; margin:0; text-transform:uppercase;">Partner Passing &amp; Control</h4>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; align-items:start;">
-          <div style="min-width:0;">
-            <svg viewBox="0 0 500 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:500px;border-radius:8px;">
-              <defs>
-                <marker id="sa_aW" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="white"/></marker>
-                <marker id="sa_aG" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#90ee90"/></marker>
-              </defs>
-              <rect width="500" height="240" fill="#2d7a3a" rx="8"/>
-              <rect x="15" y="15" width="470" height="210" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
-              <circle cx="80" cy="80" r="13" fill="#f5a623" stroke="white" stroke-width="2"/><text x="80" y="85" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="sans-serif">A</text>
-              <circle cx="230" cy="80" r="13" fill="#4a90e2" stroke="white" stroke-width="2"/><text x="230" y="85" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="sans-serif">B</text>
-              <circle cx="155" cy="80" r="6" fill="white" stroke="#333" stroke-width="1.5"/>
-              <line x1="93" y1="80" x2="145" y2="80" stroke="white" stroke-width="2.5" marker-end="url(#sa_aW)"/>
-              <text x="155" y="64" text-anchor="middle" fill="#FFD700" font-size="10" font-weight="bold" font-family="sans-serif">1st touch: control</text>
-              <line x1="218" y1="80" x2="165" y2="80" stroke="#90ee90" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#sa_aG)"/>
-              <text x="155" y="105" text-anchor="middle" fill="#90ee90" font-size="10" font-weight="bold" font-family="sans-serif">2nd touch: pass back</text>
-              <circle cx="80" cy="170" r="13" fill="#f5a623" stroke="white" stroke-width="2"/><text x="80" y="175" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="sans-serif">A</text>
-              <circle cx="230" cy="170" r="13" fill="#4a90e2" stroke="white" stroke-width="2"/><text x="230" y="175" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="sans-serif">B</text>
-              <circle cx="155" cy="170" r="6" fill="white" stroke="#333" stroke-width="1.5"/>
-              <line x1="93" y1="170" x2="145" y2="170" stroke="white" stroke-width="2.5" marker-end="url(#sa_aW)"/>
-              <line x1="218" y1="170" x2="165" y2="170" stroke="#90ee90" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#sa_aG)"/>
-              <rect x="280" y="55" width="195" height="130" rx="6" fill="rgba(0,0,0,0.45)"/>
-              <text x="377" y="78" text-anchor="middle" fill="#FFD700" font-size="11" font-weight="bold" font-family="sans-serif">2-TOUCH RULE</text>
-              <line x1="290" y1="86" x2="465" y2="86" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-              <text x="377" y="108" text-anchor="middle" fill="white" font-size="10" font-family="sans-serif">Touch 1: Receive &amp; settle</text>
-              <text x="377" y="126" text-anchor="middle" fill="#90ee90" font-size="10" font-family="sans-serif">Touch 2: Pass to partner</text>
-              <line x1="290" y1="138" x2="465" y2="138" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-              <text x="377" y="158" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="9" font-family="sans-serif">Stationary pairs &mdash; build rhythm</text>
-              <text x="377" y="174" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="8" font-family="sans-serif">Eye contact &middot; communicate</text>
-            </svg>
+        <div class="plan-step" style="--step-color:#4a90e2;">
+          <div class="plan-step-head">
+            <span class="plan-step-time">10&ndash;25 MIN</span>
+            <span class="plan-step-tag">Lesson 1</span>
           </div>
-          <div>
-            <p style="color:rgba(232,237,233,0.78); line-height:1.65; margin:0 0 0.9rem; font-size:0.95rem;">Pair up and face your partner. Strict 2-touch: first touch settles the ball, second touch passes it back. No holding. The rhythm and clean contact are everything.</p>
-            <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:0.85rem 1rem;">
-              <div style="color:#4a90e2; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:0.5rem;">Key Focus</div>
-              <ul style="color:rgba(232,237,233,0.75); font-size:0.88rem; line-height:1.7; margin:0; padding-left:1.1rem;">
-                <li>Clean 1st touch &mdash; ball under control</li>
-                <li>Accurate 2nd touch back to partner</li>
-                <li>Eye contact and communication</li>
-              </ul>
-            </div>
+          <h3 class="plan-step-title">Friendly Foot &mdash; Dribbling Through Cones</h3>
+          <p class="plan-step-desc">A simple cone path. Each player takes turns dribbling slowly through, using small touches. Coach cheers every touch. The goal: get comfortable with the ball at your feet, not kick it away.</p>
+          <div class="plan-step-focus">
+            <div class="plan-step-focus-label">What they learn</div>
+            <ul><li>Keep the ball close &mdash; small touches</li><li>Use both feet, even just a little</li><li>Look up, then look down</li></ul>
           </div>
         </div>
-      </div>
 
-      <!-- Station B detail -->
-      <div style="background:rgba(58,123,213,0.06); border:1px solid rgba(58,123,213,0.25); border-radius:10px; padding:1.25rem; margin-bottom:1rem;">
-        <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.8rem; flex-wrap:wrap;">
-          <span style="background:#3a7bd5; color:#fff; font-family:'Barlow Condensed',sans-serif; font-size:0.7rem; font-weight:800; padding:0.2rem 0.65rem; border-radius:14px; text-transform:uppercase; letter-spacing:0.5px;">Station B</span>
-          <h4 style="font-family:'Barlow Condensed',sans-serif; font-size:1.25rem; font-weight:700; color:#fff; margin:0; text-transform:uppercase;">Pass &amp; Drive &mdash; On the Move</h4>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; align-items:start;">
-          <div>
-            <p style="color:rgba(232,237,233,0.78); line-height:1.65; margin:0 0 0.9rem; font-size:0.95rem;">Pass, then immediately drive into space. Your partner controls and drives toward your run. The whole point: never stand still after releasing the ball.</p>
-            <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:0.85rem 1rem;">
-              <div style="color:#3a7bd5; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:0.5rem;">Key Focus</div>
-              <ul style="color:rgba(232,237,233,0.75); font-size:0.88rem; line-height:1.7; margin:0; padding-left:1.1rem;">
-                <li>Pass and move &mdash; never stand still</li>
-                <li>Drive with the ball at pace</li>
-                <li>Receive on the run</li>
-              </ul>
-            </div>
+        <div class="plan-step" style="--step-color:#7c5dfa;">
+          <div class="plan-step-head">
+            <span class="plan-step-time">25&ndash;35 MIN</span>
+            <span class="plan-step-tag">Lesson 2</span>
           </div>
-          <div style="min-width:0;">
-            <svg viewBox="0 0 500 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:500px;border-radius:8px;">
-              <defs>
-                <marker id="sb_aG" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#90ee90"/></marker>
-                <marker id="sb_aY" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#FFD700"/></marker>
-              </defs>
-              <rect width="500" height="240" fill="#2d7a3a" rx="8"/>
-              <rect x="15" y="15" width="470" height="210" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
-              <circle cx="70" cy="70" r="13" fill="#f5a623" stroke="white" stroke-width="2"/><text x="70" y="75" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="sans-serif">A</text>
-              <circle cx="230" cy="70" r="13" fill="#4a90e2" stroke="white" stroke-width="2"/><text x="230" y="75" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="sans-serif">B</text>
-              <circle cx="150" cy="70" r="6" fill="white" stroke="#333" stroke-width="1.5"/>
-              <line x1="83" y1="70" x2="140" y2="70" stroke="#90ee90" stroke-width="2.5" marker-end="url(#sb_aG)"/>
-              <line x1="70" y1="83" x2="70" y2="140" stroke="#FFD700" stroke-width="2.5" marker-end="url(#sb_aY)"/>
-              <text x="38" y="115" fill="#FFD700" font-size="10" font-family="sans-serif" font-weight="bold">drive!</text>
-              <circle cx="70" cy="180" r="13" fill="#f5a623" stroke="white" stroke-width="2"/><text x="70" y="185" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="sans-serif">A</text>
-              <circle cx="230" cy="125" r="13" fill="#4a90e2" stroke="white" stroke-width="2"/><text x="230" y="130" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="sans-serif">B</text>
-              <circle cx="150" cy="155" r="6" fill="white" stroke="#333" stroke-width="1.5"/>
-              <line x1="217" y1="132" x2="163" y2="148" stroke="#90ee90" stroke-width="2.5" marker-end="url(#sb_aG)"/>
-              <line x1="230" y1="138" x2="230" y2="200" stroke="#FFD700" stroke-width="2.5" marker-end="url(#sb_aY)"/>
-              <text x="240" y="175" fill="#FFD700" font-size="10" font-family="sans-serif" font-weight="bold">drive!</text>
-              <rect x="290" y="50" width="190" height="100" rx="4" fill="rgba(0,0,0,0.45)"/>
-              <text x="385" y="72" text-anchor="middle" fill="#FFD700" font-size="11" font-weight="bold" font-family="sans-serif">PASS-AND-DRIVE</text>
-              <text x="385" y="92" text-anchor="middle" fill="white" font-size="10" font-family="sans-serif">1. Pass to partner</text>
-              <text x="385" y="110" text-anchor="middle" fill="#FFD700" font-size="10" font-family="sans-serif">2. Drive into space</text>
-              <text x="385" y="128" text-anchor="middle" fill="#90ee90" font-size="10" font-family="sans-serif">3. Receive on the run</text>
-              <text x="385" y="144" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="9" font-family="sans-serif">Alternate roles each rep</text>
-            </svg>
+          <h3 class="plan-step-title">Pass to the Coach</h3>
+          <p class="plan-step-desc">Kids line up across from Coach Shaya. They take turns passing the ball with the inside of the foot. The coach passes it right back. Every kid gets dozens of reps and tons of high-fives.</p>
+          <div class="plan-step-focus">
+            <div class="plan-step-focus-label">What they learn</div>
+            <ul><li>Plant foot beside the ball, swing the other</li><li>Inside of the foot &mdash; the &ldquo;passing foot&rdquo;</li><li>Watching the ball into your foot</li></ul>
           </div>
         </div>
-      </div>
 
-      <!-- Station C detail -->
-      <div style="background:rgba(255,215,0,0.05); border:1px solid rgba(255,215,0,0.3); border-radius:10px; padding:1.25rem; margin-bottom:0.5rem;">
-        <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.8rem; flex-wrap:wrap;">
-          <span style="background:#1a5c2a; color:#FFD700; border:1px solid #FFD700; font-family:'Barlow Condensed',sans-serif; font-size:0.7rem; font-weight:800; padding:0.2rem 0.65rem; border-radius:14px; text-transform:uppercase; letter-spacing:0.5px;">Station C</span>
-          <h4 style="font-family:'Barlow Condensed',sans-serif; font-size:1.25rem; font-weight:700; color:#fff; margin:0; text-transform:uppercase;">Shooting Mini Games</h4>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; align-items:start;">
-          <div style="min-width:0;">
-            <svg viewBox="0 0 500 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:500px;border-radius:8px;">
-              <defs>
-                <marker id="sc2_aW" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="white"/></marker>
-                <marker id="sc2_aY" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#FFD700"/></marker>
-              </defs>
-              <rect width="500" height="260" fill="#1a5c2a" rx="8"/>
-              <rect x="15" y="15" width="470" height="230" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
-              <rect x="200" y="30" width="100" height="20" fill="none" stroke="#FFD700" stroke-width="2.5"/>
-              <text x="250" y="44" text-anchor="middle" fill="#FFD700" font-size="10" font-weight="bold" font-family="sans-serif">GOAL</text>
-              <line x1="50" y1="180" x2="450" y2="180" stroke="rgba(255,255,255,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
-              <text x="250" y="195" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="9" font-family="sans-serif">starting line</text>
-              <circle cx="80" cy="220" r="11" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="80" y="224" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">P</text>
-              <circle cx="93" cy="220" r="4" fill="white" stroke="#333" stroke-width="1"/>
-              <circle cx="120" cy="220" r="11" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="120" y="224" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">P</text>
-              <circle cx="160" cy="220" r="11" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="160" y="224" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">P</text>
-              <circle cx="200" cy="220" r="11" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="200" y="224" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">P</text>
-              <circle cx="270" cy="155" r="11" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="270" y="159" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">P</text>
-              <circle cx="283" cy="155" r="4" fill="white" stroke="#333" stroke-width="1"/>
-              <line x1="270" y1="210" x2="270" y2="170" stroke="white" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#sc2_aW)"/>
-              <text x="305" y="190" fill="white" font-size="9" font-family="sans-serif">1. drive</text>
-              <line x1="280" y1="148" x2="248" y2="55" stroke="#FFD700" stroke-width="2.5" marker-end="url(#sc2_aY)"/>
-              <text x="305" y="100" fill="#FFD700" font-size="10" font-weight="bold" font-family="sans-serif">2. shoot!</text>
-              <rect x="350" y="60" width="125" height="100" rx="4" fill="rgba(0,0,0,0.5)"/>
-              <text x="412" y="80" text-anchor="middle" fill="#FFD700" font-size="10" font-weight="bold" font-family="sans-serif">SCORE POINTS</text>
-              <text x="412" y="100" text-anchor="middle" fill="white" font-size="9" font-family="sans-serif">Goal = 1 point</text>
-              <text x="412" y="116" text-anchor="middle" fill="white" font-size="9" font-family="sans-serif">First touch &amp; drive</text>
-              <text x="412" y="132" text-anchor="middle" fill="white" font-size="9" font-family="sans-serif">Plant foot &middot; finish</text>
-              <text x="412" y="151" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="8" font-family="sans-serif">Rotate after each rep</text>
-            </svg>
+        <div class="plan-step" style="--step-color:#2d7a3a;">
+          <div class="plan-step-head">
+            <span class="plan-step-time">35&ndash;45 MIN</span>
+            <span class="plan-step-tag">Scrimmage</span>
           </div>
-          <div>
-            <p style="color:rgba(232,237,233,0.78); line-height:1.65; margin:0 0 0.9rem; font-size:0.95rem;">Receive a pass, drive at the goal, finish. Competitive and high-rep. Combines everything from Stations A and B and ends in a real shot.</p>
-            <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:0.85rem 1rem;">
-              <div style="color:#FFD700; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:0.5rem;">Key Focus</div>
-              <ul style="color:rgba(232,237,233,0.75); font-size:0.88rem; line-height:1.7; margin:0; padding-left:1.1rem;">
-                <li>Receive, settle, drive at goal</li>
-                <li>Clean technique &mdash; plant foot, follow through</li>
-                <li>Compete &mdash; keep score for game pressure</li>
-              </ul>
-            </div>
+          <h3 class="plan-step-title">Everyone Scores Mini Game</h3>
+          <p class="plan-step-desc">Tiny-sided game on a small field. No goalies. Coach makes sure every single kid gets at least one shot on goal. Cheering, celebrating, and lots of giggles. The point isn&rsquo;t winning &mdash; it&rsquo;s the joy of putting it in the net.</p>
+          <div class="plan-step-focus">
+            <div class="plan-step-focus-label">What they learn</div>
+            <ul><li>Run toward the ball, not away from it</li><li>Take a swing &mdash; shooting is fun</li><li>Cheer for teammates</li></ul>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Water Break before Scrimmage -->
-    <div class="reveal" style="margin-bottom:3rem; text-align:center;">
-      <div style="display:inline-flex; align-items:center; gap:1rem; background:rgba(58,123,213,0.1); border:1px solid rgba(58,123,213,0.3); border-radius:12px; padding:0.85rem 2.5rem;">
-        <span style="font-size:1.5rem;">&#128167;</span>
-        <div style="text-align:left;">
-          <div style="font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; font-weight:800; color:#4a90e2; text-transform:uppercase; letter-spacing:0.8px;">Water Break &mdash; 2 Minutes</div>
-          <div style="color:rgba(232,237,233,0.5); font-size:0.8rem;">43&ndash;45 MIN &nbsp;&middot;&nbsp; Final break before scrimmage</div>
+    <div class="plan-block reveal" id="plan-elem" style="display:none;">
+      <div class="plan-flow">
+        <div class="plan-step" style="--step-color:#f5a623;">
+          <div class="plan-step-head">
+            <span class="plan-step-time">0&ndash;10 MIN</span>
+            <span class="plan-step-tag">Opening Game</span>
+          </div>
+          <h3 class="plan-step-title">Sharks &amp; Minnows</h3>
+          <p class="plan-step-desc">Everyone gets a ball. One or two &ldquo;sharks&rdquo; with no ball try to kick everyone else&rsquo;s ball out of the grid. Last minnow standing wins. High-energy warm-up that forces dribbling under pressure right from the first whistle.</p>
+          <div class="plan-step-focus">
+            <div class="plan-step-focus-label">What they learn</div>
+            <ul><li>Shield and protect the ball</li><li>Change direction at speed</li><li>Head up, scan for pressure</li></ul>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Segment 5: Scrimmage -->
-    <div class="reveal" style="margin-bottom:1rem;">
-      <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
-        <div style="background:#2d7a3a; color:#fff; border:1px solid rgba(255,255,255,0.2); font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; font-weight:800; padding:0.25rem 0.75rem; border-radius:20px; text-transform:uppercase; letter-spacing:0.5px; white-space:nowrap;">45&ndash;60 MIN</div>
-        <h3 style="font-family:'Barlow Condensed',sans-serif; font-size:1.6rem; font-weight:700; color:#fff; margin:0; text-transform:uppercase;">Scrimmage</h3>
-      </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; align-items:start;">
-        <div style="min-width:0;">
-          <svg viewBox="0 0 520 350" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px;border-radius:8px;">
-  <defs>
-    <marker id="sc_aR" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ff9090"/></marker>
-    <marker id="sc_aB" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#90c0ff"/></marker>
-  </defs>
-  <rect width="520" height="350" fill="#1a5c2a" rx="8"/>
-  <rect x="75" y="3" width="370" height="22" rx="4" fill="rgba(0,0,0,0.55)"/>
-  <text x="260" y="18" text-anchor="middle" fill="white" font-size="12" font-weight="bold" font-family="sans-serif">SCRIMMAGE  45-60 MIN</text>
-  <rect x="12" y="28" width="236" height="310" fill="#2d7a3a" rx="6" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
-  <rect x="12" y="148" width="18" height="50" fill="none" stroke="white" stroke-width="2"/>
-  <rect x="230" y="148" width="18" height="50" fill="none" stroke="white" stroke-width="2"/>
-  <line x1="130" y1="28" x2="130" y2="338" stroke="rgba(255,255,255,0.3)" stroke-width="1" stroke-dasharray="5,4"/>
-  <circle cx="130" cy="183" r="30" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-  <rect x="32" y="33" width="115" height="16" rx="3" fill="rgba(255,165,0,0.85)"/>
-  <text x="89" y="45" text-anchor="middle" fill="#111" font-size="9" font-weight="bold" font-family="sans-serif">YOUNGER - SCRIMMAGE</text>
-  <circle cx="55" cy="115" r="10" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="55" y="119" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">O</text>
-  <circle cx="55" cy="183" r="10" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="55" y="187" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">O</text>
-  <circle cx="55" cy="250" r="10" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="55" y="254" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">O</text>
-  <circle cx="100" cy="150" r="10" fill="#f5a623" stroke="white" stroke-width="1.5"/><text x="100" y="154" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">O</text>
-  <circle cx="200" cy="115" r="10" fill="white" stroke="#444" stroke-width="1.5"/><text x="200" y="119" text-anchor="middle" fill="#333" font-size="8" font-weight="bold" font-family="sans-serif">W</text>
-  <circle cx="200" cy="183" r="10" fill="white" stroke="#444" stroke-width="1.5"/><text x="200" y="187" text-anchor="middle" fill="#333" font-size="8" font-weight="bold" font-family="sans-serif">W</text>
-  <circle cx="200" cy="250" r="10" fill="white" stroke="#444" stroke-width="1.5"/><text x="200" y="254" text-anchor="middle" fill="#333" font-size="8" font-weight="bold" font-family="sans-serif">W</text>
-  <circle cx="158" cy="215" r="10" fill="white" stroke="#444" stroke-width="1.5"/><text x="158" y="219" text-anchor="middle" fill="#333" font-size="8" font-weight="bold" font-family="sans-serif">W</text>
-  <circle cx="130" cy="183" r="6" fill="white" stroke="#333" stroke-width="1.5"/>
-  <line x1="120" y1="183" x2="70" y2="183" stroke="#ff9090" stroke-width="2" marker-end="url(#sc_aR)"/>
-  <line x1="140" y1="183" x2="188" y2="183" stroke="#90c0ff" stroke-width="2" marker-end="url(#sc_aB)"/>
-  <rect x="18" y="308" width="225" height="24" rx="3" fill="rgba(0,0,0,0.45)"/>
-  <text x="130" y="320" text-anchor="middle" fill="#FFD700" font-size="8" font-family="sans-serif">Small-sided &middot; spacing &middot; first touch</text>
-  <text x="130" y="330" text-anchor="middle" fill="white" font-size="8" font-family="sans-serif">Fun scrimmage format</text>
-  <rect x="272" y="28" width="236" height="310" fill="#2d7a3a" rx="6" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
-  <rect x="272" y="148" width="18" height="50" fill="none" stroke="white" stroke-width="2"/>
-  <rect x="490" y="148" width="18" height="50" fill="none" stroke="white" stroke-width="2"/>
-  <line x1="390" y1="28" x2="390" y2="338" stroke="rgba(255,255,255,0.3)" stroke-width="1" stroke-dasharray="5,4"/>
-  <circle cx="390" cy="183" r="30" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-  <rect x="285" y="33" width="175" height="16" rx="3" fill="rgba(100,180,255,0.85)"/>
-  <text x="372" y="45" text-anchor="middle" fill="#111" font-size="9" font-weight="bold" font-family="sans-serif">OLDER - SCRIMMAGE</text>
-  <circle cx="310" cy="105" r="10" fill="#4a90e2" stroke="white" stroke-width="1.5"/><text x="310" y="109" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">B</text>
-  <circle cx="310" cy="183" r="10" fill="#4a90e2" stroke="white" stroke-width="1.5"/><text x="310" y="187" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">B</text>
-  <circle cx="310" cy="260" r="10" fill="#4a90e2" stroke="white" stroke-width="1.5"/><text x="310" y="264" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">B</text>
-  <circle cx="350" cy="143" r="10" fill="#4a90e2" stroke="white" stroke-width="1.5"/><text x="350" y="147" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">B</text>
-  <circle cx="350" cy="223" r="10" fill="#4a90e2" stroke="white" stroke-width="1.5"/><text x="350" y="227" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">B</text>
-  <circle cx="465" cy="105" r="10" fill="#e24a4a" stroke="white" stroke-width="1.5"/><text x="465" y="109" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">R</text>
-  <circle cx="465" cy="183" r="10" fill="#e24a4a" stroke="white" stroke-width="1.5"/><text x="465" y="187" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">R</text>
-  <circle cx="465" cy="260" r="10" fill="#e24a4a" stroke="white" stroke-width="1.5"/><text x="465" y="264" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">R</text>
-  <circle cx="425" cy="143" r="10" fill="#e24a4a" stroke="white" stroke-width="1.5"/><text x="425" y="147" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">R</text>
-  <circle cx="425" cy="223" r="10" fill="#e24a4a" stroke="white" stroke-width="1.5"/><text x="425" y="227" text-anchor="middle" fill="white" font-size="8" font-weight="bold" font-family="sans-serif">R</text>
-  <circle cx="390" cy="183" r="6" fill="white" stroke="#333" stroke-width="1.5"/>
-  <line x1="380" y1="183" x2="325" y2="183" stroke="#90c0ff" stroke-width="2" marker-end="url(#sc_aB)"/>
-  <line x1="320" y1="173" x2="342" y2="148" stroke="#90c0ff" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#sc_aB)"/>
-  <line x1="400" y1="183" x2="453" y2="183" stroke="#ff9090" stroke-width="2" marker-end="url(#sc_aR)"/>
-  <rect x="278" y="308" width="225" height="24" rx="3" fill="rgba(0,0,0,0.45)"/>
-  <text x="390" y="320" text-anchor="middle" fill="#90ee90" font-size="8" font-family="sans-serif">Passing &middot; driving &middot; finishing in live play</text>
-  <text x="390" y="330" text-anchor="middle" fill="white" font-size="8" font-family="sans-serif">Apply session skills in a real game</text>
-</svg>
+        <div class="plan-step" style="--step-color:#4a90e2;">
+          <div class="plan-step-head">
+            <span class="plan-step-time">10&ndash;30 MIN</span>
+            <span class="plan-step-tag">Lesson 1</span>
+          </div>
+          <h3 class="plan-step-title">First Touch &amp; Passing</h3>
+          <p class="plan-step-desc">Partners face each other 10 yards apart. Strict 2-touch rule: first touch settles the ball, second touch passes it back. Then we add movement &mdash; pass and follow your pass. Builds clean technique and rhythm.</p>
+          <div class="plan-step-focus">
+            <div class="plan-step-focus-label">What they learn</div>
+            <ul><li>Soft, controlled first touch</li><li>Accurate inside-of-the-foot pass</li><li>Communicate &mdash; eye contact, call for the ball</li></ul>
+          </div>
         </div>
-        <div>
-          <p style="color:rgba(232,237,233,0.75); line-height:1.7; margin:0 0 1rem;">The final 15 minutes are pure scrimmage, split by age group. Players get to apply everything from the session &mdash; first touch, passing combinations, and driving with the ball &mdash; in a live game format. The emphasis is on reading the game, making decisions, and having fun competing.</p>
-          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:1rem;">
-            <div style="color:#4ade80; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:0.6rem;">Key Focus</div>
-            <ul style="color:rgba(232,237,233,0.7); font-size:0.9rem; line-height:1.8; margin:0; padding-left:1.2rem;">
-              <li>Apply session skills: touch, passing, driving</li>
-              <li>Decision making &mdash; when to pass, when to drive</li>
-              <li>Compete, communicate, and have fun</li>
-            </ul>
+
+        <div class="plan-step" style="--step-color:#7c5dfa;">
+          <div class="plan-step-head">
+            <span class="plan-step-time">30&ndash;45 MIN</span>
+            <span class="plan-step-tag">Lesson 2</span>
+          </div>
+          <h3 class="plan-step-title">Drive &amp; Finish</h3>
+          <p class="plan-step-desc">Receive a pass, take one driving touch toward goal, and finish. Repetition with both feet, both sides of the goal. After the first round we add a defender so players learn to shoot under pressure.</p>
+          <div class="plan-step-focus">
+            <div class="plan-step-focus-label">What they learn</div>
+            <ul><li>Driving touch &mdash; push the ball into space</li><li>Plant foot, lock ankle, follow through</li><li>Decide quickly &mdash; shoot or take another touch</li></ul>
+          </div>
+        </div>
+
+        <div class="plan-step" style="--step-color:#2d7a3a;">
+          <div class="plan-step-head">
+            <span class="plan-step-time">45&ndash;60 MIN</span>
+            <span class="plan-step-tag">Scrimmage</span>
+          </div>
+          <h3 class="plan-step-title">Small-Sided Scrimmage</h3>
+          <p class="plan-step-desc">4v4 or 5v5 with real goals and goalies. Players apply everything from the session in live play. Coach freezes the action a few times to highlight great decisions &mdash; not to lecture, just to celebrate good soccer.</p>
+          <div class="plan-step-focus">
+            <div class="plan-step-focus-label">What they learn</div>
+            <ul><li>Apply touch, passing, and driving in real time</li><li>Read the game &mdash; when to pass, when to drive</li><li>Compete hard, support teammates, have fun</li></ul>
           </div>
         </div>
       </div>
@@ -810,7 +564,6 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
 
   </div>
 </section>
-
 
 <!-- WHY qmtk -->
 <section class="section" id="why">
@@ -1103,6 +856,16 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
 <script>
   function toggleFaq(el) {
     el.classList.toggle('open');
+  }
+
+  function switchAgeGroup(group) {
+    document.querySelectorAll('.age-tab').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.group === group);
+    });
+    var prek = document.getElementById('plan-prek');
+    var elem = document.getElementById('plan-elem');
+    if (prek) prek.style.display = (group === 'prek') ? '' : 'none';
+    if (elem) elem.style.display = (group === 'elem') ? '' : 'none';
   }
 
   function openSurvey() {
