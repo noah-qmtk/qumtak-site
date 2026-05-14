@@ -193,6 +193,12 @@ nav {
 .plan-step-focus-label { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.7px; text-transform: uppercase; color: var(--step-color, var(--green)); margin-bottom: 0.4rem; }
 .plan-step-focus ul { margin: 0; padding-left: 1rem; color: rgba(232,237,233,0.75); font-size: 0.82rem; line-height: 1.55; }
 .plan-step-focus li { margin-bottom: 0.15rem; }
+.plan-step-space { display: inline-flex; align-items: center; gap: 0.35rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 0.18rem 0.6rem; font-size: 0.7rem; font-weight: 600; color: rgba(232,237,233,0.78); margin-bottom: 0.75rem; }
+.plan-step-space::before { content: "📏"; font-size: 0.8rem; }
+
+/* Coach PPTX download button */
+.btn-pptx { display: inline-flex; align-items: center; gap: 0.7rem; padding: 0.9rem 1.5rem; background: rgba(34,162,77,0.14); border: 1px solid rgba(34,162,77,0.5); color: #6fcf97; border-radius: 10px; font-family: 'Barlow Condensed', sans-serif; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; text-decoration: none; transition: background 0.2s, transform 0.2s, border-color 0.2s; }
+.btn-pptx:hover { background: rgba(34,162,77,0.24); border-color: rgba(34,162,77,0.75); color: #fff; transform: translateY(-2px); }
 
 /* WHY qmtk - 3 CARDS */
 .why-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
@@ -434,7 +440,8 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
   <div class="section-inner">
     <div style="text-align:center; margin-bottom:2rem;">
       <div style="display:inline-block; background:rgba(74,222,128,0.12); border:1px solid rgba(74,222,128,0.3); border-radius:20px; padding:0.35rem 1rem; font-size:0.75rem; font-weight:700; color:#4ade80; letter-spacing:1px; text-transform:uppercase; margin-bottom:1rem;">Weekly Training Plan</div>
-      <h2 style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(2rem,5vw,3rem); font-weight:800; color:#fff; margin:0 0 0.75rem; text-transform:uppercase; letter-spacing:0.5px;">This Week: <span id="next-session-date">May 4</span></h2>
+      <h2 style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(2rem,5vw,3rem); font-weight:800; color:#fff; margin:0 0 0.75rem; text-transform:uppercase; letter-spacing:0.5px;">Week of <span id="next-session-date">—</span></h2>
+      <p id="plan-week-label" style="color:#6fcf97; font-weight:700; font-size:0.95rem; margin:0 0 0.4rem;">&nbsp;</p>
       <p style="color:rgba(232,237,233,0.65); font-size:1rem; max-width:620px; margin:0 auto;">Sanborn Elementary School Lower Field &nbsp;|&nbsp; 5:50&ndash;6:50 PM &nbsp;|&nbsp; Andover, MA</p>
       <p style="color:rgba(232,237,233,0.55); font-size:0.9rem; max-width:620px; margin:0.75rem auto 0;">Every session: opening game &rarr; two skill lessons &rarr; scrimmage. Separate plans for our youngest players and our elementary group.</p>
     </div>
@@ -451,115 +458,20 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
     </div>
 
     <div class="plan-block reveal" id="plan-prek">
-      <div class="plan-flow">
-        <div class="plan-step" style="--step-color:#f5a623;">
-          <div class="plan-step-head">
-            <span class="plan-step-time">0&ndash;10 MIN</span>
-            <span class="plan-step-tag">Opening Game</span>
-          </div>
-          <h3 class="plan-step-title">Red Light, Green Light</h3>
-          <p class="plan-step-desc">Every player gets a ball. Coach calls &ldquo;green light&rdquo; &mdash; players dribble forward. &ldquo;Red light&rdquo; &mdash; everyone freezes with a foot on top of the ball. Builds listening, control, and confidence right from the start.</p>
-          <div class="plan-step-focus">
-            <div class="plan-step-focus-label">What they learn</div>
-            <ul><li>Soft touches with the inside of the foot</li><li>Stopping the ball &mdash; foot on top</li><li>Following directions, quick reactions</li></ul>
-          </div>
-        </div>
-
-        <div class="plan-step" style="--step-color:#4a90e2;">
-          <div class="plan-step-head">
-            <span class="plan-step-time">10&ndash;25 MIN</span>
-            <span class="plan-step-tag">Lesson 1</span>
-          </div>
-          <h3 class="plan-step-title">Friendly Foot &mdash; Dribbling Through Cones</h3>
-          <p class="plan-step-desc">A simple cone path. Each player takes turns dribbling slowly through, using small touches. Coach cheers every touch. The goal: get comfortable with the ball at your feet, not kick it away.</p>
-          <div class="plan-step-focus">
-            <div class="plan-step-focus-label">What they learn</div>
-            <ul><li>Keep the ball close &mdash; small touches</li><li>Use both feet, even just a little</li><li>Look up, then look down</li></ul>
-          </div>
-        </div>
-
-        <div class="plan-step" style="--step-color:#7c5dfa;">
-          <div class="plan-step-head">
-            <span class="plan-step-time">25&ndash;35 MIN</span>
-            <span class="plan-step-tag">Lesson 2</span>
-          </div>
-          <h3 class="plan-step-title">Pass to the Coach</h3>
-          <p class="plan-step-desc">Kids line up across from Coach Shaya. They take turns passing the ball with the inside of the foot. The coach passes it right back. Every kid gets dozens of reps and tons of high-fives.</p>
-          <div class="plan-step-focus">
-            <div class="plan-step-focus-label">What they learn</div>
-            <ul><li>Plant foot beside the ball, swing the other</li><li>Inside of the foot &mdash; the &ldquo;passing foot&rdquo;</li><li>Watching the ball into your foot</li></ul>
-          </div>
-        </div>
-
-        <div class="plan-step" style="--step-color:#2d7a3a;">
-          <div class="plan-step-head">
-            <span class="plan-step-time">35&ndash;45 MIN</span>
-            <span class="plan-step-tag">Scrimmage</span>
-          </div>
-          <h3 class="plan-step-title">Everyone Scores Mini Game</h3>
-          <p class="plan-step-desc">Tiny-sided game on a small field. No goalies. Coach makes sure every single kid gets at least one shot on goal. Cheering, celebrating, and lots of giggles. The point isn&rsquo;t winning &mdash; it&rsquo;s the joy of putting it in the net.</p>
-          <div class="plan-step-focus">
-            <div class="plan-step-focus-label">What they learn</div>
-            <ul><li>Run toward the ball, not away from it</li><li>Take a swing &mdash; shooting is fun</li><li>Cheer for teammates</li></ul>
-          </div>
-        </div>
-      </div>
+      <div class="plan-flow" id="plan-flow-prek"></div>
     </div>
 
     <div class="plan-block reveal" id="plan-elem" style="display:none;">
-      <div class="plan-flow">
-        <div class="plan-step" style="--step-color:#f5a623;">
-          <div class="plan-step-head">
-            <span class="plan-step-time">0&ndash;10 MIN</span>
-            <span class="plan-step-tag">Opening Game</span>
-          </div>
-          <h3 class="plan-step-title">Sharks &amp; Minnows</h3>
-          <p class="plan-step-desc">Everyone gets a ball. One or two &ldquo;sharks&rdquo; with no ball try to kick everyone else&rsquo;s ball out of the grid. Last minnow standing wins. High-energy warm-up that forces dribbling under pressure right from the first whistle.</p>
-          <div class="plan-step-focus">
-            <div class="plan-step-focus-label">What they learn</div>
-            <ul><li>Shield and protect the ball</li><li>Change direction at speed</li><li>Head up, scan for pressure</li></ul>
-          </div>
-        </div>
+      <div class="plan-flow" id="plan-flow-elem"></div>
+    </div>
 
-        <div class="plan-step" style="--step-color:#4a90e2;">
-          <div class="plan-step-head">
-            <span class="plan-step-time">10&ndash;30 MIN</span>
-            <span class="plan-step-tag">Lesson 1</span>
-          </div>
-          <h3 class="plan-step-title">First Touch &amp; Passing</h3>
-          <p class="plan-step-desc">Partners face each other 10 yards apart. Strict 2-touch rule: first touch settles the ball, second touch passes it back. Then we add movement &mdash; pass and follow your pass. Builds clean technique and rhythm.</p>
-          <div class="plan-step-focus">
-            <div class="plan-step-focus-label">What they learn</div>
-            <ul><li>Soft, controlled first touch</li><li>Accurate inside-of-the-foot pass</li><li>Communicate &mdash; eye contact, call for the ball</li></ul>
-          </div>
-        </div>
-
-        <div class="plan-step" style="--step-color:#7c5dfa;">
-          <div class="plan-step-head">
-            <span class="plan-step-time">30&ndash;45 MIN</span>
-            <span class="plan-step-tag">Lesson 2</span>
-          </div>
-          <h3 class="plan-step-title">Drive &amp; Finish</h3>
-          <p class="plan-step-desc">Receive a pass, take one driving touch toward goal, and finish. Repetition with both feet, both sides of the goal. After the first round we add a defender so players learn to shoot under pressure.</p>
-          <div class="plan-step-focus">
-            <div class="plan-step-focus-label">What they learn</div>
-            <ul><li>Driving touch &mdash; push the ball into space</li><li>Plant foot, lock ankle, follow through</li><li>Decide quickly &mdash; shoot or take another touch</li></ul>
-          </div>
-        </div>
-
-        <div class="plan-step" style="--step-color:#2d7a3a;">
-          <div class="plan-step-head">
-            <span class="plan-step-time">45&ndash;60 MIN</span>
-            <span class="plan-step-tag">Scrimmage</span>
-          </div>
-          <h3 class="plan-step-title">Small-Sided Scrimmage</h3>
-          <p class="plan-step-desc">4v4 or 5v5 with real goals and goalies. Players apply everything from the session in live play. Coach freezes the action a few times to highlight great decisions &mdash; not to lecture, just to celebrate good soccer.</p>
-          <div class="plan-step-focus">
-            <div class="plan-step-focus-label">What they learn</div>
-            <ul><li>Apply touch, passing, and driving in real time</li><li>Read the game &mdash; when to pass, when to drive</li><li>Compete hard, support teammates, have fun</li></ul>
-          </div>
-        </div>
-      </div>
+    <div class="plan-download reveal" id="plan-download" style="margin-top:2.5rem; text-align:center;">
+      <a id="plan-pptx-link" href="/plans/coach-playbook.pptx" download class="btn-pptx">
+        <span style="font-size:1.1rem;">📊</span>
+        <span>Download Coach&rsquo;s PowerPoint</span>
+        <span style="opacity:0.65; font-size:0.78rem; font-weight:600;">.pptx · This week</span>
+      </a>
+      <p style="color:rgba(232,237,233,0.55); font-size:0.82rem; margin-top:0.7rem;">Includes field diagrams, space &amp; equipment setup, and key coaching cues for every drill.</p>
     </div>
 
   </div>
@@ -912,29 +824,71 @@ function closeMobileNav() {
   document.getElementById('nav-mobile-menu').classList.remove('open');
 }
 
-// Auto-update next session date — Spring 2026: Apr 27–Jun 12, Mon & Fri 5:50 PM
-(function updateNextSessionDate() {
-  var el = document.getElementById('next-session-date');
-  if (!el) return;
-  var SEASON_START = new Date(2026, 3, 27);
-  var SEASON_END   = new Date(2026, 5, 12, 18, 50, 0);
-  var SESSION_DAYS = [1, 5];
-  var START_H = 17, START_M = 50, DURATION_MIN = 60;
-  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  var now = new Date();
-  var d = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  for (var i = 0; i < 70; i++) {
-    if (SESSION_DAYS.indexOf(d.getDay()) !== -1) {
-      var start = new Date(d.getFullYear(), d.getMonth(), d.getDate(), START_H, START_M);
-      var end   = new Date(start.getTime() + DURATION_MIN * 60000);
-      if (end >= now && start >= SEASON_START && start <= SEASON_END) {
-        el.textContent = months[start.getMonth()] + ' ' + start.getDate();
-        return;
-      }
-    }
-    d.setDate(d.getDate() + 1);
+// Load weekly training plans from JSON and render the current week
+(function loadTrainingPlans() {
+  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var STEP_COLORS = { 'Opening Game': '#f5a623', 'Lesson 1': '#4a90e2', 'Lesson 2': '#7c5dfa', 'Scrimmage': '#2d7a3a' };
+
+  function parseDate(iso) {
+    var p = iso.split('-');
+    return new Date(parseInt(p[0],10), parseInt(p[1],10)-1, parseInt(p[2],10));
   }
-  el.textContent = 'Next Season';
+  function pickWeek(weeks, today) {
+    var sorted = weeks.slice().sort(function(a,b){ return parseDate(a.weekOf) - parseDate(b.weekOf); });
+    var picked = sorted[0];
+    for (var i = 0; i < sorted.length; i++) {
+      var ws = parseDate(sorted[i].weekOf);
+      var we = new Date(ws.getTime() + 7*24*60*60*1000);
+      if (today >= ws && today < we) return sorted[i];
+      if (today >= ws) picked = sorted[i];
+    }
+    return picked;
+  }
+  function escapeHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function renderStep(step) {
+    var color = STEP_COLORS[step.tag] || '#22a24d';
+    var focusItems = (step.focus || []).map(function(f){ return '<li>'+escapeHtml(f)+'</li>'; }).join('');
+    return '<div class="plan-step" style="--step-color:'+color+';">'
+      + '<div class="plan-step-head">'
+      +   '<span class="plan-step-time">'+escapeHtml(step.time)+'</span>'
+      +   '<span class="plan-step-tag">'+escapeHtml(step.tag)+'</span>'
+      + '</div>'
+      + '<h3 class="plan-step-title">'+escapeHtml(step.title)+'</h3>'
+      + (step.space ? '<span class="plan-step-space">'+escapeHtml(step.space)+'</span>' : '')
+      + '<p class="plan-step-desc">'+escapeHtml(step.desc)+'</p>'
+      + '<div class="plan-step-focus">'
+      +   '<div class="plan-step-focus-label">What they learn</div>'
+      +   '<ul>'+focusItems+'</ul>'
+      + '</div>'
+      + '</div>';
+  }
+  function renderFlow(elId, steps) {
+    var el = document.getElementById(elId);
+    if (!el) return;
+    el.innerHTML = (steps || []).map(renderStep).join('');
+  }
+
+  fetch('/training-plans.json', { cache: 'no-store' })
+    .then(function(r){ return r.json(); })
+    .then(function(data) {
+      var week = pickWeek(data.weeks || [], new Date());
+      if (!week) return;
+      var d = parseDate(week.weekOf);
+      var dateEl = document.getElementById('next-session-date');
+      if (dateEl) dateEl.textContent = MONTHS[d.getMonth()] + ' ' + d.getDate();
+      var labelEl = document.getElementById('plan-week-label');
+      if (labelEl && week.label) labelEl.textContent = week.label;
+      renderFlow('plan-flow-prek', week.prek);
+      renderFlow('plan-flow-elem', week.elem);
+      var link = document.getElementById('plan-pptx-link');
+      if (link) link.href = '/plans/' + week.weekOf + '.pptx';
+    })
+    .catch(function(){
+      var dateEl = document.getElementById('next-session-date');
+      if (dateEl) dateEl.textContent = 'Next session';
+    });
 })();
 </script>
 </div>

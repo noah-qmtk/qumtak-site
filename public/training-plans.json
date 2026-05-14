@@ -1,0 +1,118 @@
+{
+  "location": "Sanborn Elementary School Lower Field, Andover, MA",
+  "time": "5:50–6:50 PM (Mon & Fri)",
+  "weeks": [
+    {
+      "weekOf": "2026-04-27",
+      "label": "Week 1 — Ball Control & Dribbling",
+      "prek": [
+        {"time": "0–10 MIN", "tag": "Opening Game", "title": "Red Light, Green Light", "space": "15x15 yd grid", "desc": "Every player gets a ball. \"Green light\" — dribble forward. \"Red light\" — freeze with a foot on top of the ball. Listening, control, confidence right from the start.", "focus": ["Soft touches with the inside of the foot", "Stopping the ball — foot on top", "Following directions, quick reactions"]},
+        {"time": "10–25 MIN", "tag": "Lesson 1", "title": "Friendly Foot — Cone Path", "space": "10 yd straight line, 6 cones", "desc": "Simple cone path. Each player takes turns dribbling slowly through with small touches. Coach cheers every touch. Get comfortable with the ball at your feet.", "focus": ["Keep the ball close — small touches", "Use both feet, even just a little", "Look up, then look down"]},
+        {"time": "25–35 MIN", "tag": "Lesson 2", "title": "Toe Taps & Bell Touches", "space": "Personal space, 1 ball each", "desc": "Standing still, players tap the top of the ball with alternating feet. Then tap the ball side-to-side between feet (\"bells\"). Builds feel for the ball.", "focus": ["Light, controlled touches", "Coordination — both feet", "Rhythm and balance"]},
+        {"time": "35–45 MIN", "tag": "Scrimmage", "title": "Everyone Scores Mini Game", "space": "20x15 yd, two small goals", "desc": "Tiny-sided game on a small field. No goalies. Coach makes sure every kid gets at least one shot on goal. Cheering, celebrating, lots of giggles.", "focus": ["Run toward the ball, not away from it", "Take a swing — shooting is fun", "Cheer for teammates"]}
+      ],
+      "elem": [
+        {"time": "0–10 MIN", "tag": "Opening Game", "title": "Sharks & Minnows", "space": "20x20 yd grid", "desc": "Everyone gets a ball except 1–2 sharks. Sharks try to kick everyone else's ball out. Last minnow standing wins. Dribbling under pressure from the first whistle.", "focus": ["Shield and protect the ball", "Change direction at speed", "Head up, scan for pressure"]},
+        {"time": "10–30 MIN", "tag": "Lesson 1", "title": "Close-Control Dribbling", "space": "10x15 yd channel, 8 cones", "desc": "Slalom through cones using inside, outside, and sole of the foot. Three speeds: slow technique → game speed → competition (timed). Build close control under pressure.", "focus": ["Inside, outside, sole — all surfaces", "Quick feet, small steps", "Acceleration out of the last cone"]},
+        {"time": "30–45 MIN", "tag": "Lesson 2", "title": "1v1 to the Line", "space": "10x8 yd boxes, pairs", "desc": "Two players, one ball. Attacker tries to dribble across the defender's endline. Defender tries to win it. Rotate after each rep. Real 1v1 reps build confidence.", "focus": ["Change of direction to beat pressure", "Use the body to shield", "Compete — win the duel"]},
+        {"time": "45–60 MIN", "tag": "Scrimmage", "title": "Small-Sided Scrimmage", "space": "30x20 yd, two real goals", "desc": "4v4 or 5v5 with real goals and goalies. Apply everything from the session in live play. Coach freezes the action a few times to celebrate good decisions.", "focus": ["Take players on with the dribble", "Read the game — when to dribble, when to pass", "Compete hard, support teammates"]}
+      ]
+    },
+    {
+      "weekOf": "2026-05-04",
+      "label": "Week 2 — Passing & First Touch",
+      "prek": [
+        {"time": "0–10 MIN", "tag": "Opening Game", "title": "Pass the Coach", "space": "Circle, 8 yd radius", "desc": "Players stand in a circle around the coach. Roll the ball, then later pass it to the coach. Coach passes it back. Lots of high-fives, lots of reps.", "focus": ["Plant foot beside the ball", "Inside of the foot — the 'passing foot'", "Watch the ball into your foot"]},
+        {"time": "10–25 MIN", "tag": "Lesson 1", "title": "Stop & Pass", "space": "Pairs, 5 yd apart", "desc": "Partner rolls the ball. Player stops it with the sole, then passes it back. Strict 2-step rhythm. Build the basic first-touch-then-pass habit.", "focus": ["Stop with the bottom of the foot", "Then push with the inside", "Eye contact with partner"]},
+        {"time": "25–35 MIN", "tag": "Lesson 2", "title": "Pass Through the Gate", "space": "5 yd cone gates, pairs", "desc": "Partners face each other with a 2-cone gate in the middle. Pass the ball through the gate. Move further apart as they succeed.", "focus": ["Aim — pick a target", "Right pace — not too hard, not too soft", "Cheer when partner scores"]},
+        {"time": "35–45 MIN", "tag": "Scrimmage", "title": "Everyone Scores Mini Game", "space": "20x15 yd, two small goals", "desc": "Small-sided game. Coach reminds players to pass to a teammate when they can. Every kid gets a shot. Goals celebrated, no scorekeeping.", "focus": ["Pass to a teammate sometimes", "Run to the ball", "Have fun"]}
+      ],
+      "elem": [
+        {"time": "0–10 MIN", "tag": "Opening Game", "title": "Pass Tag", "space": "20x20 yd grid", "desc": "Two taggers with balls — they tag others by passing the ball into them. Everyone else dribbles to avoid. Switch taggers every minute.", "focus": ["Accurate passing on the move", "Heads up — scan the field", "Quick changes of direction"]},
+        {"time": "10–30 MIN", "tag": "Lesson 1", "title": "2-Touch Partner Passing", "space": "Pairs, 10 yd apart", "desc": "Strict 2-touch: first touch settles, second touch passes back. Add movement — pass and follow your pass. Builds clean technique and rhythm.", "focus": ["Soft, controlled first touch", "Accurate inside-of-the-foot pass", "Communicate — eye contact, call for the ball"]},
+        {"time": "30–45 MIN", "tag": "Lesson 2", "title": "Pass & Move Triangles", "space": "10x10 yd triangle, groups of 3", "desc": "Three players, three cones. Pass to the next cone, then sprint to the empty cone. Continuous movement. Mirrors real positional play.", "focus": ["Pass and move — never stand still", "Open up to receive", "Look before you receive"]},
+        {"time": "45–60 MIN", "tag": "Scrimmage", "title": "Small-Sided Scrimmage", "space": "30x20 yd, two real goals", "desc": "4v4 or 5v5. Coach rule: every goal must follow at least one pass. Forces players to look up and link with teammates.", "focus": ["Find a pass first", "Move after you pass", "Compete, communicate, have fun"]}
+      ]
+    },
+    {
+      "weekOf": "2026-05-11",
+      "label": "Week 3 — Driving with the Ball",
+      "prek": [
+        {"time": "0–10 MIN", "tag": "Opening Game", "title": "Follow the Coach", "space": "20x10 yd open area", "desc": "Coach jogs around with their ball. Players follow, copying everything — change of direction, sudden stops, speed changes. A moving warm-up they love.", "focus": ["Keep the ball with you", "Watch the leader", "Soft, quick touches"]},
+        {"time": "10–25 MIN", "tag": "Lesson 1", "title": "Push & Chase", "space": "10 yd straight runs", "desc": "Players push the ball ahead with the laces, then sprint to catch up and stop it. Builds the feeling of driving forward at speed.", "focus": ["Push with the laces — not the toe", "Run with the ball", "Stop it cleanly at the end"]},
+        {"time": "25–35 MIN", "tag": "Lesson 2", "title": "Race to the Cone", "space": "10 yd lanes, 4 cones", "desc": "Two players race, dribbling their ball to the far cone and back. Light competition, lots of laughs. Build the urge to go fast with the ball.", "focus": ["Eyes up — see the cone", "Big touches when there's space", "Stop the ball at the end"]},
+        {"time": "35–45 MIN", "tag": "Scrimmage", "title": "Everyone Scores Mini Game", "space": "20x15 yd, two small goals", "desc": "Small-sided fun game. Coach encourages players to \"run with the ball\" toward the goal. Everyone gets a shot.", "focus": ["Run with the ball", "Take a swing at goal", "Cheer for teammates"]}
+      ],
+      "elem": [
+        {"time": "0–10 MIN", "tag": "Opening Game", "title": "Sharks & Minnows", "space": "20x20 yd grid", "desc": "Everyone gets a ball, 1–2 sharks try to kick them out. Forces dribbling at speed under pressure. Last minnow wins.", "focus": ["Shield and protect", "Change direction at speed", "Head up, scan for pressure"]},
+        {"time": "10–30 MIN", "tag": "Lesson 1", "title": "First Touch & Drive", "space": "Pairs, 15 yd channels", "desc": "Partner passes the ball. Player takes a directional first touch into space and drives forward 5 yards. Pass back. Switch roles. The point: first touch goes where you want to go.", "focus": ["Open your body before the ball arrives", "First touch into space", "Drive at pace after the touch"]},
+        {"time": "30–45 MIN", "tag": "Lesson 2", "title": "Drive & Finish", "space": "20 yd lane to goal, 1 goal", "desc": "Receive a pass, take one driving touch toward goal, finish. Both feet, both sides. After the first round, add a defender chasing — finish under pressure.", "focus": ["Driving touch — push into space", "Plant foot, lock ankle, follow through", "Decide quickly — shoot or another touch"]},
+        {"time": "45–60 MIN", "tag": "Scrimmage", "title": "Small-Sided Scrimmage", "space": "30x20 yd, two real goals", "desc": "4v4 or 5v5. Coach challenge: at least one driving run with the ball per goal scored. Rewards bravery on the ball.", "focus": ["Carry the ball when space is open", "Pass when pressure arrives", "Compete hard"]}
+      ]
+    },
+    {
+      "weekOf": "2026-05-18",
+      "label": "Week 4 — Shooting & Finishing",
+      "prek": [
+        {"time": "0–10 MIN", "tag": "Opening Game", "title": "Knock Down the Cones", "space": "15x10 yd, line of cones", "desc": "Coach sets up a line of stand-up cones. Players take turns kicking their ball to knock them over. Fun, competitive, lots of swings at the ball.", "focus": ["Big kick — laces, not toe", "Look at the target", "Cheer for every cone knocked down"]},
+        {"time": "10–25 MIN", "tag": "Lesson 1", "title": "Shoot the Ball", "space": "10 yd to small goal", "desc": "Lined up 10 yards from a small goal. One at a time, players take a shot. Coach corrects technique gently — plant foot beside the ball, swing through.", "focus": ["Plant foot beside the ball", "Swing the laces through", "Watch the ball"]},
+        {"time": "25–35 MIN", "tag": "Lesson 2", "title": "Score 5 Goals", "space": "Pairs, small goal", "desc": "In pairs, players race to score 5 goals each. Lots of reps in a short time. The goal is to make shooting feel normal and fun.", "focus": ["Repetition — many shots", "Keep trying", "Pick a corner sometimes"]},
+        {"time": "35–45 MIN", "tag": "Scrimmage", "title": "Everyone Scores Mini Game", "space": "20x15 yd, two small goals", "desc": "Small-sided game. Coach makes sure every kid gets at least two shots. Goals celebrated with all the high-fives.", "focus": ["Shoot when you see the goal", "Run after a missed shot", "Cheer for teammates"]}
+      ],
+      "elem": [
+        {"time": "0–10 MIN", "tag": "Opening Game", "title": "Hot Potato Shooting", "space": "Circle, 15 yd radius, 1 goal", "desc": "Players in a circle pass to each other. When the coach yells \"shoot!\" whoever has the ball drives in and finishes. Fast decisions under pressure.", "focus": ["Be ready to receive at any moment", "First touch toward goal", "Quick shot — no hesitation"]},
+        {"time": "10–30 MIN", "tag": "Lesson 1", "title": "Finishing from a Pass", "space": "20 yd channel to goal", "desc": "Coach plays a pass. Player runs onto it and finishes first-time or with one touch. Both feet. Far post, near post, low driven — call the shot.", "focus": ["Run onto the ball, don't wait", "Plant foot, lock ankle", "Pick a corner before you arrive"]},
+        {"time": "30–45 MIN", "tag": "Lesson 2", "title": "2v1 to Goal", "space": "20x15 yd attacking zone", "desc": "Two attackers vs one defender, attacking a real goal. Combine to create a clean shot. Real decision-making: pass for the finish, or drive yourself?", "focus": ["Use your partner — combine", "Defender's position decides the choice", "Quality finish at the end"]},
+        {"time": "45–60 MIN", "tag": "Scrimmage", "title": "Small-Sided Scrimmage", "space": "30x20 yd, two real goals", "desc": "4v4 or 5v5. Coach calls out great finishes and brave shots. Encourage players to shoot whenever they see a chance.", "focus": ["Shoot when you see goal", "Quality over power", "Compete and have fun"]}
+      ]
+    },
+    {
+      "weekOf": "2026-05-25",
+      "label": "Week 5 — 1v1 Attacking",
+      "prek": [
+        {"time": "0–10 MIN", "tag": "Opening Game", "title": "Red Light, Green Light", "space": "15x15 yd grid", "desc": "Returning favorite. Players dribble on green, freeze on red. This week we add \"yellow light\" — slow dribbling — for a third challenge.", "focus": ["Three speeds of control", "Quick listening", "Stop on a foot"]},
+        {"time": "10–25 MIN", "tag": "Lesson 1", "title": "Go Around the Coach", "space": "5x5 yd boxes", "desc": "Coach stands still as a friendly \"defender\". Players take turns dribbling around the coach to the other side. Build the idea of taking someone on.", "focus": ["Don't kick it past — keep it close", "Use either side", "Go fast after you pass the coach"]},
+        {"time": "25–35 MIN", "tag": "Lesson 2", "title": "Beat the Cone", "space": "Cone slalom, 4 cones", "desc": "Players dribble through a short cone slalom, pretending each cone is a defender. Coach cheers cuts and turns.", "focus": ["Touch on both sides of the cone", "Change direction sharply", "Stay low and balanced"]},
+        {"time": "35–45 MIN", "tag": "Scrimmage", "title": "Everyone Scores Mini Game", "space": "20x15 yd, two small goals", "desc": "Small-sided. Coach gently rewards players who try to dribble past someone — even if it doesn't work out.", "focus": ["Try to take someone on", "Don't give up if you lose it", "Cheer for teammates"]}
+      ],
+      "elem": [
+        {"time": "0–10 MIN", "tag": "Opening Game", "title": "1v1 King of the Hill", "space": "10x10 yd boxes", "desc": "Quick 1v1s in small boxes. Winner stays, loser rotates out. Fast, competitive, high-rep. Sets the tone for the day.", "focus": ["Win the first touch", "Attack the defender's hips", "Compete on every rep"]},
+        {"time": "10–30 MIN", "tag": "Lesson 1", "title": "Two Moves to Beat a Defender", "space": "Pairs, 8 yd channels", "desc": "Teach the scissor and the inside-outside cut. Slow walk-through, then full speed. Players use the moves against a passive then active defender.", "focus": ["Sell the fake — body weight", "Explosive touch on the second move", "Accelerate out of the move"]},
+        {"time": "30–45 MIN", "tag": "Lesson 2", "title": "1v1 to Goal", "space": "20x12 yd channel, 1 goal", "desc": "One attacker, one defender, attacking the goal. Real 1v1 with finishing. Both players compete hard. Switch roles each rep.", "focus": ["Beat the defender, then finish", "Use the moves from Lesson 1", "Quality finish — composed"]},
+        {"time": "45–60 MIN", "tag": "Scrimmage", "title": "Small-Sided Scrimmage", "space": "30x20 yd, two real goals", "desc": "4v4 or 5v5. Coach rule: bonus point for any goal scored after beating a defender 1v1. Encourages bravery on the ball.", "focus": ["Take players on", "Don't be afraid to lose it", "Compete every play"]}
+      ]
+    },
+    {
+      "weekOf": "2026-06-01",
+      "label": "Week 6 — Combination Play",
+      "prek": [
+        {"time": "0–10 MIN", "tag": "Opening Game", "title": "Pass the Coach", "space": "Circle, 8 yd radius", "desc": "Players in a circle, coach in the middle. Pass to coach, coach passes back. Coach calls out names — \"good job Sammy!\" Tons of touches.", "focus": ["Inside-of-the-foot pass", "Watch the ball into your foot", "Eye contact with coach"]},
+        {"time": "10–25 MIN", "tag": "Lesson 1", "title": "Pass & Run", "space": "Pairs, 8 yd channels", "desc": "Partner A passes to partner B, then immediately runs to a new spot. Partner B passes it back to the new spot. Build the habit of moving after passing.", "focus": ["Pass and go — don't stand still", "Find your partner with your eyes", "Stay light on your feet"]},
+        {"time": "25–35 MIN", "tag": "Lesson 2", "title": "Pass Through the Gate", "space": "Cone gates, pairs", "desc": "Multiple cone gates scattered. Pairs pass through as many as they can in a minute. Counting goals together = teamwork.", "focus": ["Pick a target — aim", "Move to a new gate together", "Cheer for partner"]},
+        {"time": "35–45 MIN", "tag": "Scrimmage", "title": "Everyone Scores Mini Game", "space": "20x15 yd, two small goals", "desc": "Small-sided. Coach calls out great passes — \"that was a great pass!\" Reinforces the habit gently in live play.", "focus": ["Try one pass per attack", "Run to support a teammate", "Have fun"]}
+      ],
+      "elem": [
+        {"time": "0–10 MIN", "tag": "Opening Game", "title": "3-Team Possession", "space": "20x20 yd grid", "desc": "Three teams of 3. Two teams combine to keep the ball from the third. Loser rotates in. Fast, fun, lots of passing reps.", "focus": ["Move after you pass", "Quick decisions", "Find the open teammate"]},
+        {"time": "10–30 MIN", "tag": "Lesson 1", "title": "Give-and-Go (Wall Pass)", "space": "Pairs, 12 yd channels", "desc": "Player A passes to player B, runs past defender, B plays it back into A's path. The classic 1-2. Walk through, then add a defender.", "focus": ["Sharp pass to feet", "Run past the defender", "First-time return pass"]},
+        {"time": "30–45 MIN", "tag": "Lesson 2", "title": "Combination to Goal", "space": "25x15 yd attacking zone", "desc": "2v1 attacking a real goal. Use the give-and-go to break the defender and finish. Real game-speed reps.", "focus": ["Use the wall pass to break pressure", "Finish at the end", "Communicate with your partner"]},
+        {"time": "45–60 MIN", "tag": "Scrimmage", "title": "Small-Sided Scrimmage", "space": "30x20 yd, two real goals", "desc": "4v4 or 5v5. Coach challenge: at least one give-and-go combination per goal scored. Builds it into game habit.", "focus": ["Link up with teammates", "Move into space after passing", "Compete and have fun"]}
+      ]
+    },
+    {
+      "weekOf": "2026-06-08",
+      "label": "Week 7 — Game Application & Celebration",
+      "prek": [
+        {"time": "0–10 MIN", "tag": "Opening Game", "title": "Coach's Choice Warm-Up", "space": "15x15 yd grid", "desc": "Kids vote between Red Light Green Light, Follow the Coach, or Pass the Coach. Their favorite from the season. Big energy, big smiles.", "focus": ["Touches on the ball", "Smiles and laughs", "Be ready to learn"]},
+        {"time": "10–25 MIN", "tag": "Lesson 1", "title": "Skills Showcase", "space": "Personal space, 1 ball each", "desc": "Kids show what they've learned: toe taps, stops, passes. Coach calls out names and gives every kid a \"superstar move\" to perform. Confidence builder.", "focus": ["Try your favorite skill", "Show off — it's okay!", "Cheer for each other"]},
+        {"time": "25–35 MIN", "tag": "Lesson 2", "title": "Pass & Shoot Combo", "space": "10 yd to small goal", "desc": "Pass to coach, coach passes back, player shoots at the goal. Combines passing and shooting from the season. Lots of celebrations.", "focus": ["Pass first, then shoot", "Take the shot when it comes", "High-five after each goal"]},
+        {"time": "35–45 MIN", "tag": "Scrimmage", "title": "Everyone Scores Celebration Game", "space": "20x15 yd, two small goals", "desc": "Last small-sided game of the season. Every kid scores at least twice. Coach celebrates each goal like the World Cup final.", "focus": ["Have fun", "Cheer for every goal", "End the season smiling"]}
+      ],
+      "elem": [
+        {"time": "0–10 MIN", "tag": "Opening Game", "title": "World Cup Knockout", "space": "20x20 yd grid", "desc": "Pairs play 1v1. Winner stays, loser is out. Tournament-style bracket. Players' favorite competitive game.", "focus": ["Compete on every play", "Use moves from the season", "Win the duel"]},
+        {"time": "10–30 MIN", "tag": "Lesson 1", "title": "Free Play with a Theme", "space": "Two halves of the field", "desc": "Coach picks a theme from the season — passing, driving, finishing, 1v1, combinations — and players run through it one last time at full speed. Mastery rep.", "focus": ["Apply the season's skills", "Game speed, game pressure", "Coach-coach the rep"]},
+        {"time": "30–45 MIN", "tag": "Lesson 2", "title": "Position-Based Play", "space": "Half-field tactical zone", "desc": "Quick chalk talk on positions — striker, midfielder, defender, goalie. Walk through where each goes. Players try a new position they haven't played.", "focus": ["Where do I go without the ball?", "Stay in your position's zone", "Learn a new role"]},
+        {"time": "45–60 MIN", "tag": "Scrimmage", "title": "Season Finale Scrimmage", "space": "Full available field, two real goals", "desc": "Final scrimmage. Real positions, real goals. Coach celebrates great moments throughout — passes, runs, defending, finishes. End-of-season vibes.", "focus": ["Apply everything", "Play with joy", "Celebrate teammates"]}
+      ]
+    }
+  ]
+}

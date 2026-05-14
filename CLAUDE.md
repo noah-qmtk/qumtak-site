@@ -66,6 +66,18 @@ To swap form: find the `src=` in `#survey-modal iframe` in `index.html`.
 - **New section** → edit `index.html` + `style.css` (2 file push)
 - **Image swap** → push new image file only
 
+## Weekly Training Plans (auto-rotating)
+The `#sessions` block on the homepage shows a different plan each week, auto-selected by today's date. Source of truth: `public/training-plans.json`.
+
+**To update a week's plan:**
+1. Edit the relevant entry in `public/training-plans.json` (each `weekOf` is a Monday). Fields per drill: `time`, `tag` (Opening Game / Lesson 1 / Lesson 2 / Scrimmage), `title`, `space`, `desc`, `focus[]`.
+2. Regenerate the coach PowerPoints: `python3 scripts/generate_pptx.py` (writes `public/plans/<weekOf>.pptx`, one per week).
+3. Commit + push. Vercel deploys automatically.
+
+The site picks the latest week whose `weekOf` is on or before today. The "Download Coach's PowerPoint" button at the bottom of the section points to `/plans/<weekOf>.pptx` for the current week.
+
+`scripts/generate_pptx.py` requires `python-pptx` (`pip3 install --user python-pptx`).
+
 ## GitHub → Vercel Flow
 Push to `main` → Vercel auto-detects → deploys in ~10s → live at qmtk.org  
 No manual deploy steps needed.
