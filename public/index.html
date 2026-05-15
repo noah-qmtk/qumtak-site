@@ -488,7 +488,7 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
     <a href="#faq">FAQ</a>
   </div>
   <div class="nav-right">
-    <a href="/buy/?p=intro_call" class="nav-cta">Book Intro Call</a>
+    <a href="#" data-buy="intro_call" class="nav-cta">Book Intro Call</a>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" onclick="toggleMobileNav()">
       <span></span><span></span><span></span>
     </button>
@@ -511,10 +511,10 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
     <p class="hero-sub">A 20-minute call with Coach Shaya. We'll talk about your child's goals, current level, and the right next step — group classes, 1-on-1 training, or both.</p>
 
     <div class="hero-ctas">
-      <a href="/buy/?p=intro_call" class="btn-green btn-hero-primary">Book your intro call →</a>
+      <a href="#" data-buy="intro_call" class="btn-green btn-hero-primary">Book your intro call →</a>
     </div>
     <p style="font-size:0.78rem;color:var(--text-dim);margin-top:0.6rem;">$20 deposit — applies in full to your first session.</p>
-    <p style="font-size:0.85rem;color:var(--text-mid);margin-top:1rem;">Already know you want 1-on-1? <a href="/buy/?p=private_1" style="color:#6fcf97;text-decoration:underline;font-weight:600;">Book private training →</a></p>
+    <p style="font-size:0.85rem;color:var(--text-mid);margin-top:1rem;">Already know you want 1-on-1? <a href="#" data-buy="private_1" style="color:#6fcf97;text-decoration:underline;font-weight:600;">Book private training →</a></p>
 
     <!-- SOCIAL PROOF -->
     <div class="stats-mini" style="margin-top:1.6rem;">
@@ -619,7 +619,7 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
         <div class="prog-meta">
           $20 deposit · applies to your first session
         </div>
-        <a href="/buy/?p=intro_call" class="btn-green" style="display:inline-block;margin-top:1.2rem;font-size:0.9rem;padding:0.55rem 1.2rem;">Book Intro Call →</a>
+        <a href="#" data-buy="intro_call" class="btn-green" style="display:inline-block;margin-top:1.2rem;font-size:0.9rem;padding:0.55rem 1.2rem;">Book Intro Call →</a>
       </div>
 
       <div class="prog-card private reveal reveal-d1">
@@ -630,7 +630,7 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
           <span style="font-family:'Barlow Condensed',sans-serif; font-size:2rem; font-weight:800; color:#fff; line-height:1;">$85</span>
           <span style="color:var(--text-mid); font-size:0.9rem;">/ session (60 min)</span>
         </div>
-        <a href="/buy/?p=private_1" style="display:inline-block;margin-top:1rem;padding:0.55rem 1.2rem;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.5);color:#818cf8;border-radius:8px;font-size:0.9rem;font-weight:700;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='rgba(99,102,241,0.28)'" onmouseout="this.style.background='rgba(99,102,241,0.15)'">Book Private Session →</a>
+        <a href="#" data-buy="private_1" style="display:inline-block;margin-top:1rem;padding:0.55rem 1.2rem;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.5);color:#818cf8;border-radius:8px;font-size:0.9rem;font-weight:700;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='rgba(99,102,241,0.28)'" onmouseout="this.style.background='rgba(99,102,241,0.15)'">Book Private Session →</a>
       </div>
 
       <div class="prog-card reveal reveal-d2">
@@ -853,7 +853,7 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
   <ul class="footer-links">
     <span>Enroll</span>
     <li><a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank">Group Classes</a></li>
-    <li><a href="/buy/?p=private_1">Private Training</a></li>
+    <li><a href="#" data-buy="private_1">Private Training</a></li>
     <li><a href="mailto:noah@qmtk.org">noah@qmtk.org</a></li>
   </ul>
 </footer>
@@ -922,7 +922,7 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
   (function showThanksIfReturning() {
     var params = new URLSearchParams(window.location.search);
     if (params.get('purchase') !== 'success') return;
-    // If we're inside a popup window (opened by a /buy/ page), notify the opener and close ourselves.
+    // Popup case: notify opener and close self.
     if (window.opener && !window.opener.closed) {
       try {
         window.opener.postMessage({ type: 'qmtk-purchase-success' }, window.location.origin);
@@ -932,6 +932,7 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
         return;
       } catch (e) { /* fall through to modal */ }
     }
+    // Direct-load case (no opener): show thanks modal.
     var overlay = document.getElementById('thanks-overlay');
     if (!overlay) return;
     setTimeout(function() { overlay.classList.add('show'); }, 250);
@@ -940,6 +941,68 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
       fbq('track', 'Purchase', { content_name: 'Square Checkout Return', currency: 'USD' });
     }
   })();
+
+  // ── One-click popup checkout ──────────────────────────────────────────────
+  // Any anchor with data-buy="<product_key>" opens Square's hosted checkout in a popup.
+  var SQUARE_DATA = null;
+  function fetchSquareData() {
+    if (SQUARE_DATA) return Promise.resolve(SQUARE_DATA);
+    return fetch('/square-products.json', { cache: 'no-store' })
+      .then(function(r) { return r.json(); })
+      .then(function(d) { SQUARE_DATA = d; return d; });
+  }
+  function openSquareCheckout(url, product) {
+    var w = 520, h = 760;
+    var left = Math.max(0, (screen.width - w) / 2);
+    var top  = Math.max(0, (screen.height - h) / 2);
+    var feat = 'width=' + w + ',height=' + h + ',left=' + left + ',top=' + top
+             + ',scrollbars=yes,resizable=yes,toolbar=no,menubar=no,location=yes,status=no';
+    var popup = window.open(url, 'qmtk_square_checkout', feat);
+    if (!popup || popup.closed) {
+      // Blocked — open a normal new tab
+      window.open(url, '_blank', 'noopener');
+    } else {
+      popup.focus();
+    }
+    if (typeof fbq !== 'undefined' && product) {
+      fbq('track', 'InitiateCheckout', {
+        content_name: product.name,
+        content_category: product.key.indexOf('gift_') === 0 ? 'Gift Card'
+                        : (product.key === 'intro_call' ? 'Intro Call' : 'Private Training'),
+        value: product.price_cents / 100,
+        currency: 'USD'
+      });
+    }
+  }
+  document.addEventListener('click', function(e) {
+    var el = e.target.closest('[data-buy]');
+    if (!el) return;
+    e.preventDefault();
+    var key = el.getAttribute('data-buy');
+    fetchSquareData().then(function(d) {
+      var p = (d.products || []).find(function(x) { return x.key === key; });
+      if (!p) {
+        window.location.href = '/buy/?p=' + encodeURIComponent(key); // fallback
+        return;
+      }
+      openSquareCheckout(p.checkout_url, p);
+    }).catch(function() {
+      window.location.href = '/buy/?p=' + encodeURIComponent(key);
+    });
+  });
+  // Listen for popup success → show thanks modal on the main page
+  window.addEventListener('message', function(e) {
+    if (e.origin !== window.location.origin) return;
+    if (!e.data || e.data.type !== 'qmtk-purchase-success') return;
+    var overlay = document.getElementById('thanks-overlay');
+    if (overlay) {
+      overlay.classList.add('show');
+      overlay.addEventListener('click', function(ev) { if (ev.target === overlay) closeThanks(); });
+    }
+    if (typeof fbq !== 'undefined') {
+      fbq('track', 'Purchase', { content_name: 'Square Checkout Return', currency: 'USD' });
+    }
+  });
 
   (function loadPricing() {
     var grid = document.getElementById('pricing-grid');
@@ -987,7 +1050,7 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
             +   '<div class="pricing-card-price"><span class="amount">' + dollars(p.price_cents) + '</span><span class="unit">' + unit(p.key) + '</span></div>'
             +   savingHtml
             +   '<ul class="pricing-card-features">' + features + '</ul>'
-            +   '<a href="/buy/?p=' + encodeURIComponent(p.key) + '" class="pricing-card-cta">Buy Now →</a>'
+            +   '<a href="#" data-buy="' + p.key + '" class="pricing-card-cta">Buy Now →</a>'
             + '</div>';
         }).join('');
 
@@ -995,7 +1058,7 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
           giftRow.style.display = '';
           giftBtns.innerHTML = gifts.map(function(g) {
             var amt = dollars(g.price_cents);
-            return '<a href="/buy/?p=' + encodeURIComponent(g.key) + '" class="gift-btn">' + amt + ' Gift Card →</a>';
+            return '<a href="#" data-buy="' + g.key + '" class="gift-btn">' + amt + ' Gift Card →</a>';
           }).join('');
         }
       })
