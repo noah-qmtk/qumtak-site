@@ -46,6 +46,12 @@ SUPPORT_EMAIL = "noah@qmtk.org"
 
 PRODUCTS = [
     {
+        "key": "intro_call",
+        "name": "Intro Call — $20 Deposit",
+        "description": "Reserve a 20-minute intro call with Coach Shaya. Deposit applies in full to your first session — no charge if we're not a fit.",
+        "price_cents": 2000,
+    },
+    {
         "key": "private_1",
         "name": "Private Training — 1 Session",
         "description": "60-minute one-on-one session with Coach Shaya. All ages, K through high school.",

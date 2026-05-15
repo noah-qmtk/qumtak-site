@@ -500,7 +500,7 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
       <a href="https://book.squareup.com/appointments/k3bd6dhwcv4kgw/location/L2TKVGY8K0CVH/services/REDVYNFYMDIUZXKGIP34TGAA" target="_blank" class="btn-green btn-hero-primary">Book your intro call →</a>
     </div>
     <p style="font-size:0.78rem;color:var(--text-dim);margin-top:0.6rem;">$20 deposit — applies in full to your first session.</p>
-    <p style="font-size:0.85rem;color:var(--text-mid);margin-top:1rem;">Already know you want 1-on-1? <a href="https://book.squareup.com/appointments/k3bd6dhwcv4kgw/location/L2TKVGY8K0CVH/services/HHPAWUMAFNCQA2QNRV5XU36D" target="_blank" style="color:#6fcf97;text-decoration:underline;font-weight:600;">Book private training →</a></p>
+    <p style="font-size:0.85rem;color:var(--text-mid);margin-top:1rem;">Already know you want 1-on-1? <a href="https://square.link/u/IqU8ogrM" target="_blank" style="color:#6fcf97;text-decoration:underline;font-weight:600;">Book private training →</a></p>
 
     <!-- SOCIAL PROOF -->
     <div class="stats-mini" style="margin-top:1.6rem;">
@@ -616,7 +616,7 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
           <span style="font-family:'Barlow Condensed',sans-serif; font-size:2rem; font-weight:800; color:#fff; line-height:1;">$85</span>
           <span style="color:var(--text-mid); font-size:0.9rem;">/ session (60 min)</span>
         </div>
-        <a href="https://book.squareup.com/appointments/k3bd6dhwcv4kgw/location/L2TKVGY8K0CVH/services/HHPAWUMAFNCQA2QNRV5XU36D" target="_blank" style="display:inline-block;margin-top:1rem;padding:0.55rem 1.2rem;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.5);color:#818cf8;border-radius:8px;font-size:0.9rem;font-weight:700;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='rgba(99,102,241,0.28)'" onmouseout="this.style.background='rgba(99,102,241,0.15)'">Book Private Session →</a>
+        <a href="https://square.link/u/IqU8ogrM" target="_blank" style="display:inline-block;margin-top:1rem;padding:0.55rem 1.2rem;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.5);color:#818cf8;border-radius:8px;font-size:0.9rem;font-weight:700;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='rgba(99,102,241,0.28)'" onmouseout="this.style.background='rgba(99,102,241,0.15)'">Book Private Session →</a>
       </div>
 
       <div class="prog-card reveal reveal-d2">
@@ -839,7 +839,7 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
   <ul class="footer-links">
     <span>Enroll</span>
     <li><a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank">Group Classes</a></li>
-    <li><a href="https://book.squareup.com/appointments/k3bd6dhwcv4kgw/location/L2TKVGY8K0CVH/services/HHPAWUMAFNCQA2QNRV5XU36D" target="_blank">Private Training</a></li>
+    <li><a href="https://square.link/u/IqU8ogrM" target="_blank">Private Training</a></li>
     <li><a href="mailto:noah@qmtk.org">noah@qmtk.org</a></li>
   </ul>
 </footer>
@@ -1075,20 +1075,23 @@ function closeMobileNav() {
 
 
 
-<!-- qmtk: Track Square booking link clicks as Meta Lead events -->
+<!-- qmtk: Track Square click-throughs as Meta InitiateCheckout / Lead events -->
 <script>
 document.addEventListener('click', function(e) {
   var link = e.target.closest('a');
-  if (link && link.href && link.href.indexOf('book.squareup.com') !== -1) {
-    if (typeof fbq !== 'undefined') {
-      fbq('track', 'Lead', {
-        content_name: 'Square Booking Click',
-        content_category: link.href.indexOf('REDVYNFYMDIUZXKGIP34TGAA') !== -1 ? 'Intro Call' :
-                          link.href.indexOf('HHPAWUMAFNCQA2QNRV5XU36D') !== -1 ? 'Private Training' :
-                          'Other Booking'
-      });
-    }
-  }
+  if (!link || !link.href) return;
+  var href = link.href;
+  var isCheckout = href.indexOf('square.link') !== -1;
+  var isBooking  = href.indexOf('book.squareup.com') !== -1;
+  if (!isCheckout && !isBooking) return;
+  if (typeof fbq === 'undefined') return;
+  var category = href.indexOf('REDVYNFYMDIUZXKGIP34TGAA') !== -1 ? 'Intro Call' :
+                 href.indexOf('HHPAWUMAFNCQA2QNRV5XU36D') !== -1 ? 'Private Training' :
+                 'Square Checkout';
+  fbq('track', isCheckout ? 'InitiateCheckout' : 'Lead', {
+    content_name: isCheckout ? 'Square Checkout Click' : 'Square Booking Click',
+    content_category: category
+  });
 }, true);
 </script>
 <!-- End qmtk Square click tracker -->
