@@ -394,15 +394,26 @@
       .catch(function(err) {
         console.error("Square SDK init failed:", err);
         var msg = (err && err.message) ? err.message : "Unknown error";
-        var hint = "";
-        if (/domain/i.test(msg) || /authoriz/i.test(msg) || /allow/i.test(msg)) {
-          hint = " — your domain may need to be added to the Square application's Web Payments SDK allow-list.";
-        } else if (/applicationId/i.test(msg) && !/style/i.test(msg)) {
-          hint = " — the application ID may be wrong for this environment.";
-        }
-        showFormError("Could not initialize secure card form: " + msg + hint);
+        showFormErrorWithFallback("Card form couldn't load (" + msg + "). Use the secure checkout button below.");
       });
   }
+
+  // Square Web Payments SDK uses a strict style schema:
+  //   - fontFamily must be one of ~60 whitelisted font names (Inter is NOT included)
+  //   - colors must be hex (3 or 6 digit), rgb(), rgba(), or a named CSS color
+  // Try styled first; if SDK rejects, fall back to defaults so the form still mounts.
+  var STYLED = {
+    input: {
+      color: "#FFFFFF",
+      fontFamily: "sans-serif",
+      fontSize: "16px",
+      fontWeight: "500",
+      backgroundColor: "#000000"
+    },
+    ".input-container": { borderColor: "#2C3A30", borderRadius: "8px" },
+    ".input-container.is-focus": { borderColor: "#22A24D" },
+    ".input-container.is-error": { borderColor: "#FF8A8A" }
+  };
 
   function initCard(appId, locationId) {
     var payments;
@@ -412,22 +423,19 @@
       return Promise.reject(err);
     }
     STATE.payments = payments;
-    return payments.card({
-      style: {
-        input: {
-          color: "#ffffff",
-          fontFamily: "Inter, sans-serif",
-          fontSize: "16px",
-          fontWeight: "500",
-          placeholderColor: "#7a8c80"
-        },
-        ".input-container": { borderRadius: "8px", borderColor: "transparent" },
-        ".input-container.is-focus": { borderColor: "transparent" },
-        ".input-container.is-error": { borderColor: "#ff8a8a" },
-        ".message-text": { color: "#ff8a8a" },
-        ".message-icon": { color: "#ff8a8a" }
-      }
-    }).then(function(card) {
+
+    function buildCard(useStyles) {
+      var opts = useStyles ? { style: STYLED } : {};
+      return payments.card(opts);
+    }
+
+    // Attempt with styles, fall back to defaults if styling is rejected
+    return buildCard(true)
+      .catch(function(err) {
+        console.warn("Square card init with styles failed, retrying with defaults:", err);
+        return buildCard(false);
+      })
+      .then(function(card) {
       STATE.card = card;
       return card.attach("#card-container");
     }).then(function() {
@@ -520,6 +528,17 @@
   function hideFormError() {
     var el = document.getElementById("form-error");
     if (el) el.style.display = "none";
+  }
+  function showFormErrorWithFallback(msg) {
+    // Replace the entire pay form with an error + Square hosted checkout button so the customer can still pay.
+    var pc = document.getElementById("pay-card");
+    if (!pc || !STATE.product) { showFormError(msg); return; }
+    var p = STATE.product;
+    pc.innerHTML = ''
+      + '<h2>Pay ' + dollars(p.price_cents) + '</h2>'
+      + '<p class="lede" style="color:#ff8a8a;">' + escapeHtml(msg) + '</p>'
+      + '<a class="pay-button" href="' + escapeHtml(p.checkout_url) + '" target="_blank" rel="noopener" style="text-decoration:none;">🔒 Pay ' + dollars(p.price_cents) + ' via Square →</a>'
+      + '<p class="pay-fineprint">Opens Square\'s secure hosted checkout in a new tab. <a href="mailto:noah@qmtk.org">Email us</a> if you run into any trouble.</p>';
   }
 
   function showSuccess(data) {
