@@ -1,7 +1,16 @@
 {
   "env": "production",
   "location_id": "L2TKVGY8K0CVH",
+  "logo_image_id": "NHQZ2WOCYWAPUPSNIBLU43IB",
   "products": [
+    {
+      "key": "intro_call",
+      "name": "Intro Call \u2014 $20 Deposit",
+      "price_cents": 2000,
+      "catalog_item_id": "TC7N2WXEZVHAJ2F5JKFLN2KI",
+      "catalog_variation_id": "OKOJKFXT3FOHGRRHHMF2C7RI",
+      "checkout_url": "https://square.link/u/hrIQIrl8"
+    },
     {
       "key": "private_1",
       "name": "Private Training \u2014 1 Session",

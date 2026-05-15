@@ -209,16 +209,47 @@ def create_payment_link(product, variation_id, location_id):
     return data["payment_link"]["url"]
 
 
+def load_existing():
+    """Load existing public/square-products.json if it's for the same env. Returns dict or None."""
+    if not os.path.exists(OUT_PATH):
+        return None
+    try:
+        with open(OUT_PATH, "r") as f:
+            data = json.load(f)
+        if data.get("env") != ENV:
+            return None
+        return data
+    except Exception:
+        return None
+
+
 def main():
     print(f"env: {ENV}")
     loc = get_main_location()
     location_id = loc["id"]
     print(f"location: {loc.get('name', '<unnamed>')} ({location_id})\n")
 
-    logo_image_id = upload_logo_image()
+    existing = load_existing()
+    existing_by_key = {}
+    if existing and existing.get("products"):
+        existing_by_key = {p["key"]: p for p in existing["products"]}
+        print(f"found {len(existing_by_key)} existing products in JSON — will skip those\n")
+
+    # Only upload logo if there are new products to create
+    new_products = [p for p in PRODUCTS if p["key"] not in existing_by_key]
+    logo_image_id = None
+    if new_products:
+        # Reuse logo image ID from existing data if stored, else upload fresh
+        logo_image_id = (existing or {}).get("logo_image_id") or upload_logo_image()
+    else:
+        print("no new products to create.")
 
     results = []
     for p in PRODUCTS:
+        if p["key"] in existing_by_key:
+            print(f"keeping existing: {p['name']}")
+            results.append(existing_by_key[p["key"]])
+            continue
         print(f"creating: {p['name']}")
         item_id, var_id = upsert_catalog_item(p, image_id=logo_image_id)
         url = create_payment_link(p, var_id, location_id)
@@ -235,6 +266,7 @@ def main():
     output = {
         "env": ENV,
         "location_id": location_id,
+        "logo_image_id": logo_image_id or (existing or {}).get("logo_image_id"),
         "products": results,
     }
     os.makedirs(os.path.dirname(OUT_PATH), exist_ok=True)
