@@ -405,24 +405,28 @@
   }
 
   function initCard(appId, locationId) {
-    return Square.payments(appId, locationId).then(function(payments) {
-      STATE.payments = payments;
-      return payments.card({
-        style: {
-          input: {
-            color: "#ffffff",
-            fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-            fontSize: "16px",
-            fontWeight: "500",
-            placeholderColor: "rgba(241,245,242,0.45)"
-          },
-          ".input-container": { borderRadius: "8px", borderColor: "transparent" },
-          ".input-container.is-focus": { borderColor: "transparent" },
-          ".input-container.is-error": { borderColor: "#ff8a8a" },
-          ".message-text": { color: "#ff8a8a" },
-          ".message-icon": { color: "#ff8a8a" }
-        }
-      });
+    var payments;
+    try {
+      payments = Square.payments(appId, locationId);
+    } catch (err) {
+      return Promise.reject(err);
+    }
+    STATE.payments = payments;
+    return payments.card({
+      style: {
+        input: {
+          color: "#ffffff",
+          fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          fontSize: "16px",
+          fontWeight: "500",
+          placeholderColor: "rgba(241,245,242,0.45)"
+        },
+        ".input-container": { borderRadius: "8px", borderColor: "transparent" },
+        ".input-container.is-focus": { borderColor: "transparent" },
+        ".input-container.is-error": { borderColor: "#ff8a8a" },
+        ".message-text": { color: "#ff8a8a" },
+        ".message-icon": { color: "#ff8a8a" }
+      }
     }).then(function(card) {
       STATE.card = card;
       return card.attach("#card-container");
