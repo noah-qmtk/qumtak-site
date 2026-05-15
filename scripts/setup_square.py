@@ -39,6 +39,7 @@ HEADERS = {
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT_PATH = os.path.join(ROOT, "public", "square-products.json")
+LOGO_PATH = os.path.join(ROOT, "public", "logo.png")
 
 REDIRECT_URL = "https://qmtk.org/?purchase=success"
 SUPPORT_EMAIL = "noah@qmtk.org"
@@ -102,7 +103,45 @@ def get_main_location():
     return (active or locs)[0]
 
 
-def upsert_catalog_item(product):
+def upload_logo_image():
+    """Upload the qmtk logo as a standalone catalog image. Returns the image_id."""
+    if not os.path.exists(LOGO_PATH):
+        print(f"warn: {LOGO_PATH} not found — skipping logo upload")
+        return None
+    request_json = {
+        "idempotency_key": f"qmtk-logo-{uuid.uuid4()}",
+        "image": {
+            "type": "IMAGE",
+            "id": "#qmtk-logo",
+            "image_data": {
+                "caption": "qmtk Soccer",
+                "name": "qmtk-logo",
+            },
+        },
+    }
+    url = f"{BASE_URL}/v2/catalog/images"
+    headers = {
+        "Authorization": f"Bearer {TOKEN}",
+        "Square-Version": "2024-12-19",
+        # Content-Type is set automatically by requests for multipart
+    }
+    with open(LOGO_PATH, "rb") as f:
+        files = {
+            "request": (None, json.dumps(request_json), "application/json"),
+            "image_file": ("logo.png", f, "image/png"),
+        }
+        r = requests.post(url, headers=headers, files=files, timeout=30)
+    if not r.ok:
+        print(f"\nPOST /v2/catalog/images → {r.status_code}", file=sys.stderr)
+        print(r.text, file=sys.stderr)
+        r.raise_for_status()
+    data = r.json()
+    image_id = data["image"]["id"]
+    print(f"uploaded logo → image_id: {image_id}")
+    return image_id
+
+
+def upsert_catalog_item(product, image_id=None):
     item_id = f"#{product['key']}"
     var_id = f"#{product['key']}_var"
     body = {
@@ -114,6 +153,7 @@ def upsert_catalog_item(product):
             "item_data": {
                 "name": product["name"],
                 "description": product["description"],
+                **({"image_ids": [image_id]} if image_id else {}),
                 "variations": [
                     {
                         "type": "ITEM_VARIATION",
@@ -169,10 +209,12 @@ def main():
     location_id = loc["id"]
     print(f"location: {loc.get('name', '<unnamed>')} ({location_id})\n")
 
+    logo_image_id = upload_logo_image()
+
     results = []
     for p in PRODUCTS:
         print(f"creating: {p['name']}")
-        item_id, var_id = upsert_catalog_item(p)
+        item_id, var_id = upsert_catalog_item(p, image_id=logo_image_id)
         url = create_payment_link(p, var_id, location_id)
         print(f"   → {url}")
         results.append({
