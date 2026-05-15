@@ -78,26 +78,22 @@ The site picks the latest week whose `weekOf` is on or before today. The "Downlo
 
 `scripts/generate_pptx.py` requires `python-pptx` (`pip3 install --user python-pptx`).
 
-## Embedded Card Checkout (`/api/checkout` + Web Payments SDK)
-The `/buy/?p=<product>` pages embed Square's Web Payments SDK card form directly on qmtk.org. No redirect — customer enters card on our domain.
+## Checkout Popup Flow (current architecture)
+Square forbids iframing their hosted checkout (`X-Frame-Options: SAMEORIGIN`), so we open `square.link/u/...` in a popup window instead. Customer sees Square's branded checkout in the popup; the qmtk.org buy page stays open behind it; on success the popup auto-closes and the buy page shows the "You're in" state.
 
 Flow:
-1. `/buy/` page loads Square Web Payments SDK (`web.squarecdn.com/v1/square.js` or sandbox equivalent)
-2. SDK tokenizes the card client-side → returns a one-time `source_id` token
-3. Browser POSTs `{ source_id, product_key, buyer_email_address }` to `/api/checkout`
-4. Serverless function (`api/checkout.js`) calls Square `/v2/payments` with the token + server-side product price
-5. On success, page swaps to in-line "You're in" success state with receipt link
+1. Customer lands on `/buy/?p=<key>` (branded qmtk page with product summary + trust signals)
+2. Clicks "Pay $X securely with Square" → `window.open(checkout_url, ...)` opens a ~520x760 popup
+3. Customer pays inside the popup — they're on `square.link`, clearly Square-branded
+4. Square redirects the popup to `qmtk.org/?purchase=success` after payment
+5. The homepage detects `window.opener` and posts `{type: 'qmtk-purchase-success'}` to the opener, then closes itself
+6. `/buy/` page receives the postMessage → swaps to in-line success card with next-steps copy
 
-Required Vercel environment variables (Settings → Environment Variables):
-- `SQUARE_ACCESS_TOKEN` — production Personal Access Token
-- `SQUARE_LOCATION_ID` — e.g. `L2TKVGY8K0CVH`
-- `SQUARE_ENV` — `production` or `sandbox`
+Fallbacks:
+- If popup is blocked, the page auto-clicks the visible "Open in a new tab →" fallback link
+- If customer closes popup without completing, we poll `popup.closed` and show "If you completed payment, you'll get an email receipt" status message
 
-Public client-side identifiers (in `public/buy/index.html`):
-- Sandbox App ID: `sandbox-sq0idb-ZTHHrrck2shrdEx1zqabZA`
-- Production App ID: `sq0idp-yaRqgCyyyNwODi6723EH8w`
-
-Prices are hardcoded in `api/checkout.js` for server-side trust — never trust client-supplied prices.
+`public/api/checkout.js` (serverless function for the Web Payments SDK approach) is kept as a backup; not currently used. Same with `SQUARE_*` Vercel env vars — they're configured but unused.
 
 ## Branded Buy Pages (`/buy/`)
 All Square checkout flows on the site go through `/buy/?p=<product_key>` first — a fully qmtk-branded interstitial page (`public/buy/index.html`). The page reads `?p=` from the URL, fetches `public/square-products.json`, finds the matching product, and renders product-specific copy from the inline `COPY` map (eyebrow / title / sub / features / steps).

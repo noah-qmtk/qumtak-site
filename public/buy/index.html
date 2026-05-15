@@ -283,12 +283,6 @@
     }
   };
 
-  // Square Application IDs (public identifiers — safe in client code)
-  var APP_IDS = {
-    sandbox: "sandbox-sq0idb-ZTHHrrck2shrdEx1zqabZA",
-    production: "sq0idp-yaRqgCyyyNwODi6723EH8w"
-  };
-
   function dollars(c) { return "$" + (c / 100).toLocaleString(); }
 
   function lockSVG() {
@@ -335,18 +329,7 @@
   function param(k) { return new URLSearchParams(window.location.search).get(k); }
   function track(e, p) { if (typeof fbq !== "undefined") fbq("track", e, p || {}); }
 
-  function loadScript(src) {
-    return new Promise(function(resolve, reject) {
-      var s = document.createElement("script");
-      s.src = src;
-      s.async = true;
-      s.onload = function() { resolve(); };
-      s.onerror = function() { reject(new Error("Failed to load " + src)); };
-      document.head.appendChild(s);
-    });
-  }
-
-  var STATE = { product: null, copy: null, env: null, card: null, payments: null, submitting: false };
+  var STATE = { product: null, copy: null, env: null, popup: null, pollHandle: null, completed: false };
 
   function init() {
     var key = param("p");
@@ -365,15 +348,12 @@
         STATE.product = product;
         STATE.env = data.env === "sandbox" ? "sandbox" : "production";
         renderPage();
-        return loadSquareSDK();
+        // Listen for the success postMessage from the popup window when checkout completes
+        window.addEventListener("message", onPopupMessage);
       })
-      .then(initPaymentForm)
       .catch(function(err) {
         console.error(err);
-        var root = document.getElementById("buy-root");
-        if (root && !document.getElementById("pay-card")) {
-          root.innerHTML = '<div class="buy-error">Checkout is temporarily unavailable. Please <a href="mailto:noah@qmtk.org" style="color:#6fcf97;">email Coach Shaya</a> and we\'ll set you up directly.</div>';
-        }
+        document.getElementById("buy-root").innerHTML = '<div class="buy-error">Checkout is temporarily unavailable. Please <a href="mailto:noah@qmtk.org" style="color:#6fcf97;">email Coach Shaya</a> and we\'ll set you up directly.</div>';
       });
   }
 
@@ -408,21 +388,11 @@
 
       +   '<div class="pay-card" id="pay-card">'
       +     '<h2>Pay ' + dollars(p.price_cents) + '</h2>'
-      +     '<p class="lede">Secure checkout — your card is encrypted by Square. We never see your card details.</p>'
-      +     '<form id="pay-form" novalidate>'
-      +       '<div class="field-group">'
-      +         '<label class="field-label" for="email">Email for receipt</label>'
-      +         '<input class="field-input" type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>'
-      +       '</div>'
-      +       '<div class="field-group">'
-      +         '<label class="field-label">Card details</label>'
-      +         '<div id="card-container"></div>'
-      +       '</div>'
-      +       '<button type="submit" class="pay-button" id="pay-button" disabled>'
-      +         '<span id="pay-button-label">Loading secure form…</span>'
-      +       '</button>'
-      +       '<div id="form-error" class="form-error" style="display:none;"></div>'
-      +     '</form>'
+      +     '<p class="lede">Click below to open Square\'s secure checkout. A small window will appear over this page — you\'ll enter your card there. We never see your card details.</p>'
+      +     '<button type="button" class="pay-button" id="pay-button">'
+      +       lockSVG() + ' &nbsp;Pay ' + dollars(p.price_cents) + ' securely with Square'
+      +     '</button>'
+      +     '<div id="popup-status" style="display:none; margin-top:1rem; padding:0.9rem 1rem; background:rgba(74,222,128,0.08); border:1px solid rgba(74,222,128,0.3); border-radius:10px; color:#6fcf97; font-size:0.9rem; text-align:center; line-height:1.5;"></div>'
       +     '<div class="secure-block">'
       +       '<div class="card-brands">'
       +         cardBrandSVG("visa")
@@ -432,7 +402,7 @@
       +       + '</div>'
       +       '<div class="secure-lock-row">'
       +         lockSVG()
-      +         + '256-bit SSL · PCI-DSS compliant · Your card is never stored on our servers'
+      +         + '256-bit SSL · PCI-DSS compliant · Card processed entirely by Square'
       +       + '</div>'
       +       '<div class="powered-by">'
       +         '<span class="label">Payments securely processed by</span>'
@@ -441,181 +411,86 @@
       +         + '</a>'
       +       + '</div>'
       +     + '</div>'
-      +     '<p class="pay-fineprint">Having trouble? <a href="mailto:noah@qmtk.org">Email us</a> and we\'ll handle it directly.</p>'
+      +     '<p class="pay-fineprint">Popup blocked? <a id="popup-fallback" href="' + escapeHtml(p.checkout_url) + '" target="_blank" rel="noopener">Open Square checkout in a new tab →</a></p>'
       +   '</div>'
       + '</div>'
       + '<div class="buy-footer">Questions before you buy? <a href="mailto:noah@qmtk.org">Email Coach Shaya</a> &middot; <a href="/">Back to qmtk.org</a></div>';
-  }
 
-  function loadSquareSDK() {
-    var sdkUrl = STATE.env === "sandbox"
-      ? "https://sandbox.web.squarecdn.com/v1/square.js"
-      : "https://web.squarecdn.com/v1/square.js";
-    return loadScript(sdkUrl);
-  }
-
-  function initPaymentForm() {
-    if (typeof Square === "undefined") {
-      showFormError("Payment form failed to load. Please refresh the page.");
-      return;
-    }
-    var appId = APP_IDS[STATE.env];
-    fetch("/square-products.json", { cache: "no-store" })
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        return initCard(appId, data.location_id);
-      })
-      .catch(function(err) {
-        console.error("Square SDK init failed:", err);
-        var msg = (err && err.message) ? err.message : "Unknown error";
-        showFormErrorWithFallback("Card form couldn't load (" + msg + "). Use the secure checkout button below.");
-      });
-  }
-
-  // Square Web Payments SDK uses a strict style schema:
-  //   - fontFamily must be one of ~60 whitelisted font names (Inter is NOT included)
-  //   - colors must be hex (3 or 6 digit), rgb(), rgba(), or a named CSS color
-  // Try styled first; if SDK rejects, fall back to defaults so the form still mounts.
-  var STYLED = {
-    input: {
-      color: "#FFFFFF",
-      fontFamily: "sans-serif",
-      fontSize: "16px",
-      fontWeight: "500",
-      backgroundColor: "#000000"
-    },
-    ".input-container": { borderColor: "#2C3A30", borderRadius: "8px" },
-    ".input-container.is-focus": { borderColor: "#22A24D" },
-    ".input-container.is-error": { borderColor: "#FF8A8A" }
-  };
-
-  function initCard(appId, locationId) {
-    var payments;
-    try {
-      payments = Square.payments(appId, locationId);
-    } catch (err) {
-      return Promise.reject(err);
-    }
-    STATE.payments = payments;
-
-    function buildCard(useStyles) {
-      var opts = useStyles ? { style: STYLED } : {};
-      return payments.card(opts);
-    }
-
-    // Attempt with styles, fall back to defaults if styling is rejected
-    return buildCard(true)
-      .catch(function(err) {
-        console.warn("Square card init with styles failed, retrying with defaults:", err);
-        return buildCard(false);
-      })
-      .then(function(card) {
-      STATE.card = card;
-      return card.attach("#card-container");
-    }).then(function() {
-      var btn = document.getElementById("pay-button");
-      btn.disabled = false;
-      document.getElementById("pay-button-label").textContent = "🔒 Pay " + dollars(STATE.product.price_cents);
-      document.getElementById("pay-form").addEventListener("submit", handleSubmit);
-      // focus highlight on card container
-      STATE.card.addEventListener("focusClassAdded", function() {
-        document.getElementById("card-container").classList.add("focused");
-      });
-      STATE.card.addEventListener("focusClassRemoved", function() {
-        document.getElementById("card-container").classList.remove("focused");
-      });
+    document.getElementById("pay-button").addEventListener("click", openCheckoutPopup);
+    track("InitiateCheckout", {
+      content_name: STATE.product.name,
+      content_category: STATE.product.key.indexOf("gift_") === 0 ? "Gift Card" : (STATE.product.key === "intro_call" ? "Intro Call" : "Private Training"),
+      value: STATE.product.price_cents / 100,
+      currency: "USD"
     });
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (STATE.submitting) return;
-    hideFormError();
+  function openCheckoutPopup() {
+    var p = STATE.product;
+    var w = 520, h = 760;
+    var left = Math.max(0, (screen.width - w) / 2);
+    var top = Math.max(0, (screen.height - h) / 2);
+    var features = "width=" + w + ",height=" + h + ",left=" + left + ",top=" + top
+                  + ",scrollbars=yes,resizable=yes,toolbar=no,menubar=no,location=yes,status=no";
+    STATE.popup = window.open(p.checkout_url, "qmtk_square_checkout", features);
 
-    var email = document.getElementById("email").value.trim();
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      showFormError("Please enter a valid email address for your receipt.");
-      document.getElementById("email").focus();
+    if (!STATE.popup || STATE.popup.closed || typeof STATE.popup.closed === "undefined") {
+      // Popup blocked — fall back to new tab via the fineprint link
+      var link = document.getElementById("popup-fallback");
+      if (link) link.click();
+      showStatus("Your browser blocked the popup. Opening the secure checkout in a new tab instead — complete your payment there and come back to this page.");
       return;
     }
 
-    setSubmitting(true);
+    showStatus("🔒 Secure Square checkout opened in a popup window. Complete your payment there — this page will update automatically when done.");
+    STATE.popup.focus();
 
-    STATE.card.tokenize().then(function(result) {
-      if (result.status !== "OK") {
-        var msg = result.errors && result.errors[0] && result.errors[0].message
-          ? result.errors[0].message
-          : "Please check your card details.";
-        showFormError(msg);
-        setSubmitting(false);
-        return null;
+    // Poll for popup close as a fallback if postMessage doesn't arrive
+    if (STATE.pollHandle) clearInterval(STATE.pollHandle);
+    STATE.pollHandle = setInterval(function() {
+      if (STATE.popup && STATE.popup.closed) {
+        clearInterval(STATE.pollHandle);
+        STATE.pollHandle = null;
+        if (!STATE.completed) {
+          // Customer closed the popup without us receiving a success message.
+          // Most likely they cancelled, but they may have completed and the message was lost.
+          showStatus("Popup closed. If you completed your payment, you\'ll receive a receipt by email shortly. Otherwise, click \"Pay\" again to retry.", true);
+        }
       }
-      return fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          source_id: result.token,
-          product_key: STATE.product.key,
-          buyer_email_address: email
-        })
-      }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); });
-    }).then(function(resp) {
-      if (!resp) return;
-      if (!resp.ok || !resp.data.ok) {
-        showFormError(resp.data.error || "Payment could not be completed. Please try a different card.");
-        setSubmitting(false);
-        return;
-      }
+    }, 600);
+  }
+
+  function onPopupMessage(e) {
+    // Only accept messages from our own origin
+    if (e.origin !== window.location.origin) return;
+    var data = e.data || {};
+    if (data && data.type === "qmtk-purchase-success") {
+      STATE.completed = true;
+      if (STATE.pollHandle) { clearInterval(STATE.pollHandle); STATE.pollHandle = null; }
+      if (STATE.popup && !STATE.popup.closed) { try { STATE.popup.close(); } catch (_) {} }
       track("Purchase", {
         content_name: STATE.product.name,
         content_category: STATE.product.key.indexOf("gift_") === 0 ? "Gift Card" : (STATE.product.key === "intro_call" ? "Intro Call" : "Private Training"),
         value: STATE.product.price_cents / 100,
         currency: "USD"
       });
-      showSuccess(resp.data);
-    }).catch(function(err) {
-      console.error(err);
-      showFormError("Something went wrong. Please try again or email noah@qmtk.org.");
-      setSubmitting(false);
-    });
-  }
-
-  function setSubmitting(yes) {
-    STATE.submitting = yes;
-    var btn = document.getElementById("pay-button");
-    var lbl = document.getElementById("pay-button-label");
-    if (!btn || !lbl) return;
-    btn.disabled = yes;
-    if (yes) {
-      btn.innerHTML = '<span class="spinner"></span> Processing…';
-    } else {
-      btn.innerHTML = '<span id="pay-button-label">🔒 Pay ' + dollars(STATE.product.price_cents) + '</span>';
+      showSuccess();
     }
   }
 
-  function showFormError(msg) {
-    var el = document.getElementById("form-error");
+  function showStatus(msg, neutral) {
+    var el = document.getElementById("popup-status");
     if (!el) return;
-    el.textContent = msg;
     el.style.display = "";
-  }
-  function hideFormError() {
-    var el = document.getElementById("form-error");
-    if (el) el.style.display = "none";
-  }
-  function showFormErrorWithFallback(msg) {
-    // Replace the entire pay form with an error + Square hosted checkout button so the customer can still pay.
-    var pc = document.getElementById("pay-card");
-    if (!pc || !STATE.product) { showFormError(msg); return; }
-    var p = STATE.product;
-    pc.innerHTML = ''
-      + '<h2>Pay ' + dollars(p.price_cents) + '</h2>'
-      + '<p class="lede" style="color:#ff8a8a;">' + escapeHtml(msg) + '</p>'
-      + '<a class="pay-button" href="' + escapeHtml(p.checkout_url) + '" target="_blank" rel="noopener" style="text-decoration:none;">🔒 Pay ' + dollars(p.price_cents) + ' via Square →</a>'
-      + '<p class="pay-fineprint">Opens Square\'s secure hosted checkout in a new tab. <a href="mailto:noah@qmtk.org">Email us</a> if you run into any trouble.</p>';
+    el.textContent = msg;
+    if (neutral) {
+      el.style.background = "rgba(255,255,255,0.04)";
+      el.style.borderColor = "rgba(255,255,255,0.12)";
+      el.style.color = "var(--text-mid)";
+    }
   }
 
-  function showSuccess(data) {
+  function showSuccess() {
     var p = STATE.product;
     var k = p.key;
     var nextStepsMap = {
@@ -629,14 +504,12 @@
     };
     var nextSteps = nextStepsMap[k] || "Coach Shaya will reach out shortly.";
 
-    var root = document.getElementById("buy-root");
-    root.innerHTML = ''
+    document.getElementById("buy-root").innerHTML = ''
       + '<div class="buy-card" style="max-width:560px; margin:0 auto;">'
       +   '<div class="success-card">'
       +     '<div class="success-icon">⚽</div>'
       +     '<h2>You\'re in!</h2>'
-      +     '<p class="sub">' + escapeHtml(p.name) + ' &middot; ' + dollars(data.amount_cents || p.price_cents) + ' charged.</p>'
-      +     (data.receipt_url ? '<p class="sub" style="font-size:0.9rem;">Receipt: <a href="' + escapeHtml(data.receipt_url) + '" target="_blank" rel="noopener" style="color:#6fcf97;">View on Square →</a></p>' : '')
+      +     '<p class="sub">' + escapeHtml(p.name) + ' &middot; ' + dollars(p.price_cents) + ' charged. A receipt has been emailed to you by Square.</p>'
       +     '<div class="success-next">'
       +       '<strong>What happens next:</strong> ' + escapeHtml(nextSteps)
       +     '</div>'

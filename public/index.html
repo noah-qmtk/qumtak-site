@@ -922,6 +922,16 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
   (function showThanksIfReturning() {
     var params = new URLSearchParams(window.location.search);
     if (params.get('purchase') !== 'success') return;
+    // If we're inside a popup window (opened by a /buy/ page), notify the opener and close ourselves.
+    if (window.opener && !window.opener.closed) {
+      try {
+        window.opener.postMessage({ type: 'qmtk-purchase-success' }, window.location.origin);
+        document.title = 'Payment complete — closing…';
+        document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#08100b;color:#f1f5f2;font-family:Inter,sans-serif;text-align:center;padding:2rem;"><div><div style="font-size:2.5rem;margin-bottom:1rem;">⚽</div><h1 style="font-family:\'Barlow Condensed\',sans-serif;font-size:2rem;font-weight:800;margin-bottom:0.5rem;">Payment confirmed</h1><p style="color:rgba(241,245,242,0.78);">Closing this window…</p></div></div>';
+        setTimeout(function() { try { window.close(); } catch (_) {} }, 1200);
+        return;
+      } catch (e) { /* fall through to modal */ }
+    }
     var overlay = document.getElementById('thanks-overlay');
     if (!overlay) return;
     setTimeout(function() { overlay.classList.add('show'); }, 250);
