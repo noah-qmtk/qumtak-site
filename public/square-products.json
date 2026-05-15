@@ -1,54 +1,54 @@
 {
-  "env": "sandbox",
-  "location_id": "LVGMEK0H976N4",
+  "env": "production",
+  "location_id": "L2TKVGY8K0CVH",
   "products": [
     {
       "key": "private_1",
       "name": "Private Training \u2014 1 Session",
       "price_cents": 8500,
-      "catalog_item_id": "K5SH5OK6JEVGJZS37KEFXDSM",
-      "catalog_variation_id": "R5Z2HKMR6EFHBTC46HTX3WKT",
-      "checkout_url": "https://sandbox.square.link/u/QUMQ4qeO"
+      "catalog_item_id": "LY5DOQPU722DM4OPSMEXLWWK",
+      "catalog_variation_id": "TQTZPYFI57ZJE5MYTDIQT3BG",
+      "checkout_url": "https://square.link/u/IqU8ogrM"
     },
     {
       "key": "private_5",
       "name": "Private Training \u2014 5-Pack",
       "price_cents": 40000,
-      "catalog_item_id": "WX2IN5NPOYGCQPRBWZP4I65V",
-      "catalog_variation_id": "KGZXW73HBUSNRCYIUZNLYHFK",
-      "checkout_url": "https://sandbox.square.link/u/xvL9iK7Q"
+      "catalog_item_id": "QK2K45WIOFJDGLKCBMJEFW7J",
+      "catalog_variation_id": "P3HBGXXEDLME2DEWUGKNN2K7",
+      "checkout_url": "https://square.link/u/vxmPhRGM"
     },
     {
       "key": "private_10",
       "name": "Private Training \u2014 10-Pack",
       "price_cents": 75000,
-      "catalog_item_id": "R7RQF4URMUDSSFQDGPC33SI6",
-      "catalog_variation_id": "UW5ZHZO6LAT3COMYBTHBMUS6",
-      "checkout_url": "https://sandbox.square.link/u/WAhABVwC"
+      "catalog_item_id": "W2EU4M46425MXFCI2LNNWTOS",
+      "catalog_variation_id": "S2TDZKGS53UAW4D2XYYYV4UW",
+      "checkout_url": "https://square.link/u/PIeqLer6"
     },
     {
       "key": "gift_50",
       "name": "qmtk Gift Card \u2014 $50",
       "price_cents": 5000,
-      "catalog_item_id": "O7EP3C6XHTJ3HW3QOI3FGEXP",
-      "catalog_variation_id": "HSU7I2SV5BTEXP4GDPC65U7H",
-      "checkout_url": "https://sandbox.square.link/u/lKB8LBx3"
+      "catalog_item_id": "34SAQN56VKFY2UNPRQMTFW54",
+      "catalog_variation_id": "INWHNC2ST6DZ5HKH4LCP4F5S",
+      "checkout_url": "https://square.link/u/WEtz3XqU"
     },
     {
       "key": "gift_100",
       "name": "qmtk Gift Card \u2014 $100",
       "price_cents": 10000,
-      "catalog_item_id": "3C4SAY3DW7EXY2MPBBJJM7WO",
-      "catalog_variation_id": "WSMMTXLO5AMJRAAUR6YALVLQ",
-      "checkout_url": "https://sandbox.square.link/u/J20NNUOv"
+      "catalog_item_id": "2A5YQ5SLO545KAUEWWMDME3B",
+      "catalog_variation_id": "WLPTKDD3XPIM4LXVYOMR4PCL",
+      "checkout_url": "https://square.link/u/As8swphN"
     },
     {
       "key": "gift_200",
       "name": "qmtk Gift Card \u2014 $200",
       "price_cents": 20000,
-      "catalog_item_id": "PGLFPL7MZR5KSYOA624KZM3H",
-      "catalog_variation_id": "EAHT6VUII6UZGXFYTZTGIINZ",
-      "checkout_url": "https://sandbox.square.link/u/tLGDvk1G"
+      "catalog_item_id": "PVQNZVLENRMEW5B64IGTOL7B",
+      "catalog_variation_id": "J75XTUF6G5T6JA6NYRYNLIFO",
+      "checkout_url": "https://square.link/u/3wwGO3PR"
     }
   ]
 }
