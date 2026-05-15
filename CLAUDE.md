@@ -78,6 +78,15 @@ The site picks the latest week whose `weekOf` is on or before today. The "Downlo
 
 `scripts/generate_pptx.py` requires `python-pptx` (`pip3 install --user python-pptx`).
 
+## Branded Buy Pages (`/buy/`)
+All Square checkout flows on the site go through `/buy/?p=<product_key>` first — a fully qmtk-branded interstitial page (`public/buy/index.html`). The page reads `?p=` from the URL, fetches `public/square-products.json`, finds the matching product, and renders product-specific copy from the inline `COPY` map (eyebrow / title / sub / features / steps).
+
+The big green CTA on `/buy/` is the actual `square.link/u/...` URL. That keeps the customer in qmtk branding through 90% of the funnel — they only hit Square's hosted page for the 15-second card-entry step.
+
+When the customer completes payment, Square redirects to `qmtk.org/?purchase=success`, which triggers a thank-you modal on the homepage (see `#thanks-overlay`).
+
+To edit a product's pitch (features, "what happens next" steps, headline), edit the `COPY` object in `public/buy/index.html`. To change the price or which item is sold, run `setup_square.py` — the JSON updates and `/buy/` picks it up automatically.
+
 ## Square Pricing & Checkout
 The `#pricing` section on the homepage is data-driven from `public/square-products.json`. The site renders three package cards (1, 5, 10 sessions) plus a gift-card strip with Buy Now buttons that link to Square Checkout URLs.
 

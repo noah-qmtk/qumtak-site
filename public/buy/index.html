@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Checkout | qmtk Soccer</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green: #22a24d;
+      --green-bright: #4ade80;
+      --green-deep: #14532d;
+      --bg: #08100b;
+      --bg-card: #111810;
+      --bg-raised: #18221b;
+      --border: rgba(255,255,255,0.08);
+      --border-bright: rgba(255,255,255,0.14);
+      --text: #f1f5f2;
+      --text-mid: rgba(241,245,242,0.78);
+      --text-dim: rgba(241,245,242,0.55);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 50% -10%, rgba(34,162,77,0.16) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 110%, rgba(34,162,77,0.08) 0%, transparent 60%),
+        var(--bg);
+      min-height: 100vh;
+      line-height: 1.65;
+      letter-spacing: -0.011em;
+      font-feature-settings: 'ss01' on, 'cv11' on, 'kern' on;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    h1, h2, h3 { letter-spacing: -0.02em; line-height: 1.1; }
+    a { color: inherit; }
+
+    /* Header */
+    .buy-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 2rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .buy-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .buy-brand img { width: 56px; height: 56px; border-radius: 12px; object-fit: cover; }
+    .buy-brand .name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.35rem; color: #fff; letter-spacing: -0.02em; }
+    .buy-brand .name .suffix { font-weight: 500; opacity: 0.85; margin-left: 0.3em; }
+    .buy-back { color: var(--text-dim); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .buy-back:hover { color: var(--text); }
+
+    /* Main wrapper */
+    .buy-wrap { max-width: 920px; margin: 1rem auto 4rem; padding: 0 1.5rem; }
+
+    /* Eyebrow + title */
+    .buy-eyebrow { display: inline-flex; align-items: center; gap: 6px; background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.3); color: #6fcf97; font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 1rem; }
+    .buy-eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--green-bright); box-shadow: 0 0 8px rgba(74,222,128,0.7); }
+    .buy-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2.4rem, 5vw, 3.4rem); font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+    .buy-sub { color: var(--text-mid); font-size: 1.1rem; margin-bottom: 2.5rem; max-width: 640px; }
+
+    /* Main card */
+    .buy-card {
+      background: linear-gradient(155deg, rgba(34,162,77,0.10) 0%, rgba(34,162,77,0.02) 100%);
+      border: 1px solid rgba(34,162,77,0.3);
+      border-radius: 20px;
+      padding: 2.2rem 2.2rem 2.2rem;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4), 0 4px 12px rgba(34,162,77,0.1);
+      backdrop-filter: blur(12px);
+    }
+    .buy-card-head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.6rem; padding-bottom: 1.4rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .buy-product { font-family: 'Barlow Condensed', sans-serif; font-size: 1.75rem; font-weight: 700; color: #fff; line-height: 1.15; }
+    .buy-price { display: flex; align-items: baseline; gap: 0.4rem; }
+    .buy-price .amount { font-family: 'Barlow Condensed', sans-serif; font-size: 3rem; font-weight: 800; color: #fff; line-height: 1; }
+    .buy-price .unit { color: var(--text-mid); font-size: 0.95rem; font-weight: 500; }
+    .buy-savings { color: var(--green-bright); font-size: 0.82rem; font-weight: 700; background: rgba(34,162,77,0.13); border: 1px solid rgba(34,162,77,0.35); padding: 3px 10px; border-radius: 100px; margin-left: 0.6rem; white-space: nowrap; }
+
+    .buy-section-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: var(--green-bright); margin-bottom: 0.8rem; }
+    .buy-features { list-style: none; padding: 0; margin: 0 0 1.8rem; }
+    .buy-features li { font-size: 0.98rem; color: var(--text-mid); padding: 0.45rem 0 0.45rem 1.8rem; position: relative; line-height: 1.55; }
+    .buy-features li::before { content: "✓"; position: absolute; left: 0; top: 0.45rem; color: var(--green-bright); font-weight: 800; font-size: 1.1rem; }
+
+    .buy-cta {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; background: var(--green); color: #fff; border: none;
+      padding: 1.15rem 1.5rem; border-radius: 14px;
+      font-family: inherit; font-weight: 700; font-size: 1.1rem; text-decoration: none;
+      cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 10px 28px rgba(34,162,77,0.32);
+    }
+    .buy-cta:hover { background: #1f924a; transform: translateY(-2px); box-shadow: 0 14px 36px rgba(34,162,77,0.42); }
+    .buy-cta:active { transform: translateY(0); }
+
+    .buy-trust { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); }
+    .trust-item { font-size: 0.82rem; color: var(--text-mid); display: flex; flex-direction: column; gap: 0.3rem; }
+    .trust-item .icon { font-size: 1rem; }
+    .trust-item strong { color: #fff; font-weight: 600; }
+
+    /* What happens next */
+    .buy-next { margin-top: 2rem; padding: 1.6rem 1.8rem; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 16px; }
+    .buy-next h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 1rem; }
+    .steps { list-style: none; padding: 0; counter-reset: step; }
+    .steps li { counter-increment: step; position: relative; padding-left: 2.5rem; padding-bottom: 1rem; color: var(--text-mid); font-size: 0.92rem; line-height: 1.55; }
+    .steps li:last-child { padding-bottom: 0; }
+    .steps li::before { content: counter(step); position: absolute; left: 0; top: -2px; width: 28px; height: 28px; border-radius: 50%; background: rgba(34,162,77,0.18); border: 1px solid rgba(34,162,77,0.4); color: var(--green-bright); font-weight: 800; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; }
+    .steps li strong { color: #fff; font-weight: 600; }
+
+    .buy-footer { text-align: center; margin-top: 2.5rem; color: var(--text-dim); font-size: 0.88rem; }
+    .buy-footer a { color: #6fcf97; text-decoration: none; font-weight: 600; }
+    .buy-footer a:hover { text-decoration: underline; }
+
+    .buy-loading { text-align: center; padding: 5rem 1rem; color: var(--text-dim); }
+    .buy-error { background: rgba(226,74,74,0.1); border: 1px solid rgba(226,74,74,0.35); border-radius: 12px; padding: 1.5rem; color: #ffb4b4; text-align: center; }
+
+    @media (max-width: 640px) {
+      .buy-nav { padding: 1rem 1.2rem; }
+      .buy-brand .name { font-size: 1.1rem; }
+      .buy-brand img { width: 48px; height: 48px; }
+      .buy-card { padding: 1.5rem 1.4rem; border-radius: 16px; }
+      .buy-card-head { flex-direction: column; align-items: flex-start; }
+      .buy-price .amount { font-size: 2.4rem; }
+      .buy-trust { grid-template-columns: 1fr; gap: 0.7rem; }
+      .buy-cta { font-size: 1rem; padding: 1rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="buy-nav">
+  <a class="buy-brand" href="/">
+    <img src="/logo.webp" alt="qmtk Soccer">
+    <span class="name">qmtk<span class="suffix">Soccer</span></span>
+  </a>
+  <a class="buy-back" href="/">← Back to site</a>
+</nav>
+
+<main class="buy-wrap" id="buy-root">
+  <div class="buy-loading">Loading…</div>
+</main>
+
+<script>
+  // ── Product copy lives here so we can polish each page independently ──────
+  var COPY = {
+    intro_call: {
+      eyebrow: "Step 1 — Intro Call",
+      title: "Reserve your intro call with Coach Shaya",
+      sub: "20-minute call to talk through your child's goals and find the right fit. $20 deposit applies in full to your first session.",
+      unit: "/ deposit",
+      features: [
+        "One-on-one with Coach Shaya — not a sales pitch",
+        "We'll talk about your child's goals and current level",
+        "Find the right next step: group, private, or both",
+        "$20 deposit applies in full to your first session"
+      ],
+      steps: [
+        "<strong>Complete checkout</strong> on Square — secure, takes about 30 seconds.",
+        "<strong>We'll reach out within 24 hours</strong> at the email you provide to schedule a time that works for you.",
+        "<strong>Jump on the call.</strong> If we're not a fit, your deposit is refunded — no questions asked."
+      ],
+      ctaPrefix: "Pay"
+    },
+    private_1: {
+      eyebrow: "Private Training",
+      title: "1-on-1 session with Coach Shaya",
+      sub: "60 minutes of targeted, professional coaching built around your child's specific goals. All ages, K through high school.",
+      unit: "/ 60-min session",
+      features: [
+        "60 minutes of one-on-one coaching",
+        "Customized to your child's level and goals",
+        "All ages — K through high school",
+        "Locations flexible (Andover / Reading area)",
+        "We'll schedule together after purchase"
+      ],
+      steps: [
+        "<strong>Complete checkout</strong> on Square. You'll get an emailed receipt instantly.",
+        "<strong>Coach Shaya will reach out within 24 hours</strong> to schedule a time and location that works for your family.",
+        "<strong>Show up, train, see real progress.</strong> Bring cleats, shin guards, water, and a ball if you have one."
+      ],
+      ctaPrefix: "Pay"
+    },
+    private_5: {
+      eyebrow: "Most Popular · Save $25",
+      title: "Private Training — 5-Pack",
+      sub: "Five 60-minute sessions at $80 each. The most popular package — enough volume to see real technical change.",
+      unit: "/ 5 sessions",
+      saving: "Save $25",
+      features: [
+        "Five 60-minute private sessions",
+        "$80 per session — save $25 vs drop-in rate",
+        "Use anytime — no expiration",
+        "Same coaching, lower per-session price",
+        "Ideal for committed development plans"
+      ],
+      steps: [
+        "<strong>Complete checkout</strong> on Square — receipt is sent instantly.",
+        "<strong>We'll text or email you</strong> to schedule your first session within 24 hours.",
+        "<strong>Train, track progress, repeat.</strong> Schedule sessions one at a time or in advance — whatever works."
+      ],
+      ctaPrefix: "Pay"
+    },
+    private_10: {
+      eyebrow: "Best Value · Save $100",
+      title: "Private Training — 10-Pack",
+      sub: "Ten 60-minute sessions at $75 each. Our biggest discount — built for players ready to make a real leap.",
+      unit: "/ 10 sessions",
+      saving: "Save $100",
+      features: [
+        "Ten 60-minute private sessions",
+        "$75 per session — the biggest discount we offer",
+        "Use anytime — no expiration",
+        "Build real, lasting technical mastery",
+        "Most efficient way to develop fast"
+      ],
+      steps: [
+        "<strong>Complete checkout</strong> on Square — receipt is sent instantly.",
+        "<strong>We'll reach out to schedule</strong> your first session within 24 hours.",
+        "<strong>Schedule the rest at your pace.</strong> One a week, two a week, or batches — whatever fits your family."
+      ],
+      ctaPrefix: "Pay"
+    },
+    gift_50: {
+      eyebrow: "Gift Card",
+      title: "qmtk Gift Card — $50",
+      sub: "Give the gift of professional soccer development. Redeemable for any qmtk service — private sessions, packages, or future programs.",
+      unit: "",
+      features: [
+        "Redeemable for any qmtk Soccer service",
+        "Delivered digitally to the recipient",
+        "Perfect for birthdays, holidays, or end-of-season gifts",
+        "No expiration"
+      ],
+      steps: [
+        "<strong>Complete checkout</strong> with your details.",
+        "<strong>Tell us who it's for</strong> by emailing noah@qmtk.org with the recipient's name and email.",
+        "<strong>We send them a personalized digital gift card</strong> they can redeem on any qmtk service."
+      ],
+      ctaPrefix: "Pay"
+    },
+    gift_100: {
+      eyebrow: "Gift Card",
+      title: "qmtk Gift Card — $100",
+      sub: "Give the gift of professional soccer development. Redeemable for any qmtk service.",
+      unit: "",
+      features: [
+        "Redeemable for any qmtk Soccer service",
+        "Delivered digitally to the recipient",
+        "Perfect for birthdays, holidays, or end-of-season gifts",
+        "No expiration"
+      ],
+      steps: [
+        "<strong>Complete checkout</strong> with your details.",
+        "<strong>Tell us who it's for</strong> by emailing noah@qmtk.org with the recipient's name and email.",
+        "<strong>We send them a personalized digital gift card</strong> they can redeem on any qmtk service."
+      ],
+      ctaPrefix: "Pay"
+    },
+    gift_200: {
+      eyebrow: "Gift Card",
+      title: "qmtk Gift Card — $200",
+      sub: "Give the gift of professional soccer development. Redeemable for any qmtk service — covers more than a single session.",
+      unit: "",
+      features: [
+        "Redeemable for any qmtk Soccer service",
+        "Covers a private session plus extra credit toward more",
+        "Delivered digitally to the recipient",
+        "Perfect for birthdays, holidays, or end-of-season gifts",
+        "No expiration"
+      ],
+      steps: [
+        "<strong>Complete checkout</strong> with your details.",
+        "<strong>Tell us who it's for</strong> by emailing noah@qmtk.org with the recipient's name and email.",
+        "<strong>We send them a personalized digital gift card</strong> they can redeem on any qmtk service."
+      ],
+      ctaPrefix: "Pay"
+    }
+  };
+
+  function dollars(cents) { return "$" + (cents / 100).toLocaleString(); }
+  function escapeHtml(s) {
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+  function param(k) {
+    return new URLSearchParams(window.location.search).get(k);
+  }
+  function track(eventName, params) {
+    if (typeof fbq !== "undefined") fbq("track", eventName, params || {});
+  }
+
+  var key = param("p");
+  var root = document.getElementById("buy-root");
+
+  if (!key || !COPY[key]) {
+    root.innerHTML = '<div class="buy-error">Product not found. <a href="/" style="color:#6fcf97;">Return to the homepage</a> to browse our offerings.</div>';
+  } else {
+    fetch("/square-products.json", { cache: "no-store" })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var product = (data.products || []).find(function(p) { return p.key === key; });
+        if (!product) throw new Error("Product not in catalog");
+        renderProduct(product, COPY[key], data.env === "sandbox");
+      })
+      .catch(function() {
+        root.innerHTML = '<div class="buy-error">Checkout is temporarily unavailable. Please <a href="mailto:noah@qmtk.org" style="color:#6fcf97;">email Coach Shaya</a> and we\'ll set you up directly.</div>';
+      });
+  }
+
+  function renderProduct(product, copy, isTest) {
+    document.getElementById("page-title").textContent = product.name + " | qmtk Soccer";
+    var savingHtml = copy.saving ? '<span class="buy-savings">' + escapeHtml(copy.saving) + '</span>' : "";
+    var testBanner = isTest
+      ? '<div style="background:rgba(245,166,35,0.1); border:1px solid rgba(245,166,35,0.4); border-radius:10px; color:#f5a623; padding:0.7rem 1rem; font-size:0.85rem; font-weight:600; text-align:center; margin-bottom:1.5rem;">🧪 Test mode — payments are sandbox only, no real charge.</div>'
+      : "";
+    var features = copy.features.map(function(f) { return "<li>" + f + "</li>"; }).join("");
+    var steps = copy.steps.map(function(s) { return "<li>" + s + "</li>"; }).join("");
+
+    root.innerHTML = ''
+      + testBanner
+      + '<div class="buy-eyebrow">' + escapeHtml(copy.eyebrow) + '</div>'
+      + '<h1 class="buy-title">' + escapeHtml(copy.title) + '</h1>'
+      + '<p class="buy-sub">' + escapeHtml(copy.sub) + '</p>'
+      + '<div class="buy-card">'
+      +   '<div class="buy-card-head">'
+      +     '<div class="buy-product">' + escapeHtml(product.name) + '</div>'
+      +     '<div class="buy-price"><span class="amount">' + dollars(product.price_cents) + '</span><span class="unit">' + escapeHtml(copy.unit) + '</span>' + savingHtml + '</div>'
+      +   '</div>'
+      +   '<div class="buy-section-label">What\'s included</div>'
+      +   '<ul class="buy-features">' + features + '</ul>'
+      +   '<a class="buy-cta" id="buy-cta" href="' + product.checkout_url + '" target="_blank" rel="noopener">'
+      +     '🔒 ' + escapeHtml(copy.ctaPrefix) + ' ' + dollars(product.price_cents) + ' securely with Square →'
+      +   '</a>'
+      +   '<div class="buy-trust">'
+      +     '<div class="trust-item"><span class="icon">🔐</span><div><strong>Secure payment</strong><br>Processed by Square. We never see your card.</div></div>'
+      +     '<div class="trust-item"><span class="icon">📧</span><div><strong>Instant receipt</strong><br>Emailed to you the second payment clears.</div></div>'
+      +     '<div class="trust-item"><span class="icon">↩️</span><div><strong>Full refund</strong><br>If we\'re not a fit, get every dollar back.</div></div>'
+      +   '</div>'
+      + '</div>'
+      + '<div class="buy-next">'
+      +   '<h3>What happens next</h3>'
+      +   '<ol class="steps">' + steps + '</ol>'
+      + '</div>'
+      + '<div class="buy-footer">'
+      +   'Questions before you buy? <a href="mailto:noah@qmtk.org">Email Coach Shaya</a> &middot; <a href="/">Back to qmtk.org</a>'
+      + '</div>';
+
+    document.getElementById("buy-cta").addEventListener("click", function() {
+      track("InitiateCheckout", {
+        content_name: product.name,
+        content_category: key.indexOf("gift_") === 0 ? "Gift Card" : (key === "intro_call" ? "Intro Call" : "Private Training"),
+        value: product.price_cents / 100,
+        currency: "USD"
+      });
+    });
+  }
+</script>
+
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1771205577188699');
+fbq('track', 'PageView');
+fbq('track', 'ViewContent', { content_name: 'Buy page', content_category: new URLSearchParams(location.search).get('p') });
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"/></noscript>
+
+</body>
+</html>
