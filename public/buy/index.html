@@ -397,7 +397,7 @@
         var hint = "";
         if (/domain/i.test(msg) || /authoriz/i.test(msg) || /allow/i.test(msg)) {
           hint = " — your domain may need to be added to the Square application's Web Payments SDK allow-list.";
-        } else if (/applicationId/i.test(msg) || /invalid/i.test(msg)) {
+        } else if (/applicationId/i.test(msg) && !/style/i.test(msg)) {
           hint = " — the application ID may be wrong for this environment.";
         }
         showFormError("Could not initialize secure card form: " + msg + hint);
@@ -416,10 +416,10 @@
       style: {
         input: {
           color: "#ffffff",
-          fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          fontFamily: "Inter, sans-serif",
           fontSize: "16px",
           fontWeight: "500",
-          placeholderColor: "rgba(241,245,242,0.45)"
+          placeholderColor: "#7a8c80"
         },
         ".input-container": { borderRadius: "8px", borderColor: "transparent" },
         ".input-container.is-focus": { borderColor: "transparent" },
