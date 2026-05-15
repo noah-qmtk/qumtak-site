@@ -241,13 +241,48 @@ nav {
 .faq-a-inner { padding: 0 1.3rem 1rem; font-size: 0.95rem; color: var(--text-mid); line-height: 1.65; border-top: 1px solid var(--border); padding-top: 0.8rem; }
 
 /* INSTAGRAM SECTION */
-.instagram-section { background: var(--bg-card); border-top: 1px solid var(--border); padding: 2rem 2.5rem 1.5rem; }
-.instagram-header { max-width: 960px; margin: 0 auto 2rem; text-align: center; }
-.instagram-header h2 { margin-bottom: 0.5rem; }
-.instagram-header p { font-size: 0.9rem; color: var(--text-mid); margin-bottom: 1rem; }
-.instagram-posts-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.2rem; }
-.instagram-post-card { border-radius: 12px; overflow: hidden; border: 1px solid var(--border-bright); background: var(--bg-raised); }
-.instagram-post-card .instagram-media { margin: 0 auto !important; border-radius: 12px !important; }
+.instagram-section { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-card) 100%); border-top: 1px solid var(--border); padding: 4rem 0 3rem; position: relative; overflow: hidden; }
+.instagram-header { max-width: 720px; margin: 0 auto 2.5rem; text-align: center; padding: 0 1.5rem; }
+.instagram-header .section-tag { display: inline-block; margin-bottom: 0.85rem; }
+.instagram-header h2 { margin-bottom: 0.75rem; font-size: clamp(1.8rem, 3.5vw, 2.4rem); }
+.instagram-header p { font-size: 0.98rem; color: var(--text-mid); margin-bottom: 1.25rem; line-height: 1.6; }
+
+/* Horizontal scrolling reel rail */
+.instagram-rail-wrap { position: relative; max-width: 100%; margin: 0 auto; }
+.instagram-rail-wrap::before,
+.instagram-rail-wrap::after { content: ""; position: absolute; top: 0; bottom: 0; width: 64px; pointer-events: none; z-index: 2; }
+.instagram-rail-wrap::before { left: 0; background: linear-gradient(90deg, var(--bg-card) 0%, transparent 100%); }
+.instagram-rail-wrap::after  { right: 0; background: linear-gradient(270deg, var(--bg-card) 0%, transparent 100%); }
+.instagram-posts-grid {
+  display: flex; gap: 1.25rem;
+  overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.5rem 3rem 1.75rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(34,162,77,0.5) transparent;
+}
+.instagram-posts-grid::-webkit-scrollbar { height: 8px; }
+.instagram-posts-grid::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 100px; }
+.instagram-posts-grid::-webkit-scrollbar-thumb { background: rgba(34,162,77,0.45); border-radius: 100px; }
+.instagram-posts-grid::-webkit-scrollbar-thumb:hover { background: rgba(34,162,77,0.7); }
+.instagram-post-card {
+  flex: 0 0 340px;
+  width: 340px;
+  scroll-snap-align: start;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.2);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.instagram-post-card:hover { transform: translateY(-4px); box-shadow: 0 18px 44px rgba(0,0,0,0.45), 0 4px 12px rgba(34,162,77,0.18); border-color: rgba(34,162,77,0.45); }
+.instagram-post-card .instagram-media { margin: 0 !important; border-radius: 0 !important; box-shadow: none !important; min-width: 0 !important; width: 100% !important; max-width: 100% !important; }
+
+.instagram-scroll-hint { text-align: center; color: var(--text-dim); font-size: 0.78rem; margin-top: 0.5rem; letter-spacing: 0.4px; text-transform: uppercase; font-weight: 600; }
+.instagram-scroll-hint span { opacity: 0.7; }
 
 /* INTRO CALL CTA */
 .intro-call-cta { margin-top: 1.2rem; }
@@ -315,7 +350,7 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
   .why-cards { grid-template-columns: repeat(2, 1fr); }
   .programs-grid { grid-template-columns: repeat(2, 1fr); }
   .faq-grid { grid-template-columns: 1fr; }
-  .instagram-posts-grid { grid-template-columns: repeat(2, 1fr); }
+  .instagram-rail-wrap::before, .instagram-rail-wrap::after { width: 40px; }
 }
 
 @media (max-width: 640px) {
@@ -339,7 +374,10 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
   .age-tabs { flex-direction: column; }
   .why-cards { grid-template-columns: 1fr; }
   .programs-grid { grid-template-columns: 1fr; }
-  .instagram-posts-grid { grid-template-columns: 1fr; }
+  .instagram-section { padding: 2.5rem 0 2rem; }
+  .instagram-post-card { flex: 0 0 88vw; width: 88vw; max-width: 340px; }
+  .instagram-posts-grid { padding: 0.5rem 1.5rem 1.5rem; }
+  .instagram-rail-wrap::before, .instagram-rail-wrap::after { width: 24px; }
   footer { flex-direction: column; gap: 1.5rem; padding: 2rem 1.2rem; }
   #survey-modal { max-width: 90vw; }
 }
@@ -682,23 +720,26 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
     <p>Real sessions, real players, real development. Follow us on Instagram.</p>
     <a href="https://www.instagram.com/qmtk.soccer" target="_blank" class="btn-green" style="width: fit-content; margin: 1rem auto 0;">Follow @qmtk.soccer →</a>
   </div>
-  <div class="instagram-posts-grid">
-    <div class="instagram-post-card reveal-d1">
-      <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DXfQDplEfO5/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF;border:0;border-radius:12px;margin:0;max-width:100%;padding:0;width:100%;"></blockquote>
-    </div>
-    <div class="instagram-post-card reveal-d2">
-      <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DXkuZTelt0C/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF;border:0;border-radius:12px;margin:0;max-width:100%;padding:0;width:100%;"></blockquote>
-    </div>
-    <div class="instagram-post-card reveal-d3">
-      <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DYIidBPt7Av/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF;border:0;border-radius:12px;margin:0;max-width:100%;padding:0;width:100%;"></blockquote>
-    </div>
-    <div class="instagram-post-card reveal-d3">
-      <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DYIm4nltpG8/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF;border:0;border-radius:12px;margin:0;max-width:100%;padding:0;width:100%;"></blockquote>
-    </div>
-    <div class="instagram-post-card reveal-d3">
-      <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DYIpwCHtmDh/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF;border:0;border-radius:12px;margin:0;max-width:100%;padding:0;width:100%;"></blockquote>
+  <div class="instagram-rail-wrap reveal">
+    <div class="instagram-posts-grid" id="ig-rail">
+      <div class="instagram-post-card">
+        <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DXfQDplEfO5/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>
+      </div>
+      <div class="instagram-post-card">
+        <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DXkuZTelt0C/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>
+      </div>
+      <div class="instagram-post-card">
+        <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DYIidBPt7Av/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>
+      </div>
+      <div class="instagram-post-card">
+        <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DYIm4nltpG8/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>
+      </div>
+      <div class="instagram-post-card">
+        <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DYIpwCHtmDh/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>
+      </div>
     </div>
   </div>
+  <p class="instagram-scroll-hint"><span>← Scroll to see more reels →</span></p>
   <script async src="//www.instagram.com/embed.js"></script>
 </section>
 
