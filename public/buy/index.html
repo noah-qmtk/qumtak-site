@@ -386,15 +386,21 @@
       return;
     }
     var appId = APP_IDS[STATE.env];
-    var locationId = STATE.product.catalog_item_id ? null : null; // location lives in JSON
-    // location id is at top-level of JSON
     fetch("/square-products.json", { cache: "no-store" })
       .then(function(r) { return r.json(); })
       .then(function(data) {
         return initCard(appId, data.location_id);
       })
-      .catch(function() {
-        showFormError("Could not initialize secure card form.");
+      .catch(function(err) {
+        console.error("Square SDK init failed:", err);
+        var msg = (err && err.message) ? err.message : "Unknown error";
+        var hint = "";
+        if (/domain/i.test(msg) || /authoriz/i.test(msg) || /allow/i.test(msg)) {
+          hint = " — your domain may need to be added to the Square application's Web Payments SDK allow-list.";
+        } else if (/applicationId/i.test(msg) || /invalid/i.test(msg)) {
+          hint = " — the application ID may be wrong for this environment.";
+        }
+        showFormError("Could not initialize secure card form: " + msg + hint);
       });
   }
 
