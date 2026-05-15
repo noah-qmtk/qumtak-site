@@ -25,6 +25,7 @@
       --text: #f1f5f2;
       --text-mid: rgba(241,245,242,0.78);
       --text-dim: rgba(241,245,242,0.55);
+      --red: #ff8a8a;
     }
     html { scroll-behavior: smooth; }
     body {
@@ -45,12 +46,7 @@
     h1, h2, h3 { letter-spacing: -0.02em; line-height: 1.1; }
     a { color: inherit; }
 
-    /* Header */
-    .buy-nav {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.25rem 2rem;
-      max-width: 1100px; margin: 0 auto;
-    }
+    .buy-nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; max-width: 1100px; margin: 0 auto; }
     .buy-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
     .buy-brand img { width: 56px; height: 56px; border-radius: 12px; object-fit: cover; }
     .buy-brand .name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.35rem; color: #fff; letter-spacing: -0.02em; }
@@ -58,77 +54,101 @@
     .buy-back { color: var(--text-dim); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
     .buy-back:hover { color: var(--text); }
 
-    /* Main wrapper */
-    .buy-wrap { max-width: 920px; margin: 1rem auto 4rem; padding: 0 1.5rem; }
+    .buy-wrap { max-width: 980px; margin: 1rem auto 4rem; padding: 0 1.5rem; }
 
-    /* Eyebrow + title */
     .buy-eyebrow { display: inline-flex; align-items: center; gap: 6px; background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.3); color: #6fcf97; font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 1rem; }
     .buy-eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--green-bright); box-shadow: 0 0 8px rgba(74,222,128,0.7); }
     .buy-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2.4rem, 5vw, 3.4rem); font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
     .buy-sub { color: var(--text-mid); font-size: 1.1rem; margin-bottom: 2.5rem; max-width: 640px; }
 
-    /* Main card */
-    .buy-card {
-      background: linear-gradient(155deg, rgba(34,162,77,0.10) 0%, rgba(34,162,77,0.02) 100%);
-      border: 1px solid rgba(34,162,77,0.3);
-      border-radius: 20px;
-      padding: 2.2rem 2.2rem 2.2rem;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.4), 0 4px 12px rgba(34,162,77,0.1);
-      backdrop-filter: blur(12px);
-    }
-    .buy-card-head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.6rem; padding-bottom: 1.4rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
-    .buy-product { font-family: 'Barlow Condensed', sans-serif; font-size: 1.75rem; font-weight: 700; color: #fff; line-height: 1.15; }
-    .buy-price { display: flex; align-items: baseline; gap: 0.4rem; }
-    .buy-price .amount { font-family: 'Barlow Condensed', sans-serif; font-size: 3rem; font-weight: 800; color: #fff; line-height: 1; }
-    .buy-price .unit { color: var(--text-mid); font-size: 0.95rem; font-weight: 500; }
-    .buy-savings { color: var(--green-bright); font-size: 0.82rem; font-weight: 700; background: rgba(34,162,77,0.13); border: 1px solid rgba(34,162,77,0.35); padding: 3px 10px; border-radius: 100px; margin-left: 0.6rem; white-space: nowrap; }
+    /* Two-column layout: product summary left, payment form right */
+    .buy-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: 1.5rem; align-items: start; }
+
+    .buy-card { background: linear-gradient(155deg, rgba(34,162,77,0.10) 0%, rgba(34,162,77,0.02) 100%); border: 1px solid rgba(34,162,77,0.3); border-radius: 20px; padding: 1.9rem 1.8rem; box-shadow: 0 24px 60px rgba(0,0,0,0.4); }
+    .buy-card-head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.4rem; padding-bottom: 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .buy-product { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 700; color: #fff; line-height: 1.15; }
+    .buy-price { display: flex; align-items: baseline; gap: 0.4rem; flex-wrap: wrap; }
+    .buy-price .amount { font-family: 'Barlow Condensed', sans-serif; font-size: 2.6rem; font-weight: 800; color: #fff; line-height: 1; }
+    .buy-price .unit { color: var(--text-mid); font-size: 0.9rem; font-weight: 500; }
+    .buy-savings { color: var(--green-bright); font-size: 0.78rem; font-weight: 700; background: rgba(34,162,77,0.13); border: 1px solid rgba(34,162,77,0.35); padding: 3px 10px; border-radius: 100px; margin-left: 0.4rem; white-space: nowrap; }
 
     .buy-section-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: var(--green-bright); margin-bottom: 0.8rem; }
-    .buy-features { list-style: none; padding: 0; margin: 0 0 1.8rem; }
-    .buy-features li { font-size: 0.98rem; color: var(--text-mid); padding: 0.45rem 0 0.45rem 1.8rem; position: relative; line-height: 1.55; }
-    .buy-features li::before { content: "✓"; position: absolute; left: 0; top: 0.45rem; color: var(--green-bright); font-weight: 800; font-size: 1.1rem; }
+    .buy-features { list-style: none; padding: 0; margin: 0 0 1.4rem; }
+    .buy-features li { font-size: 0.95rem; color: var(--text-mid); padding: 0.4rem 0 0.4rem 1.7rem; position: relative; line-height: 1.5; }
+    .buy-features li::before { content: "✓"; position: absolute; left: 0; top: 0.4rem; color: var(--green-bright); font-weight: 800; }
 
-    .buy-cta {
-      display: flex; align-items: center; justify-content: center; gap: 10px;
+    /* Payment form card */
+    .pay-card { background: var(--bg-raised); border: 1px solid var(--border-bright); border-radius: 20px; padding: 1.9rem 1.8rem; box-shadow: 0 24px 60px rgba(0,0,0,0.4); position: sticky; top: 1.5rem; }
+    .pay-card h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.6rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem; }
+    .pay-card .lede { color: var(--text-mid); font-size: 0.92rem; margin-bottom: 1.4rem; }
+
+    .field-label { display: block; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text-mid); margin-bottom: 0.5rem; }
+    .field-input { width: 100%; padding: 0.85rem 0.95rem; background: rgba(0,0,0,0.3); border: 1px solid var(--border-bright); border-radius: 10px; color: #fff; font-family: inherit; font-size: 0.98rem; transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+    .field-input:focus { border-color: rgba(34,162,77,0.6); box-shadow: 0 0 0 3px rgba(34,162,77,0.15); }
+    .field-group { margin-bottom: 1.1rem; }
+
+    /* Square Web Payments SDK card container */
+    #card-container { background: rgba(0,0,0,0.3); border: 1px solid var(--border-bright); border-radius: 10px; padding: 0.5rem 0.75rem; min-height: 56px; transition: border-color 0.2s, box-shadow 0.2s; }
+    #card-container.focused { border-color: rgba(34,162,77,0.6); box-shadow: 0 0 0 3px rgba(34,162,77,0.15); }
+
+    .pay-button {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
       width: 100%; background: var(--green); color: #fff; border: none;
-      padding: 1.15rem 1.5rem; border-radius: 14px;
-      font-family: inherit; font-weight: 700; font-size: 1.1rem; text-decoration: none;
-      cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 10px 28px rgba(34,162,77,0.32);
+      padding: 1.05rem 1.4rem; border-radius: 12px;
+      font-family: inherit; font-weight: 700; font-size: 1.05rem;
+      cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+      box-shadow: 0 10px 28px rgba(34,162,77,0.3);
+      margin-top: 0.4rem;
     }
-    .buy-cta:hover { background: #1f924a; transform: translateY(-2px); box-shadow: 0 14px 36px rgba(34,162,77,0.42); }
-    .buy-cta:active { transform: translateY(0); }
+    .pay-button:hover:not(:disabled) { background: #1f924a; transform: translateY(-1px); box-shadow: 0 14px 36px rgba(34,162,77,0.4); }
+    .pay-button:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+    .pay-button .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    .buy-trust { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); }
-    .trust-item { font-size: 0.82rem; color: var(--text-mid); display: flex; flex-direction: column; gap: 0.3rem; }
-    .trust-item .icon { font-size: 1rem; }
-    .trust-item strong { color: #fff; font-weight: 600; }
+    .form-error { background: rgba(255,138,138,0.08); border: 1px solid rgba(255,138,138,0.35); border-radius: 10px; padding: 0.7rem 0.95rem; color: var(--red); font-size: 0.88rem; line-height: 1.4; margin-top: 0.9rem; }
 
-    /* What happens next */
-    .buy-next { margin-top: 2rem; padding: 1.6rem 1.8rem; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 16px; }
-    .buy-next h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 1rem; }
-    .steps { list-style: none; padding: 0; counter-reset: step; }
-    .steps li { counter-increment: step; position: relative; padding-left: 2.5rem; padding-bottom: 1rem; color: var(--text-mid); font-size: 0.92rem; line-height: 1.55; }
-    .steps li:last-child { padding-bottom: 0; }
-    .steps li::before { content: counter(step); position: absolute; left: 0; top: -2px; width: 28px; height: 28px; border-radius: 50%; background: rgba(34,162,77,0.18); border: 1px solid rgba(34,162,77,0.4); color: var(--green-bright); font-weight: 800; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; }
-    .steps li strong { color: #fff; font-weight: 600; }
+    .pay-fineprint { font-size: 0.78rem; color: var(--text-dim); margin-top: 1rem; line-height: 1.55; text-align: center; }
+    .pay-fineprint a { color: #6fcf97; text-decoration: none; }
+    .pay-fineprint a:hover { text-decoration: underline; }
+
+    .trust-row { display: flex; gap: 1rem; margin-top: 1.2rem; padding-top: 1.2rem; border-top: 1px solid var(--border); flex-wrap: wrap; }
+    .trust-row .trust { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--text-dim); }
+
+    /* Success state */
+    .success-card { text-align: center; padding: 1rem 0.5rem; }
+    .success-icon { width: 80px; height: 80px; margin: 0.5rem auto 1.2rem; border-radius: 50%; background: rgba(74,222,128,0.18); display: flex; align-items: center; justify-content: center; font-size: 2.4rem; border: 2px solid rgba(74,222,128,0.5); }
+    .success-card h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 2.1rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem; }
+    .success-card .sub { color: var(--text-mid); font-size: 1rem; margin-bottom: 1.6rem; }
+    .success-next { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.2rem; margin: 1.2rem 0; text-align: left; font-size: 0.92rem; color: var(--text-mid); }
+    .success-next strong { color: #fff; font-weight: 600; }
+    .success-actions { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 1.4rem; }
+    .success-actions a { padding: 0.85rem 1.2rem; border-radius: 10px; font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .success-actions .primary { background: var(--green); color: #fff; }
+    .success-actions .primary:hover { background: #1f924a; transform: translateY(-1px); }
+    .success-actions .secondary { background: rgba(255,255,255,0.06); color: var(--text); border: 1px solid var(--border-bright); }
+    .success-actions .secondary:hover { background: rgba(255,255,255,0.1); }
 
     .buy-footer { text-align: center; margin-top: 2.5rem; color: var(--text-dim); font-size: 0.88rem; }
     .buy-footer a { color: #6fcf97; text-decoration: none; font-weight: 600; }
     .buy-footer a:hover { text-decoration: underline; }
 
     .buy-loading { text-align: center; padding: 5rem 1rem; color: var(--text-dim); }
-    .buy-error { background: rgba(226,74,74,0.1); border: 1px solid rgba(226,74,74,0.35); border-radius: 12px; padding: 1.5rem; color: #ffb4b4; text-align: center; }
+    .buy-error { background: rgba(226,74,74,0.1); border: 1px solid rgba(226,74,74,0.35); border-radius: 12px; padding: 1.5rem; color: var(--red); text-align: center; }
 
+    .test-banner { background: rgba(245,166,35,0.1); border: 1px solid rgba(245,166,35,0.4); border-radius: 10px; color: #f5a623; padding: 0.7rem 1rem; font-size: 0.85rem; font-weight: 600; text-align: center; margin-bottom: 1.5rem; }
+
+    @media (max-width: 900px) {
+      .buy-grid { grid-template-columns: 1fr; }
+      .pay-card { position: static; }
+    }
     @media (max-width: 640px) {
       .buy-nav { padding: 1rem 1.2rem; }
       .buy-brand .name { font-size: 1.1rem; }
       .buy-brand img { width: 48px; height: 48px; }
-      .buy-card { padding: 1.5rem 1.4rem; border-radius: 16px; }
+      .buy-card, .pay-card { padding: 1.5rem 1.4rem; border-radius: 16px; }
       .buy-card-head { flex-direction: column; align-items: flex-start; }
-      .buy-price .amount { font-size: 2.4rem; }
-      .buy-trust { grid-template-columns: 1fr; gap: 0.7rem; }
-      .buy-cta { font-size: 1rem; padding: 1rem 1.2rem; }
+      .buy-price .amount { font-size: 2.2rem; }
+      .pay-button { font-size: 1rem; }
     }
   </style>
 </head>
@@ -147,7 +167,7 @@
 </main>
 
 <script>
-  // ── Product copy lives here so we can polish each page independently ──────
+  // ── Product copy ───────────────────────────────────────────────────────────
   var COPY = {
     intro_call: {
       eyebrow: "Step 1 — Intro Call",
@@ -159,11 +179,6 @@
         "We'll talk about your child's goals and current level",
         "Find the right next step: group, private, or both",
         "$20 deposit applies in full to your first session"
-      ],
-      steps: [
-        "<strong>Complete checkout</strong> on Square — secure, takes about 30 seconds.",
-        "<strong>We'll reach out within 24 hours</strong> at the email you provide to schedule a time that works for you.",
-        "<strong>Jump on the call.</strong> If we're not a fit, your deposit is refunded — no questions asked."
       ],
       ctaPrefix: "Pay"
     },
@@ -178,11 +193,6 @@
         "All ages — K through high school",
         "Locations flexible (Andover / Reading area)",
         "We'll schedule together after purchase"
-      ],
-      steps: [
-        "<strong>Complete checkout</strong> on Square. You'll get an emailed receipt instantly.",
-        "<strong>Coach Shaya will reach out within 24 hours</strong> to schedule a time and location that works for your family.",
-        "<strong>Show up, train, see real progress.</strong> Bring cleats, shin guards, water, and a ball if you have one."
       ],
       ctaPrefix: "Pay"
     },
@@ -199,11 +209,6 @@
         "Same coaching, lower per-session price",
         "Ideal for committed development plans"
       ],
-      steps: [
-        "<strong>Complete checkout</strong> on Square — receipt is sent instantly.",
-        "<strong>We'll text or email you</strong> to schedule your first session within 24 hours.",
-        "<strong>Train, track progress, repeat.</strong> Schedule sessions one at a time or in advance — whatever works."
-      ],
       ctaPrefix: "Pay"
     },
     private_10: {
@@ -219,28 +224,18 @@
         "Build real, lasting technical mastery",
         "Most efficient way to develop fast"
       ],
-      steps: [
-        "<strong>Complete checkout</strong> on Square — receipt is sent instantly.",
-        "<strong>We'll reach out to schedule</strong> your first session within 24 hours.",
-        "<strong>Schedule the rest at your pace.</strong> One a week, two a week, or batches — whatever fits your family."
-      ],
       ctaPrefix: "Pay"
     },
     gift_50: {
       eyebrow: "Gift Card",
       title: "qmtk Gift Card — $50",
-      sub: "Give the gift of professional soccer development. Redeemable for any qmtk service — private sessions, packages, or future programs.",
+      sub: "Give the gift of professional soccer development. Redeemable for any qmtk service.",
       unit: "",
       features: [
         "Redeemable for any qmtk Soccer service",
         "Delivered digitally to the recipient",
         "Perfect for birthdays, holidays, or end-of-season gifts",
         "No expiration"
-      ],
-      steps: [
-        "<strong>Complete checkout</strong> with your details.",
-        "<strong>Tell us who it's for</strong> by emailing noah@qmtk.org with the recipient's name and email.",
-        "<strong>We send them a personalized digital gift card</strong> they can redeem on any qmtk service."
       ],
       ctaPrefix: "Pay"
     },
@@ -255,17 +250,12 @@
         "Perfect for birthdays, holidays, or end-of-season gifts",
         "No expiration"
       ],
-      steps: [
-        "<strong>Complete checkout</strong> with your details.",
-        "<strong>Tell us who it's for</strong> by emailing noah@qmtk.org with the recipient's name and email.",
-        "<strong>We send them a personalized digital gift card</strong> they can redeem on any qmtk service."
-      ],
       ctaPrefix: "Pay"
     },
     gift_200: {
       eyebrow: "Gift Card",
       title: "qmtk Gift Card — $200",
-      sub: "Give the gift of professional soccer development. Redeemable for any qmtk service — covers more than a single session.",
+      sub: "Give the gift of professional soccer development. Redeemable for any qmtk service.",
       unit: "",
       features: [
         "Redeemable for any qmtk Soccer service",
@@ -274,91 +264,289 @@
         "Perfect for birthdays, holidays, or end-of-season gifts",
         "No expiration"
       ],
-      steps: [
-        "<strong>Complete checkout</strong> with your details.",
-        "<strong>Tell us who it's for</strong> by emailing noah@qmtk.org with the recipient's name and email.",
-        "<strong>We send them a personalized digital gift card</strong> they can redeem on any qmtk service."
-      ],
       ctaPrefix: "Pay"
     }
   };
 
-  function dollars(cents) { return "$" + (cents / 100).toLocaleString(); }
-  function escapeHtml(s) {
-    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-  }
-  function param(k) {
-    return new URLSearchParams(window.location.search).get(k);
-  }
-  function track(eventName, params) {
-    if (typeof fbq !== "undefined") fbq("track", eventName, params || {});
+  // Square Application IDs (public identifiers — safe in client code)
+  var APP_IDS = {
+    sandbox: "sandbox-sq0idb-ZTHHrrck2shrdEx1zqabZA",
+    production: "sq0idp-yaRqgCyyyNwODi6723EH8w"
+  };
+
+  function dollars(c) { return "$" + (c / 100).toLocaleString(); }
+  function escapeHtml(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+  function param(k) { return new URLSearchParams(window.location.search).get(k); }
+  function track(e, p) { if (typeof fbq !== "undefined") fbq("track", e, p || {}); }
+
+  function loadScript(src) {
+    return new Promise(function(resolve, reject) {
+      var s = document.createElement("script");
+      s.src = src;
+      s.async = true;
+      s.onload = function() { resolve(); };
+      s.onerror = function() { reject(new Error("Failed to load " + src)); };
+      document.head.appendChild(s);
+    });
   }
 
-  var key = param("p");
-  var root = document.getElementById("buy-root");
+  var STATE = { product: null, copy: null, env: null, card: null, payments: null, submitting: false };
 
-  if (!key || !COPY[key]) {
-    root.innerHTML = '<div class="buy-error">Product not found. <a href="/" style="color:#6fcf97;">Return to the homepage</a> to browse our offerings.</div>';
-  } else {
+  function init() {
+    var key = param("p");
+    var root = document.getElementById("buy-root");
+    if (!key || !COPY[key]) {
+      root.innerHTML = '<div class="buy-error">Product not found. <a href="/" style="color:#6fcf97;">Return to the homepage</a> to browse our offerings.</div>';
+      return;
+    }
+    STATE.copy = COPY[key];
+
     fetch("/square-products.json", { cache: "no-store" })
       .then(function(r) { return r.json(); })
       .then(function(data) {
         var product = (data.products || []).find(function(p) { return p.key === key; });
         if (!product) throw new Error("Product not in catalog");
-        renderProduct(product, COPY[key], data.env === "sandbox");
+        STATE.product = product;
+        STATE.env = data.env === "sandbox" ? "sandbox" : "production";
+        renderPage();
+        return loadSquareSDK();
       })
-      .catch(function() {
-        root.innerHTML = '<div class="buy-error">Checkout is temporarily unavailable. Please <a href="mailto:noah@qmtk.org" style="color:#6fcf97;">email Coach Shaya</a> and we\'ll set you up directly.</div>';
+      .then(initPaymentForm)
+      .catch(function(err) {
+        console.error(err);
+        var root = document.getElementById("buy-root");
+        if (root && !document.getElementById("pay-card")) {
+          root.innerHTML = '<div class="buy-error">Checkout is temporarily unavailable. Please <a href="mailto:noah@qmtk.org" style="color:#6fcf97;">email Coach Shaya</a> and we\'ll set you up directly.</div>';
+        }
       });
   }
 
-  function renderProduct(product, copy, isTest) {
-    document.getElementById("page-title").textContent = product.name + " | qmtk Soccer";
-    var savingHtml = copy.saving ? '<span class="buy-savings">' + escapeHtml(copy.saving) + '</span>' : "";
-    var testBanner = isTest
-      ? '<div style="background:rgba(245,166,35,0.1); border:1px solid rgba(245,166,35,0.4); border-radius:10px; color:#f5a623; padding:0.7rem 1rem; font-size:0.85rem; font-weight:600; text-align:center; margin-bottom:1.5rem;">🧪 Test mode — payments are sandbox only, no real charge.</div>'
-      : "";
-    var features = copy.features.map(function(f) { return "<li>" + f + "</li>"; }).join("");
-    var steps = copy.steps.map(function(s) { return "<li>" + s + "</li>"; }).join("");
+  function renderPage() {
+    var p = STATE.product;
+    var c = STATE.copy;
+    document.getElementById("page-title").textContent = p.name + " | qmtk Soccer";
 
-    root.innerHTML = ''
+    var savingHtml = c.saving ? '<span class="buy-savings">' + escapeHtml(c.saving) + '</span>' : "";
+    var testBanner = STATE.env === "sandbox" ? '<div class="test-banner">🧪 Test mode — payments are sandbox only, no real card will be charged.</div>' : "";
+    var features = c.features.map(function(f) { return "<li>" + f + "</li>"; }).join("");
+
+    document.getElementById("buy-root").innerHTML = ''
       + testBanner
-      + '<div class="buy-eyebrow">' + escapeHtml(copy.eyebrow) + '</div>'
-      + '<h1 class="buy-title">' + escapeHtml(copy.title) + '</h1>'
-      + '<p class="buy-sub">' + escapeHtml(copy.sub) + '</p>'
-      + '<div class="buy-card">'
-      +   '<div class="buy-card-head">'
-      +     '<div class="buy-product">' + escapeHtml(product.name) + '</div>'
-      +     '<div class="buy-price"><span class="amount">' + dollars(product.price_cents) + '</span><span class="unit">' + escapeHtml(copy.unit) + '</span>' + savingHtml + '</div>'
+      + '<div class="buy-eyebrow">' + escapeHtml(c.eyebrow) + '</div>'
+      + '<h1 class="buy-title">' + escapeHtml(c.title) + '</h1>'
+      + '<p class="buy-sub">' + escapeHtml(c.sub) + '</p>'
+      + '<div class="buy-grid">'
+      +   '<div class="buy-card">'
+      +     '<div class="buy-card-head">'
+      +       '<div class="buy-product">' + escapeHtml(p.name) + '</div>'
+      +       '<div class="buy-price"><span class="amount">' + dollars(p.price_cents) + '</span><span class="unit">' + escapeHtml(c.unit) + '</span>' + savingHtml + '</div>'
+      +     '</div>'
+      +     '<div class="buy-section-label">What\'s included</div>'
+      +     '<ul class="buy-features">' + features + '</ul>'
+      +     '<div class="trust-row">'
+      +       '<span class="trust">🔐 Encrypted by Square</span>'
+      +       '<span class="trust">📧 Instant receipt</span>'
+      +       '<span class="trust">↩️ Full refund if not a fit</span>'
+      +     '</div>'
       +   '</div>'
-      +   '<div class="buy-section-label">What\'s included</div>'
-      +   '<ul class="buy-features">' + features + '</ul>'
-      +   '<a class="buy-cta" id="buy-cta" href="' + product.checkout_url + '" target="_blank" rel="noopener">'
-      +     '🔒 ' + escapeHtml(copy.ctaPrefix) + ' ' + dollars(product.price_cents) + ' securely with Square →'
-      +   '</a>'
-      +   '<div class="buy-trust">'
-      +     '<div class="trust-item"><span class="icon">🔐</span><div><strong>Secure payment</strong><br>Processed by Square. We never see your card.</div></div>'
-      +     '<div class="trust-item"><span class="icon">📧</span><div><strong>Instant receipt</strong><br>Emailed to you the second payment clears.</div></div>'
-      +     '<div class="trust-item"><span class="icon">↩️</span><div><strong>Full refund</strong><br>If we\'re not a fit, get every dollar back.</div></div>'
-      +   '</div>'
-      + '</div>'
-      + '<div class="buy-next">'
-      +   '<h3>What happens next</h3>'
-      +   '<ol class="steps">' + steps + '</ol>'
-      + '</div>'
-      + '<div class="buy-footer">'
-      +   'Questions before you buy? <a href="mailto:noah@qmtk.org">Email Coach Shaya</a> &middot; <a href="/">Back to qmtk.org</a>'
-      + '</div>';
 
-    document.getElementById("buy-cta").addEventListener("click", function() {
-      track("InitiateCheckout", {
-        content_name: product.name,
-        content_category: key.indexOf("gift_") === 0 ? "Gift Card" : (key === "intro_call" ? "Intro Call" : "Private Training"),
-        value: product.price_cents / 100,
-        currency: "USD"
+      +   '<div class="pay-card" id="pay-card">'
+      +     '<h2>Pay ' + dollars(p.price_cents) + '</h2>'
+      +     '<p class="lede">Secure checkout — your card is encrypted by Square. We never see your card details.</p>'
+      +     '<form id="pay-form" novalidate>'
+      +       '<div class="field-group">'
+      +         '<label class="field-label" for="email">Email for receipt</label>'
+      +         '<input class="field-input" type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>'
+      +       '</div>'
+      +       '<div class="field-group">'
+      +         '<label class="field-label">Card details</label>'
+      +         '<div id="card-container"></div>'
+      +       '</div>'
+      +       '<button type="submit" class="pay-button" id="pay-button" disabled>'
+      +         '<span id="pay-button-label">Loading secure form…</span>'
+      +       '</button>'
+      +       '<div id="form-error" class="form-error" style="display:none;"></div>'
+      +     '</form>'
+      +     '<p class="pay-fineprint">Having trouble? <a href="mailto:noah@qmtk.org">Email us</a> and we\'ll handle it directly.</p>'
+      +   '</div>'
+      + '</div>'
+      + '<div class="buy-footer">Questions before you buy? <a href="mailto:noah@qmtk.org">Email Coach Shaya</a> &middot; <a href="/">Back to qmtk.org</a></div>';
+  }
+
+  function loadSquareSDK() {
+    var sdkUrl = STATE.env === "sandbox"
+      ? "https://sandbox.web.squarecdn.com/v1/square.js"
+      : "https://web.squarecdn.com/v1/square.js";
+    return loadScript(sdkUrl);
+  }
+
+  function initPaymentForm() {
+    if (typeof Square === "undefined") {
+      showFormError("Payment form failed to load. Please refresh the page.");
+      return;
+    }
+    var appId = APP_IDS[STATE.env];
+    var locationId = STATE.product.catalog_item_id ? null : null; // location lives in JSON
+    // location id is at top-level of JSON
+    fetch("/square-products.json", { cache: "no-store" })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        return initCard(appId, data.location_id);
+      })
+      .catch(function() {
+        showFormError("Could not initialize secure card form.");
+      });
+  }
+
+  function initCard(appId, locationId) {
+    return Square.payments(appId, locationId).then(function(payments) {
+      STATE.payments = payments;
+      return payments.card({
+        style: {
+          input: {
+            color: "#ffffff",
+            fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+            fontSize: "16px",
+            fontWeight: "500",
+            placeholderColor: "rgba(241,245,242,0.45)"
+          },
+          ".input-container": { borderRadius: "8px", borderColor: "transparent" },
+          ".input-container.is-focus": { borderColor: "transparent" },
+          ".input-container.is-error": { borderColor: "#ff8a8a" },
+          ".message-text": { color: "#ff8a8a" },
+          ".message-icon": { color: "#ff8a8a" }
+        }
+      });
+    }).then(function(card) {
+      STATE.card = card;
+      return card.attach("#card-container");
+    }).then(function() {
+      var btn = document.getElementById("pay-button");
+      btn.disabled = false;
+      document.getElementById("pay-button-label").textContent = "🔒 Pay " + dollars(STATE.product.price_cents);
+      document.getElementById("pay-form").addEventListener("submit", handleSubmit);
+      // focus highlight on card container
+      STATE.card.addEventListener("focusClassAdded", function() {
+        document.getElementById("card-container").classList.add("focused");
+      });
+      STATE.card.addEventListener("focusClassRemoved", function() {
+        document.getElementById("card-container").classList.remove("focused");
       });
     });
   }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (STATE.submitting) return;
+    hideFormError();
+
+    var email = document.getElementById("email").value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showFormError("Please enter a valid email address for your receipt.");
+      document.getElementById("email").focus();
+      return;
+    }
+
+    setSubmitting(true);
+
+    STATE.card.tokenize().then(function(result) {
+      if (result.status !== "OK") {
+        var msg = result.errors && result.errors[0] && result.errors[0].message
+          ? result.errors[0].message
+          : "Please check your card details.";
+        showFormError(msg);
+        setSubmitting(false);
+        return null;
+      }
+      return fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source_id: result.token,
+          product_key: STATE.product.key,
+          buyer_email_address: email
+        })
+      }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); });
+    }).then(function(resp) {
+      if (!resp) return;
+      if (!resp.ok || !resp.data.ok) {
+        showFormError(resp.data.error || "Payment could not be completed. Please try a different card.");
+        setSubmitting(false);
+        return;
+      }
+      track("Purchase", {
+        content_name: STATE.product.name,
+        content_category: STATE.product.key.indexOf("gift_") === 0 ? "Gift Card" : (STATE.product.key === "intro_call" ? "Intro Call" : "Private Training"),
+        value: STATE.product.price_cents / 100,
+        currency: "USD"
+      });
+      showSuccess(resp.data);
+    }).catch(function(err) {
+      console.error(err);
+      showFormError("Something went wrong. Please try again or email noah@qmtk.org.");
+      setSubmitting(false);
+    });
+  }
+
+  function setSubmitting(yes) {
+    STATE.submitting = yes;
+    var btn = document.getElementById("pay-button");
+    var lbl = document.getElementById("pay-button-label");
+    if (!btn || !lbl) return;
+    btn.disabled = yes;
+    if (yes) {
+      btn.innerHTML = '<span class="spinner"></span> Processing…';
+    } else {
+      btn.innerHTML = '<span id="pay-button-label">🔒 Pay ' + dollars(STATE.product.price_cents) + '</span>';
+    }
+  }
+
+  function showFormError(msg) {
+    var el = document.getElementById("form-error");
+    if (!el) return;
+    el.textContent = msg;
+    el.style.display = "";
+  }
+  function hideFormError() {
+    var el = document.getElementById("form-error");
+    if (el) el.style.display = "none";
+  }
+
+  function showSuccess(data) {
+    var p = STATE.product;
+    var k = p.key;
+    var nextStepsMap = {
+      intro_call: "Coach Shaya will reach out within 24 hours at the email you provided to schedule your intro call.",
+      private_1:  "Coach Shaya will reach out within 24 hours to schedule your session at a time and location that works for your family.",
+      private_5:  "Coach Shaya will reach out within 24 hours to schedule your first session. You can book the rest one at a time.",
+      private_10: "Coach Shaya will reach out within 24 hours to schedule your first session. Book the rest at your pace.",
+      gift_50:    "Email noah@qmtk.org with the recipient's name and email, and we'll send a personalized gift card.",
+      gift_100:   "Email noah@qmtk.org with the recipient's name and email, and we'll send a personalized gift card.",
+      gift_200:   "Email noah@qmtk.org with the recipient's name and email, and we'll send a personalized gift card."
+    };
+    var nextSteps = nextStepsMap[k] || "Coach Shaya will reach out shortly.";
+
+    var root = document.getElementById("buy-root");
+    root.innerHTML = ''
+      + '<div class="buy-card" style="max-width:560px; margin:0 auto;">'
+      +   '<div class="success-card">'
+      +     '<div class="success-icon">⚽</div>'
+      +     '<h2>You\'re in!</h2>'
+      +     '<p class="sub">' + escapeHtml(p.name) + ' &middot; ' + dollars(data.amount_cents || p.price_cents) + ' charged.</p>'
+      +     (data.receipt_url ? '<p class="sub" style="font-size:0.9rem;">Receipt: <a href="' + escapeHtml(data.receipt_url) + '" target="_blank" rel="noopener" style="color:#6fcf97;">View on Square →</a></p>' : '')
+      +     '<div class="success-next">'
+      +       '<strong>What happens next:</strong> ' + escapeHtml(nextSteps)
+      +     '</div>'
+      +     '<div class="success-actions">'
+      +       '<a class="primary" href="/">Back to qmtk.org</a>'
+      +       '<a class="secondary" href="mailto:noah@qmtk.org">Email Coach Shaya</a>'
+      +     '</div>'
+      +   '</div>'
+      + '</div>';
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  init();
 </script>
 
 <!-- Meta Pixel -->
@@ -370,7 +558,7 @@ t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1771205577188699');
 fbq('track', 'PageView');
-fbq('track', 'ViewContent', { content_name: 'Buy page', content_category: new URLSearchParams(location.search).get('p') });
+fbq('track', 'InitiateCheckout', { content_name: 'Buy page', content_category: new URLSearchParams(location.search).get('p') });
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"/></noscript>
 

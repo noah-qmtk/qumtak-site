@@ -78,6 +78,27 @@ The site picks the latest week whose `weekOf` is on or before today. The "Downlo
 
 `scripts/generate_pptx.py` requires `python-pptx` (`pip3 install --user python-pptx`).
 
+## Embedded Card Checkout (`/api/checkout` + Web Payments SDK)
+The `/buy/?p=<product>` pages embed Square's Web Payments SDK card form directly on qmtk.org. No redirect — customer enters card on our domain.
+
+Flow:
+1. `/buy/` page loads Square Web Payments SDK (`web.squarecdn.com/v1/square.js` or sandbox equivalent)
+2. SDK tokenizes the card client-side → returns a one-time `source_id` token
+3. Browser POSTs `{ source_id, product_key, buyer_email_address }` to `/api/checkout`
+4. Serverless function (`api/checkout.js`) calls Square `/v2/payments` with the token + server-side product price
+5. On success, page swaps to in-line "You're in" success state with receipt link
+
+Required Vercel environment variables (Settings → Environment Variables):
+- `SQUARE_ACCESS_TOKEN` — production Personal Access Token
+- `SQUARE_LOCATION_ID` — e.g. `L2TKVGY8K0CVH`
+- `SQUARE_ENV` — `production` or `sandbox`
+
+Public client-side identifiers (in `public/buy/index.html`):
+- Sandbox App ID: `sandbox-sq0idb-ZTHHrrck2shrdEx1zqabZA`
+- Production App ID: `sq0idp-yaRqgCyyyNwODi6723EH8w`
+
+Prices are hardcoded in `api/checkout.js` for server-side trust — never trust client-supplied prices.
+
 ## Branded Buy Pages (`/buy/`)
 All Square checkout flows on the site go through `/buy/?p=<product_key>` first — a fully qmtk-branded interstitial page (`public/buy/index.html`). The page reads `?p=` from the URL, fetches `public/square-products.json`, finds the matching product, and renders product-specific copy from the inline `COPY` map (eyebrow / title / sub / features / steps).
 
