@@ -235,6 +235,38 @@ nav {
 .prog-card.private .prog-link { color: #818cf8; }
 .prog-card.partnership .prog-link { color: #facc15; }
 
+/* PRICING / PACKAGES */
+.pricing-section { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-card) 100%); position: relative; overflow: hidden; }
+.pricing-section::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(34,162,77,0.08) 0%, transparent 60%); pointer-events: none; }
+.pricing-header { text-align: center; max-width: 640px; margin: 0 auto 2.5rem; position: relative; z-index: 1; }
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; max-width: 1080px; margin: 0 auto; position: relative; z-index: 1; }
+.pricing-card { position: relative; background: var(--bg-raised); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 1.8rem 1.6rem; display: flex; flex-direction: column; transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+.pricing-card:hover { transform: translateY(-4px); box-shadow: 0 18px 44px rgba(0,0,0,0.35); border-color: rgba(34,162,77,0.4); }
+.pricing-card.featured { background: linear-gradient(155deg, rgba(34,162,77,0.16) 0%, rgba(34,162,77,0.04) 100%); border-color: rgba(34,162,77,0.5); box-shadow: 0 14px 38px rgba(34,162,77,0.18); }
+.pricing-card.featured:hover { box-shadow: 0 22px 56px rgba(34,162,77,0.28); }
+.pricing-badge { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--green); color: #fff; font-size: 0.65rem; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; box-shadow: 0 4px 14px rgba(34,162,77,0.45); }
+.pricing-card-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #6fcf97; margin-bottom: 0.6rem; }
+.pricing-card-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; line-height: 1.1; letter-spacing: -0.01em; }
+.pricing-card-price { display: flex; align-items: baseline; gap: 0.5rem; margin: 0.6rem 0 0.4rem; }
+.pricing-card-price .amount { font-family: 'Barlow Condensed', sans-serif; font-size: 3rem; font-weight: 800; color: #fff; line-height: 1; }
+.pricing-card-price .unit { color: var(--text-mid); font-size: 0.9rem; font-weight: 500; }
+.pricing-card-saving { display: inline-block; font-size: 0.78rem; color: #6fcf97; font-weight: 700; margin-bottom: 1rem; background: rgba(34,162,77,0.12); border: 1px solid rgba(34,162,77,0.3); border-radius: 100px; padding: 3px 10px; width: fit-content; }
+.pricing-card-features { list-style: none; padding: 0; margin: 0.5rem 0 1.4rem; }
+.pricing-card-features li { font-size: 0.9rem; color: var(--text-mid); padding: 0.3rem 0; padding-left: 1.5rem; position: relative; line-height: 1.5; }
+.pricing-card-features li::before { content: "✓"; position: absolute; left: 0; color: #4ade80; font-weight: 800; }
+.pricing-card-cta { display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: 100%; background: var(--green); color: #fff; border: none; padding: 0.85rem 1.2rem; border-radius: 10px; font-weight: 700; font-size: 0.95rem; text-decoration: none; cursor: pointer; margin-top: auto; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; font-family: inherit; }
+.pricing-card-cta:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 8px 20px rgba(34,162,77,0.4); }
+.pricing-card.featured .pricing-card-cta { box-shadow: 0 6px 16px rgba(34,162,77,0.45); }
+
+.gift-row { max-width: 1080px; margin: 2.5rem auto 0; padding: 1.6rem 1.8rem; border-radius: 16px; background: linear-gradient(135deg, rgba(124,93,250,0.1) 0%, rgba(99,102,241,0.05) 100%); border: 1px solid rgba(124,93,250,0.25); display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; justify-content: space-between; position: relative; z-index: 1; }
+.gift-row-text h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; font-weight: 700; color: #fff; margin: 0 0 0.2rem; letter-spacing: -0.01em; }
+.gift-row-text p { font-size: 0.92rem; color: var(--text-mid); margin: 0; max-width: 380px; }
+.gift-row-buttons { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.gift-btn { display: inline-flex; align-items: center; gap: 4px; background: rgba(124,93,250,0.18); border: 1px solid rgba(124,93,250,0.5); color: #c4b5fd; padding: 0.6rem 1.1rem; border-radius: 10px; font-weight: 700; font-size: 0.9rem; text-decoration: none; transition: background 0.2s, transform 0.15s, color 0.2s; }
+.gift-btn:hover { background: rgba(124,93,250,0.32); color: #fff; transform: translateY(-1px); }
+
+.pricing-loading { text-align: center; color: var(--text-dim); padding: 3rem 1rem; font-size: 0.9rem; }
+
 /* FAQ - 2 COLUMN ACCORDION */
 .faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; margin-top: 2rem; }
 .faq-item { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; cursor: pointer; transition: border-color 0.2s; }
@@ -354,6 +386,7 @@ footer { background: var(--bg-card); border-top: 1px solid var(--border); paddin
   .glance-mini { grid-template-columns: repeat(2, 1fr); }
   .session-cards-grid { grid-template-columns: repeat(2, 1fr); }
   .plan-flow { grid-template-columns: repeat(2, 1fr); }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 480px; }
   .why-cards { grid-template-columns: repeat(2, 1fr); }
   .programs-grid { grid-template-columns: repeat(2, 1fr); }
   .faq-grid { grid-template-columns: 1fr; }
@@ -437,6 +470,7 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
     <a href="#sessions">Sessions</a>
     <a href="#why">Why qmtk</a>
     <a href="#programs">Programs</a>
+    <a href="#pricing">Pricing</a>
     <a href="#faq">FAQ</a>
   </div>
   <div class="nav-right">
@@ -450,6 +484,7 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
   <a href="#sessions" onclick="closeMobileNav()">Sessions</a>
   <a href="#why" onclick="closeMobileNav()">Why qmtk</a>
   <a href="#programs" onclick="closeMobileNav()">Programs</a>
+  <a href="#pricing" onclick="closeMobileNav()">Pricing</a>
   <a href="#faq" onclick="closeMobileNav()">FAQ</a>
   <a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank" class="nav-mobile-enroll">Enroll Now</a>
 </div>
@@ -596,6 +631,34 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
         </div>
         <a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank" class="btn-green" style="display:inline-block;margin-top:1.2rem;font-size:0.9rem;padding:0.55rem 1.2rem;">Enroll Now →</a>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- PRICING / PACKAGES -->
+<section class="section pricing-section" id="pricing">
+  <div class="section-inner">
+    <div class="pricing-header reveal">
+      <span class="section-tag">Pricing</span>
+      <h2>Train more, save more</h2>
+      <p style="color:var(--text-mid); margin-top:0.5rem; line-height:1.6;">Pre-pay for sessions and lock in lower per-session rates. Cards billed securely through Square. Use them whenever — no expiration.</p>
+    </div>
+
+    <div id="pricing-test-banner" style="display:none; max-width:880px; margin:0 auto 1.5rem; padding:0.7rem 1.1rem; background:rgba(245,166,35,0.1); border:1px solid rgba(245,166,35,0.4); border-radius:10px; color:#f5a623; font-size:0.85rem; text-align:center; font-weight:600;">
+      🧪 Test mode — payments are sandbox only and will not charge a real card.
+    </div>
+
+    <div class="pricing-grid reveal" id="pricing-grid">
+      <div class="pricing-loading">Loading pricing…</div>
+    </div>
+
+    <div class="gift-row reveal" id="gift-row" style="display:none;">
+      <div class="gift-row-text">
+        <h3>🎁 Give the gift of soccer</h3>
+        <p>Birthdays, holidays, or a "you got this" boost. Gift cards work on any qmtk service.</p>
+      </div>
+      <div class="gift-row-buttons" id="gift-buttons"></div>
     </div>
   </div>
 </section>
@@ -822,6 +885,69 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
   function toggleFaq(el) {
     el.classList.toggle('open');
   }
+
+  (function loadPricing() {
+    var grid = document.getElementById('pricing-grid');
+    var giftRow = document.getElementById('gift-row');
+    var giftBtns = document.getElementById('gift-buttons');
+    if (!grid) return;
+
+    var PACKAGE_META = {
+      private_1:  { eyebrow: 'Drop-In', features: ['60-minute private session', 'All ages — K through high school', 'Booked via Square'], featured: false },
+      private_5:  { eyebrow: 'Most Popular', features: ['Five 60-minute sessions', '$80 per session — save $25', 'Use anytime, no expiration'], featured: true },
+      private_10: { eyebrow: 'Best Value', features: ['Ten 60-minute sessions', '$75 per session — save $100', 'Use anytime, no expiration'], featured: false }
+    };
+
+    function dollars(cents) { return '$' + (cents / 100).toLocaleString(); }
+    function unit(key) {
+      if (key === 'private_1')  return '/ 60-min session';
+      if (key === 'private_5')  return '/ 5 sessions';
+      if (key === 'private_10') return '/ 10 sessions';
+      return '';
+    }
+
+    fetch('/square-products.json', { cache: 'no-store' })
+      .then(function(r){ return r.json(); })
+      .then(function(data) {
+        if (data.env === 'sandbox') {
+          var banner = document.getElementById('pricing-test-banner');
+          if (banner) banner.style.display = '';
+        }
+        var prods = data.products || [];
+        var packages = prods.filter(function(p){ return p.key.indexOf('private_') === 0; });
+        var gifts    = prods.filter(function(p){ return p.key.indexOf('gift_') === 0; });
+
+        grid.innerHTML = packages.map(function(p) {
+          var meta = PACKAGE_META[p.key] || { eyebrow: '', features: [], featured: false };
+          var saving = p.key === 'private_5' ? 'Save $25' : (p.key === 'private_10' ? 'Save $100' : '');
+          var savingHtml = saving ? '<span class="pricing-card-saving">' + saving + '</span>' : '';
+          var badgeHtml = meta.featured ? '<div class="pricing-badge">' + meta.eyebrow + '</div>' : '';
+          var eyebrowHtml = meta.featured ? '' : '<div class="pricing-card-eyebrow">' + meta.eyebrow + '</div>';
+          var features = meta.features.map(function(f){ return '<li>' + f + '</li>'; }).join('');
+          return ''
+            + '<div class="pricing-card' + (meta.featured ? ' featured' : '') + '">'
+            +   badgeHtml
+            +   eyebrowHtml
+            +   '<div class="pricing-card-name">' + p.name.replace('Private Training — ', '') + '</div>'
+            +   '<div class="pricing-card-price"><span class="amount">' + dollars(p.price_cents) + '</span><span class="unit">' + unit(p.key) + '</span></div>'
+            +   savingHtml
+            +   '<ul class="pricing-card-features">' + features + '</ul>'
+            +   '<a href="' + p.checkout_url + '" target="_blank" rel="noopener" class="pricing-card-cta">Buy Now →</a>'
+            + '</div>';
+        }).join('');
+
+        if (gifts.length && giftRow && giftBtns) {
+          giftRow.style.display = '';
+          giftBtns.innerHTML = gifts.map(function(g) {
+            var amt = dollars(g.price_cents);
+            return '<a href="' + g.checkout_url + '" target="_blank" rel="noopener" class="gift-btn">' + amt + ' Gift Card →</a>';
+          }).join('');
+        }
+      })
+      .catch(function() {
+        grid.innerHTML = '<div class="pricing-loading">Pricing temporarily unavailable. <a href="mailto:noah@qmtk.org" style="color:#6fcf97;">Email us</a> for current rates.</div>';
+      });
+  })();
 
   function switchAgeGroup(group) {
     document.querySelectorAll('.age-tab').forEach(function(btn) {

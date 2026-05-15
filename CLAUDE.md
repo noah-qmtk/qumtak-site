@@ -78,6 +78,22 @@ The site picks the latest week whose `weekOf` is on or before today. The "Downlo
 
 `scripts/generate_pptx.py` requires `python-pptx` (`pip3 install --user python-pptx`).
 
+## Square Pricing & Checkout
+The `#pricing` section on the homepage is data-driven from `public/square-products.json`. The site renders three package cards (1, 5, 10 sessions) plus a gift-card strip with Buy Now buttons that link to Square Checkout URLs.
+
+**To update prices or add products:**
+1. Edit `PRODUCTS` in `scripts/setup_square.py`
+2. Run with your Square Personal Access Token:
+   ```bash
+   SQUARE_ENV=sandbox SQUARE_ACCESS_TOKEN=EAAA... python3 scripts/setup_square.py     # test
+   SQUARE_ENV=production SQUARE_ACCESS_TOKEN=EAAA... python3 scripts/setup_square.py  # live
+   ```
+3. The script creates Square catalog items + payment links and writes `public/square-products.json`. Commit + push.
+
+When `env === "sandbox"` in the JSON, the site shows a yellow "🧪 Test mode" banner so visitors know payments won't charge. Switch to production token + re-run to remove it.
+
+Token is never stored in the repo — it lives only in your shell env when you run the script.
+
 ## GitHub → Vercel Flow
 Push to `main` → Vercel auto-detects → deploys in ~10s → live at qmtk.org  
 No manual deploy steps needed.
