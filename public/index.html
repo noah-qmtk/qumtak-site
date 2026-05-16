@@ -281,6 +281,50 @@ nav {
 .thanks-close { background: var(--green); color: #fff; border: none; padding: 0.8rem 1.6rem; border-radius: 10px; font-family: inherit; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: background 0.2s, transform 0.15s; box-shadow: 0 6px 18px rgba(34,162,77,0.4); }
 .thanks-close:hover { background: #1f924a; transform: translateY(-1px); }
 
+/* SQUARE CHECKOUT MODAL — embedded Web Payments SDK card form on the homepage */
+.co-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.78); backdrop-filter: blur(10px); z-index: 9998; display: flex; align-items: center; justify-content: center; padding: 1.25rem; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+.co-overlay.show { opacity: 1; pointer-events: auto; }
+.co-modal { background: #fff; color: #1a1a1a; border-radius: 16px; max-width: 460px; width: 100%; max-height: 92vh; overflow-y: auto; box-shadow: 0 30px 80px rgba(0,0,0,0.65); transform: translateY(20px); transition: transform 0.3s ease; position: relative; }
+.co-overlay.show .co-modal { transform: translateY(0); }
+.co-head { position: sticky; top: 0; background: #000; color: #fff; padding: 0.9rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; border-radius: 16px 16px 0 0; z-index: 2; }
+.co-head .head-left { display: flex; align-items: center; gap: 10px; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; opacity: 0.85; }
+.co-head .sq-logo { width: 18px; height: 18px; background: #fff; border-radius: 3px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.co-head .sq-logo::before { content: ""; width: 8px; height: 8px; background: #000; border-radius: 1px; }
+.co-head button { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: background 0.2s; padding: 0; line-height: 1; }
+.co-head button:hover { background: rgba(255,255,255,0.2); }
+.co-body { padding: 1.5rem 1.5rem 1.75rem; }
+.co-product { padding-bottom: 1.1rem; margin-bottom: 1.25rem; border-bottom: 1px solid #ebedef; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.co-product-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.15rem; color: #1a1a1a; line-height: 1.2; }
+.co-product-price { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.8rem; color: #1a1a1a; line-height: 1; }
+.co-label { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: #6e6e73; margin-bottom: 0.5rem; }
+.co-input { width: 100%; padding: 0.85rem 0.95rem; background: #fff; border: 1px solid #d0d4d8; border-radius: 8px; color: #1a1a1a; font-family: inherit; font-size: 0.98rem; outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
+.co-input:focus { border-color: #22a24d; box-shadow: 0 0 0 3px rgba(34,162,77,0.15); }
+.co-field { margin-bottom: 1.1rem; }
+#co-card-container { background: #fff; border: 1px solid #d0d4d8; border-radius: 8px; padding: 0.45rem 0.6rem; min-height: 52px; }
+.co-pay { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: #000; color: #fff; border: none; padding: 1rem 1.3rem; border-radius: 10px; font-family: inherit; font-weight: 700; font-size: 1rem; cursor: pointer; transition: background 0.15s, opacity 0.15s; margin-top: 0.4rem; }
+.co-pay:hover:not(:disabled) { background: #1a1a1a; }
+.co-pay:disabled { opacity: 0.55; cursor: not-allowed; }
+.co-pay .spin { width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: cospin 0.7s linear infinite; }
+@keyframes cospin { to { transform: rotate(360deg); } }
+.co-error { background: #fff1f1; border: 1px solid #f5b5b5; border-radius: 8px; padding: 0.7rem 0.9rem; color: #c0392b; font-size: 0.88rem; line-height: 1.4; margin-top: 0.9rem; }
+.co-foot { padding: 1rem 1.25rem 1.2rem; background: #f6f7f8; border-top: 1px solid #ebedef; border-radius: 0 0 16px 16px; display: flex; align-items: center; justify-content: center; gap: 8px; color: #6e6e73; font-size: 0.78rem; font-weight: 500; }
+.co-foot .sq-foot-logo { width: 14px; height: 14px; background: #000; border-radius: 2px; display: inline-flex; align-items: center; justify-content: center; }
+.co-foot .sq-foot-logo::before { content: ""; width: 7px; height: 7px; background: #fff; border-radius: 1px; }
+.co-loading { text-align: center; padding: 2rem 1rem; color: #6e6e73; font-size: 0.92rem; }
+.co-success { text-align: center; padding: 1rem 0.5rem; }
+.co-success .icon { width: 64px; height: 64px; margin: 0.5rem auto 1rem; border-radius: 50%; background: rgba(34,162,77,0.12); display: flex; align-items: center; justify-content: center; font-size: 2rem; border: 2px solid rgba(34,162,77,0.4); color: #22a24d; }
+.co-success h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.8rem; font-weight: 800; color: #1a1a1a; margin-bottom: 0.3rem; }
+.co-success p { color: #4a4f55; font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem; }
+.co-success .ok { background: #22a24d; color: #fff; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-family: inherit; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: background 0.15s; }
+.co-success .ok:hover { background: #1f924a; }
+.co-test-banner { background: #fff8e1; border-bottom: 1px solid #f1d575; color: #8a6500; padding: 0.55rem 1.25rem; font-size: 0.78rem; font-weight: 600; text-align: center; }
+
+@media (max-width: 480px) {
+  .co-modal { border-radius: 12px; max-height: 96vh; }
+  .co-head { border-radius: 12px 12px 0 0; }
+  .co-body { padding: 1.2rem 1.1rem 1.4rem; }
+}
+
 /* FAQ - 2 COLUMN ACCORDION */
 .faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; margin-top: 2rem; }
 .faq-item { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; cursor: pointer; transition: border-color 0.2s; }
@@ -858,6 +902,24 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
   </ul>
 </footer>
 
+<!-- SQUARE CHECKOUT MODAL — embedded card form via Web Payments SDK -->
+<div class="co-overlay" id="co-overlay" role="dialog" aria-modal="true" aria-labelledby="co-title">
+  <div class="co-modal">
+    <div class="co-head">
+      <span class="head-left"><span class="sq-logo"></span><span id="co-title">Secure checkout</span></span>
+      <button type="button" onclick="closeCheckout()" aria-label="Close">×</button>
+    </div>
+    <div id="co-test-banner-wrap"></div>
+    <div class="co-body" id="co-body">
+      <div class="co-loading">Loading secure checkout…</div>
+    </div>
+    <div class="co-foot">
+      <span class="sq-foot-logo"></span>
+      <span>Card processed entirely by Square · 256-bit SSL · PCI-DSS compliant</span>
+    </div>
+  </div>
+</div>
+
 <!-- THANK YOU MODAL after Square checkout success -->
 <div class="thanks-overlay" id="thanks-overlay" role="dialog" aria-modal="true" aria-labelledby="thanks-title">
   <div class="thanks-modal">
@@ -942,29 +1004,72 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
     }
   })();
 
-  // ── One-click popup checkout ──────────────────────────────────────────────
-  // Any anchor with data-buy="<product_key>" opens Square's hosted checkout in a popup.
+  // ── One-click in-window checkout via Square Web Payments SDK ─────────────
+  // Any anchor with data-buy="<product_key>" opens the modal with embedded card form.
+  var APP_IDS = {
+    sandbox: 'sandbox-sq0idb-ZTHHrrck2shrdEx1zqabZA',
+    production: 'sq0idp-yaRqgCyyyNwODi6723EH8w'
+  };
   var SQUARE_DATA = null;
+  var SDK_LOADED = false;
+  var CO_STATE = { product: null, card: null, payments: null, submitting: false };
+
   function fetchSquareData() {
     if (SQUARE_DATA) return Promise.resolve(SQUARE_DATA);
     return fetch('/square-products.json', { cache: 'no-store' })
       .then(function(r) { return r.json(); })
       .then(function(d) { SQUARE_DATA = d; return d; });
   }
-  function openSquareCheckout(url, product) {
-    var w = 520, h = 760;
-    var left = Math.max(0, (screen.width - w) / 2);
-    var top  = Math.max(0, (screen.height - h) / 2);
-    var feat = 'width=' + w + ',height=' + h + ',left=' + left + ',top=' + top
-             + ',scrollbars=yes,resizable=yes,toolbar=no,menubar=no,location=yes,status=no';
-    var popup = window.open(url, 'qmtk_square_checkout', feat);
-    if (!popup || popup.closed) {
-      // Blocked — open a normal new tab
-      window.open(url, '_blank', 'noopener');
-    } else {
-      popup.focus();
-    }
-    if (typeof fbq !== 'undefined' && product) {
+
+  function loadSquareSDK(env) {
+    if (SDK_LOADED && typeof Square !== 'undefined') return Promise.resolve();
+    return new Promise(function(resolve, reject) {
+      var src = env === 'sandbox'
+        ? 'https://sandbox.web.squarecdn.com/v1/square.js'
+        : 'https://web.squarecdn.com/v1/square.js';
+      var s = document.createElement('script');
+      s.src = src;
+      s.async = true;
+      s.onload = function() { SDK_LOADED = true; resolve(); };
+      s.onerror = function() { reject(new Error('Failed to load Square SDK')); };
+      document.head.appendChild(s);
+    });
+  }
+
+  function dollarsCents(c) { return '$' + (c / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+
+  function openCheckout(product, env) {
+    CO_STATE.product = product;
+    var overlay = document.getElementById('co-overlay');
+    var body = document.getElementById('co-body');
+    var bannerWrap = document.getElementById('co-test-banner-wrap');
+    bannerWrap.innerHTML = env === 'sandbox'
+      ? '<div class="co-test-banner">🧪 Test mode — no real card will be charged.</div>'
+      : '';
+
+    body.innerHTML = ''
+      + '<div class="co-product">'
+      +   '<div class="co-product-name">' + product.name + '</div>'
+      +   '<div class="co-product-price">' + dollarsCents(product.price_cents) + '</div>'
+      + '</div>'
+      + '<div class="co-field">'
+      +   '<label class="co-label" for="co-email">Email for receipt</label>'
+      +   '<input class="co-input" type="email" id="co-email" placeholder="you@example.com" autocomplete="email" required>'
+      + '</div>'
+      + '<div class="co-field">'
+      +   '<label class="co-label">Card details</label>'
+      +   '<div id="co-card-container"><div class="co-loading">Loading…</div></div>'
+      + '</div>'
+      + '<button type="button" class="co-pay" id="co-pay-btn" disabled>'
+      +   '<span id="co-pay-label">Loading secure form…</span>'
+      + '</button>'
+      + '<div id="co-error" class="co-error" style="display:none;"></div>';
+
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+
+    // Track funnel entry
+    if (typeof fbq !== 'undefined') {
       fbq('track', 'InitiateCheckout', {
         content_name: product.name,
         content_category: product.key.indexOf('gift_') === 0 ? 'Gift Card'
@@ -973,7 +1078,149 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
         currency: 'USD'
       });
     }
+
+    // Init SDK + card
+    loadSquareSDK(env)
+      .then(function() { return initCheckoutCard(env); })
+      .catch(function(err) {
+        console.error('Square SDK init failed:', err);
+        var msg = (err && err.message) ? err.message : 'Could not load secure card form.';
+        body.innerHTML = '<div class="co-error">' + msg + '</div>'
+          + '<a class="co-pay" style="display:flex;text-decoration:none;margin-top:1rem;" href="' + product.checkout_url + '" target="_blank" rel="noopener">Continue on Square →</a>';
+      });
   }
+
+  function initCheckoutCard(env) {
+    var payments;
+    try { payments = Square.payments(APP_IDS[env], SQUARE_DATA.location_id); }
+    catch (e) { return Promise.reject(e); }
+    CO_STATE.payments = payments;
+    // Use Square's default styling — no custom styles (avoids validation errors)
+    return payments.card().then(function(card) {
+      CO_STATE.card = card;
+      var container = document.getElementById('co-card-container');
+      if (container) container.innerHTML = '';
+      return card.attach('#co-card-container');
+    }).then(function() {
+      var btn = document.getElementById('co-pay-btn');
+      var lbl = document.getElementById('co-pay-label');
+      if (btn) btn.disabled = false;
+      if (lbl) lbl.textContent = '🔒 Pay ' + dollarsCents(CO_STATE.product.price_cents);
+      if (btn) btn.addEventListener('click', handleCheckoutSubmit);
+    });
+  }
+
+  function setCoSubmitting(yes) {
+    CO_STATE.submitting = yes;
+    var btn = document.getElementById('co-pay-btn');
+    if (!btn) return;
+    btn.disabled = yes;
+    if (yes) {
+      btn.innerHTML = '<span class="spin"></span> Processing…';
+    } else {
+      btn.innerHTML = '<span id="co-pay-label">🔒 Pay ' + dollarsCents(CO_STATE.product.price_cents) + '</span>';
+    }
+  }
+  function showCoError(msg) {
+    var el = document.getElementById('co-error');
+    if (!el) return;
+    el.textContent = msg;
+    el.style.display = '';
+  }
+  function hideCoError() {
+    var el = document.getElementById('co-error');
+    if (el) el.style.display = 'none';
+  }
+
+  function handleCheckoutSubmit() {
+    if (CO_STATE.submitting) return;
+    hideCoError();
+    var emailEl = document.getElementById('co-email');
+    var email = emailEl ? emailEl.value.trim() : '';
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showCoError('Please enter a valid email address for your receipt.');
+      if (emailEl) emailEl.focus();
+      return;
+    }
+    setCoSubmitting(true);
+    CO_STATE.card.tokenize().then(function(result) {
+      if (result.status !== 'OK') {
+        var msg = (result.errors && result.errors[0] && result.errors[0].message) || 'Please check your card details.';
+        showCoError(msg);
+        setCoSubmitting(false);
+        return null;
+      }
+      return fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ source_id: result.token, product_key: CO_STATE.product.key, buyer_email_address: email })
+      }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); });
+    }).then(function(resp) {
+      if (!resp) return;
+      if (!resp.ok || !resp.data.ok) {
+        showCoError(resp.data.error || 'Payment could not be completed. Please try a different card.');
+        setCoSubmitting(false);
+        return;
+      }
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Purchase', {
+          content_name: CO_STATE.product.name,
+          content_category: CO_STATE.product.key.indexOf('gift_') === 0 ? 'Gift Card'
+                          : (CO_STATE.product.key === 'intro_call' ? 'Intro Call' : 'Private Training'),
+          value: CO_STATE.product.price_cents / 100,
+          currency: 'USD'
+        });
+      }
+      showCheckoutSuccess(resp.data);
+    }).catch(function(err) {
+      console.error(err);
+      showCoError('Something went wrong. Please try again or email noah@qmtk.org.');
+      setCoSubmitting(false);
+    });
+  }
+
+  function showCheckoutSuccess(data) {
+    var p = CO_STATE.product;
+    var nextMap = {
+      intro_call: 'Coach Shaya will reach out within 24 hours to schedule your intro call.',
+      private_1:  'Coach Shaya will reach out within 24 hours to schedule your session.',
+      private_5:  'Coach Shaya will reach out within 24 hours to schedule your first session. Book the rest at your pace.',
+      private_10: 'Coach Shaya will reach out within 24 hours to schedule your first session. Book the rest at your pace.',
+      gift_50:    'Email noah@qmtk.org with the recipient details and we\'ll send a personalized gift card.',
+      gift_100:   'Email noah@qmtk.org with the recipient details and we\'ll send a personalized gift card.',
+      gift_200:   'Email noah@qmtk.org with the recipient details and we\'ll send a personalized gift card.'
+    };
+    var next = nextMap[p.key] || 'Coach Shaya will reach out shortly.';
+    var body = document.getElementById('co-body');
+    body.innerHTML = ''
+      + '<div class="co-success">'
+      +   '<div class="icon">⚽</div>'
+      +   '<h3>You\'re in!</h3>'
+      +   '<p>' + p.name + ' &middot; ' + dollarsCents(p.price_cents) + ' charged. Receipt emailed by Square.</p>'
+      +   '<p style="font-size:0.88rem;">' + next + '</p>'
+      +   '<button class="ok" onclick="closeCheckout()">Done</button>'
+      + '</div>';
+  }
+
+  function closeCheckout() {
+    var overlay = document.getElementById('co-overlay');
+    if (overlay) overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    // Reset state so next open is clean
+    CO_STATE.card = null;
+    CO_STATE.payments = null;
+    CO_STATE.submitting = false;
+  }
+  // Close on backdrop click
+  (function() {
+    var ov = document.getElementById('co-overlay');
+    if (ov) ov.addEventListener('click', function(e) { if (e.target === ov) closeCheckout(); });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && ov && ov.classList.contains('show')) closeCheckout();
+    });
+  })();
+
+  // data-buy click handler → open checkout modal
   document.addEventListener('click', function(e) {
     var el = e.target.closest('[data-buy]');
     if (!el) return;
@@ -981,27 +1228,12 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
     var key = el.getAttribute('data-buy');
     fetchSquareData().then(function(d) {
       var p = (d.products || []).find(function(x) { return x.key === key; });
-      if (!p) {
-        window.location.href = '/buy/?p=' + encodeURIComponent(key); // fallback
-        return;
-      }
-      openSquareCheckout(p.checkout_url, p);
+      if (!p) { window.location.href = '/buy/?p=' + encodeURIComponent(key); return; }
+      var env = d.env === 'sandbox' ? 'sandbox' : 'production';
+      openCheckout(p, env);
     }).catch(function() {
       window.location.href = '/buy/?p=' + encodeURIComponent(key);
     });
-  });
-  // Listen for popup success → show thanks modal on the main page
-  window.addEventListener('message', function(e) {
-    if (e.origin !== window.location.origin) return;
-    if (!e.data || e.data.type !== 'qmtk-purchase-success') return;
-    var overlay = document.getElementById('thanks-overlay');
-    if (overlay) {
-      overlay.classList.add('show');
-      overlay.addEventListener('click', function(ev) { if (ev.target === overlay) closeThanks(); });
-    }
-    if (typeof fbq !== 'undefined') {
-      fbq('track', 'Purchase', { content_name: 'Square Checkout Return', currency: 'USD' });
-    }
   });
 
   (function loadPricing() {
