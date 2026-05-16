@@ -301,6 +301,12 @@ nav {
 .co-input:focus { border-color: #22a24d; box-shadow: 0 0 0 3px rgba(34,162,77,0.15); }
 .co-field { margin-bottom: 1.1rem; }
 #co-card-container { background: #fff; border: 1px solid #d0d4d8; border-radius: 8px; padding: 0.45rem 0.6rem; min-height: 52px; }
+.co-wallets { display: flex; flex-direction: column; gap: 0.55rem; margin-bottom: 0; }
+#co-apple-pay, #co-google-pay { width: 100%; min-height: 48px; }
+.co-wallets:empty { display: none; }
+.co-divider { display: flex; align-items: center; gap: 0.7rem; color: #8a8f95; font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; margin: 1.2rem 0 1rem; }
+.co-divider::before, .co-divider::after { content: ""; flex: 1; height: 1px; background: #ebedef; }
+.co-divider-hidden { display: none; }
 .co-pay { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: #000; color: #fff; border: none; padding: 1rem 1.3rem; border-radius: 10px; font-family: inherit; font-weight: 700; font-size: 1rem; cursor: pointer; transition: background 0.15s, opacity 0.15s; margin-top: 0.4rem; }
 .co-pay:hover:not(:disabled) { background: #1a1a1a; }
 .co-pay:disabled { opacity: 0.55; cursor: not-allowed; }
@@ -1056,6 +1062,11 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
       +   '<label class="co-label" for="co-email">Email for receipt</label>'
       +   '<input class="co-input" type="email" id="co-email" placeholder="you@example.com" autocomplete="email" required>'
       + '</div>'
+      + '<div class="co-wallets" id="co-wallets">'
+      +   '<div id="co-apple-pay" style="display:none;"></div>'
+      +   '<div id="co-google-pay" style="display:none;"></div>'
+      + '</div>'
+      + '<div class="co-divider co-divider-hidden" id="co-divider">or pay with card</div>'
       + '<div class="co-field">'
       +   '<label class="co-label">Card details</label>'
       +   '<div id="co-card-container"><div class="co-loading">Loading…</div></div>'
@@ -1095,8 +1106,23 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
     try { payments = Square.payments(APP_IDS[env], SQUARE_DATA.location_id); }
     catch (e) { return Promise.reject(e); }
     CO_STATE.payments = payments;
-    // Use Square's default styling — no custom styles (avoids validation errors)
-    return payments.card().then(function(card) {
+
+    // Build a shared payment request used by Apple Pay / Google Pay
+    var paymentRequest;
+    try {
+      paymentRequest = payments.paymentRequest({
+        countryCode: 'US',
+        currencyCode: 'USD',
+        total: {
+          amount: (CO_STATE.product.price_cents / 100).toFixed(2),
+          label: CO_STATE.product.name
+        }
+      });
+    } catch (e) { paymentRequest = null; }
+    CO_STATE.paymentRequest = paymentRequest;
+
+    // Card form always loads. Apple/Google Pay are best-effort — silently hidden if unavailable.
+    var cardPromise = payments.card().then(function(card) {
       CO_STATE.card = card;
       var container = document.getElementById('co-card-container');
       if (container) container.innerHTML = '';
@@ -1108,6 +1134,101 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
       if (lbl) lbl.textContent = '🔒 Pay ' + dollarsCents(CO_STATE.product.price_cents);
       if (btn) btn.addEventListener('click', handleCheckoutSubmit);
     });
+
+    var walletPromises = paymentRequest
+      ? [tryInitApplePay(payments, paymentRequest), tryInitGooglePay(payments, paymentRequest)]
+      : [];
+
+    return Promise.all([cardPromise].concat(walletPromises));
+  }
+
+  function tryInitApplePay(payments, paymentRequest) {
+    return Promise.resolve()
+      .then(function() { return payments.applePay(paymentRequest); })
+      .then(function(applePay) {
+        CO_STATE.applePay = applePay;
+        applePay.addEventListener('ontokenization', handleWalletTokenization);
+        var el = document.getElementById('co-apple-pay');
+        if (!el) return;
+        el.style.display = '';
+        showDivider();
+        return applePay.attach('#co-apple-pay', { buttonType: 'plain' });
+      })
+      .catch(function(err) {
+        console.log('Apple Pay unavailable:', err && err.message);
+        // Stays hidden; not a hard failure
+      });
+  }
+
+  function tryInitGooglePay(payments, paymentRequest) {
+    return Promise.resolve()
+      .then(function() { return payments.googlePay(paymentRequest); })
+      .then(function(googlePay) {
+        CO_STATE.googlePay = googlePay;
+        googlePay.addEventListener('ontokenization', handleWalletTokenization);
+        var el = document.getElementById('co-google-pay');
+        if (!el) return;
+        el.style.display = '';
+        showDivider();
+        return googlePay.attach('#co-google-pay', { buttonType: 'long', buttonColor: 'black', buttonSizeMode: 'fill' });
+      })
+      .catch(function(err) {
+        console.log('Google Pay unavailable:', err && err.message);
+      });
+  }
+
+  function showDivider() {
+    var d = document.getElementById('co-divider');
+    if (d) d.classList.remove('co-divider-hidden');
+  }
+
+  function handleWalletTokenization(event) {
+    var detail = event && event.detail;
+    if (!detail) return;
+    var tokenResult = detail.tokenResult || detail;
+    if (!tokenResult || tokenResult.status !== 'OK') {
+      var msg = (tokenResult && tokenResult.errors && tokenResult.errors[0] && tokenResult.errors[0].message) || 'Payment cancelled.';
+      // Don't show error if user just cancelled the wallet sheet
+      if (msg.indexOf('cancel') === -1 && msg.indexOf('Cancel') === -1) showCoError(msg);
+      return;
+    }
+    setCoSubmitting(true);
+    var emailEl = document.getElementById('co-email');
+    var email = emailEl ? emailEl.value.trim() : '';
+    // Wallets often return an email from the wallet itself if not entered manually
+    if (!email && detail.shippingContact && detail.shippingContact.email) {
+      email = detail.shippingContact.email;
+    }
+    fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        source_id: tokenResult.token,
+        product_key: CO_STATE.product.key,
+        buyer_email_address: email || undefined
+      })
+    }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); })
+      .then(function(resp) {
+        if (!resp.ok || !resp.data.ok) {
+          showCoError(resp.data.error || 'Payment could not be completed.');
+          setCoSubmitting(false);
+          return;
+        }
+        if (typeof fbq !== 'undefined') {
+          fbq('track', 'Purchase', {
+            content_name: CO_STATE.product.name,
+            content_category: CO_STATE.product.key.indexOf('gift_') === 0 ? 'Gift Card'
+                            : (CO_STATE.product.key === 'intro_call' ? 'Intro Call' : 'Private Training'),
+            value: CO_STATE.product.price_cents / 100,
+            currency: 'USD'
+          });
+        }
+        showCheckoutSuccess(resp.data);
+      }).catch(function(err) {
+        console.error(err);
+        showCoError('Something went wrong. Please try again or email noah@qmtk.org.');
+        setCoSubmitting(false);
+      });
   }
 
   function setCoSubmitting(yes) {
