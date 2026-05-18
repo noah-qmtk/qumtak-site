@@ -216,7 +216,7 @@ nav {
 .why-card p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.6; }
 
 /* PROGRAMS - 3 CARDS TIGHT */
-.programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 2rem; }
+.programs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; margin-top: 2rem; }
 .prog-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 1.6rem; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
 .prog-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(34,162,77,0.12); border-color: rgba(34,162,77,0.35); }
 .prog-card.featured { background: rgba(34,162,77,0.08); border-color: rgba(34,162,77,0.35); }
@@ -674,7 +674,7 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
     <div style="margin-bottom: 1rem;">
       <span class="section-tag">Programs</span>
       <h2>Training for every player</h2>
-    <p style="color:var(--text-mid);margin-top:0.5rem;max-width:580px;">Group classes are built for K&ndash;5 &mdash; the technical foundation years before club. Private training is open to all ages, K through high school.</p>
+    <p style="color:var(--text-mid);margin-top:0.5rem;max-width:580px;">Summer group classes run K&ndash;8 at West Elementary in Andover &mdash; back-to-back Thursdays so siblings can come together. Private training is open to all ages, K through high school.</p>
     </div>
 
     <div class="programs-grid">
@@ -699,17 +699,30 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
         <a href="#" data-buy="private_1" style="display:inline-block;margin-top:1rem;padding:0.55rem 1.2rem;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.5);color:#818cf8;border-radius:8px;font-size:0.9rem;font-weight:700;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='rgba(99,102,241,0.28)'" onmouseout="this.style.background='rgba(99,102,241,0.15)'">Book Private Session →</a>
       </div>
 
-      <div class="prog-card reveal reveal-d2">
-        <div class="prog-icon">⚽</div>
-        <h3>Weekly Group Classes</h3>
-        <p>Structured weekly training focused on technical skills, soccer IQ, and confidence. Built for K&ndash;5 &mdash; the years before club when technical habits are formed. Kids who train with qmtk in elementary school enter club at U10/U11 ahead of peers who started club at U6.</p>
+      <div class="prog-card featured reveal reveal-d2">
+        <div class="prog-icon">☀️</div>
+        <h3>Summer Group · K–5</h3>
+        <p>Thursday-evening technical training for elementary players. Seven-week run at West Elementary in Andover. The K&ndash;5 years are the foundation window before club &mdash; this is where technical habits get built.</p>
         <div class="prog-meta">
-          <strong>🌿 Outdoor — Spring Season</strong><br>
-          Apr 27–Jun 12 · Mon &amp; Fri 5:50–6:50 PM<br>
-          📍 Sanborn Elementary School — Lower Field, Andover<br>
-          $260 residents · $275 non-residents
+          <strong>🌿 Summer Thursdays — REC407</strong><br>
+          Jul 9 – Aug 20 · Thursdays 6:00–6:45 PM<br>
+          📍 West Elementary School, Andover<br>
+          $130 residents · $145 non-residents
         </div>
-        <a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank" class="btn-green" style="display:inline-block;margin-top:1.2rem;font-size:0.9rem;padding:0.55rem 1.2rem;">Enroll Now →</a>
+        <a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank" rel="noopener" class="btn-green" style="display:inline-block;margin-top:1.2rem;font-size:0.9rem;padding:0.55rem 1.2rem;">Enroll on Andover Rec →</a>
+      </div>
+
+      <div class="prog-card featured reveal reveal-d3">
+        <div class="prog-icon">⚡</div>
+        <h3>Summer Group · 6–8</h3>
+        <p>Thursday-evening sessions for middle-school players. Faster-paced, more game-realistic — technique under pressure, decision-making, and the habits players need to step up to high-school and club levels.</p>
+        <div class="prog-meta">
+          <strong>🌿 Summer Thursdays — REC406</strong><br>
+          Jul 9 – Aug 20 · Thursdays 6:45–7:30 PM<br>
+          📍 West Elementary School, Andover<br>
+          $130 residents · $145 non-residents
+        </div>
+        <a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank" rel="noopener" class="btn-green" style="display:inline-block;margin-top:1.2rem;font-size:0.9rem;padding:0.55rem 1.2rem;">Enroll on Andover Rec →</a>
       </div>
     </div>
   </div>
