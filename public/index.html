@@ -472,14 +472,7 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 </head>
-<body class="has-top-banner">
-
-<!-- TOP ANNOUNCEMENT BANNER -->
-<div class="top-banner" role="region" aria-label="Summer registration open">
-  <span class="top-banner-pill">Now Enrolling</span>
-  <span>Summer Thursday Sessions · K–8 · July 9 – Aug 20</span>
-  <a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817" target="_blank" rel="noopener">Sign up →</a>
-</div>
+<body>
 
 <!-- NAV -->
 <nav id="main-nav">
@@ -878,6 +871,51 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
     <button class="thanks-close" onclick="closeThanks()">Got it →</button>
   </div>
 </div>
+
+<!-- SUMMER ENROLLMENT POPUP -->
+<div id="summer-overlay" class="summer-overlay">
+  <div id="summer-modal" class="summer-modal">
+    <button class="summer-close" onclick="closeSummer()" aria-label="Close">✕</button>
+    <div class="summer-modal-head">
+      <div class="summer-eyebrow">★ Now Enrolling · Summer 2026</div>
+      <h3>Thursday Summer Sessions</h3>
+      <p>Seven weeks at West Elementary, Andover. Two age groups, back-to-back.</p>
+    </div>
+    <div class="summer-modal-body">
+      <div class="summer-class">
+        <div class="summer-class-head">
+          <span class="summer-class-tag">Grades K – 5</span>
+          <span class="summer-class-code">REC407</span>
+        </div>
+        <div class="summer-class-row"><strong>6:00 – 6:45 PM</strong> · Thursdays</div>
+        <div class="summer-class-row summer-class-dim">Jul 9 – Aug 20 · West Elementary</div>
+        <div class="summer-class-price">$130 Res · $145 Non-Res</div>
+      </div>
+      <div class="summer-class">
+        <div class="summer-class-head">
+          <span class="summer-class-tag">Grades 6 – 8</span>
+          <span class="summer-class-code">REC406</span>
+        </div>
+        <div class="summer-class-row"><strong>6:45 – 7:30 PM</strong> · Thursdays</div>
+        <div class="summer-class-row summer-class-dim">Jul 9 – Aug 20 · West Elementary</div>
+        <div class="summer-class-price">$130 Res · $145 Non-Res</div>
+      </div>
+      <a href="https://andoverma.myrec.com/info/activities/program_details.aspx?ProgramID=30817"
+         target="_blank" rel="noopener"
+         class="summer-cta"
+         onclick="closeSummer()">
+        Sign up on Andover Rec →
+      </a>
+      <button class="summer-dismiss" onclick="closeSummer()">Maybe later</button>
+    </div>
+  </div>
+</div>
+
+<!-- Floating reopen button (lower-left, won't collide with the green contact button on the right) -->
+<button id="summer-btn" class="summer-btn" onclick="openSummer()" aria-label="Summer enrollment">
+  <span>☀️</span>
+  <span>Summer ’26 · Sign up</span>
+</button>
 
 <!-- CONTACT POPUP -->
 <div id="survey-overlay">

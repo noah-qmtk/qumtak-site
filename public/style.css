@@ -1284,235 +1284,198 @@ section, nav, footer, .stats-bar, .glance-bar {
 }
 
 /* =========================================================
-   TOP ANNOUNCEMENT BANNER (Summer sessions)
+   SUMMER ENROLLMENT POPUP
    ========================================================= */
-.top-banner {
-  background: linear-gradient(90deg, var(--green-dark) 0%, var(--green) 60%, #2dbd5d 100%);
-  color: #fff;
-  text-align: center;
-  padding: 0.55rem 1rem;
-  font-size: 0.88rem;
-  font-weight: 600;
-  letter-spacing: 0.2px;
+.summer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0,0,0,0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.summer-overlay.open { display: flex; animation: summerFade 0.25s ease; }
+@keyframes summerFade { from { opacity: 0; } to { opacity: 1; } }
+
+.summer-modal {
   position: relative;
-  z-index: 1001;
-  border-bottom: 1px solid rgba(0,0,0,0.2);
+  background: #0d1410;
+  border: 1px solid rgba(34,162,77,0.35);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 460px;
+  max-height: 92vh;
+  overflow-y: auto;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.8), 0 0 0 1px rgba(34,162,77,0.1);
+  animation: summerSlideUp 0.35s cubic-bezier(0.22,1,0.36,1);
 }
-.top-banner a {
-  color: #fff;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
-  font-weight: 800;
-  margin-left: 0.4rem;
-  white-space: nowrap;
-}
-.top-banner .top-banner-pill {
-  display: inline-block;
-  background: rgba(0,0,0,0.22);
-  border-radius: 100px;
-  padding: 2px 10px;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  margin-right: 0.55rem;
-  vertical-align: middle;
-}
-@media (max-width: 640px) {
-  .top-banner { font-size: 0.78rem; padding: 0.5rem 0.8rem; line-height: 1.4; }
-  .top-banner .top-banner-pill { display: none; }
+@keyframes summerSlideUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* When banner is present, nudge the fixed nav down so it doesn't overlap */
-body.has-top-banner #main-nav { top: 38px; }
-body.has-top-banner .hero-compact { margin-top: 104px; }
-@media (max-width: 640px) {
-  body.has-top-banner #main-nav { top: 34px; }
-  body.has-top-banner .hero-compact { margin-top: 100px; }
+.summer-close {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(232,237,233,0.75);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  transition: background 0.18s, color 0.18s;
+  z-index: 2;
 }
+.summer-close:hover { background: rgba(255,255,255,0.15); color: #fff; }
 
-/* =========================================================
-   FEATURED SUMMER SESSIONS
-   ========================================================= */
-.featured-sessions {
-  padding: 4rem 2rem 4.5rem;
-  background: linear-gradient(180deg, var(--bg) 0%, #0d1410 100%);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+.summer-modal-head {
+  padding: 1.8rem 1.8rem 1.2rem;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(34,162,77,0.10) 0%, transparent 100%);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-.featured-sessions-inner { max-width: 1180px; margin: 0 auto; }
-.featured-sessions-header { text-align: center; margin-bottom: 2.5rem; }
-.featured-sessions-eyebrow {
+.summer-eyebrow {
   display: inline-block;
   background: rgba(240,165,0,0.12);
   border: 1px solid rgba(240,165,0,0.4);
   color: var(--gold);
-  border-radius: 20px;
-  padding: 0.35rem 1rem;
-  font-size: 0.72rem;
+  border-radius: 100px;
+  padding: 4px 12px;
+  font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 1.2px;
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
-.featured-sessions h2 {
+.summer-modal-head h3 {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(2.1rem, 5vw, 3.2rem);
+  font-size: 1.95rem;
   font-weight: 800;
-  color: var(--white);
-  margin: 0 0 0.6rem;
+  color: #fff;
+  margin: 0 0 0.4rem;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.3px;
   line-height: 1.05;
 }
-.featured-sessions-sub {
-  color: var(--text-mid);
-  max-width: 680px;
-  margin: 0 auto;
-  font-size: 1.02rem;
-  line-height: 1.55;
-}
-.featured-sessions-meta {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem 1.2rem;
-  margin-top: 1rem;
-  color: #6fcf97;
-  font-size: 0.85rem;
-  font-weight: 700;
-}
-.featured-sessions-meta span::before {
-  content: '●';
-  color: var(--green);
-  margin-right: 0.45rem;
-  font-size: 0.55rem;
-  vertical-align: middle;
+.summer-modal-head p {
+  color: rgba(232,237,233,0.65);
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.5;
 }
 
-.session-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-top: 0.5rem;
+.summer-modal-body { padding: 1.2rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 0.9rem; }
+
+.summer-class {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 0.85rem 1rem 0.95rem;
 }
-.session-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-bright);
-  border-radius: 14px;
-  padding: 1.8rem 1.7rem 1.7rem;
+.summer-class-head {
   display: flex;
-  flex-direction: column;
-  position: relative;
-  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.45rem;
 }
-.session-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--green-border);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.35), 0 0 0 1px rgba(34,162,77,0.15);
-}
-.session-card-tag {
-  display: inline-block;
+.summer-class-tag {
   background: var(--green-dim);
   border: 1px solid var(--green-border);
   color: #6fcf97;
   border-radius: 100px;
-  padding: 4px 11px;
-  font-size: 0.7rem;
+  padding: 3px 10px;
+  font-size: 0.68rem;
   font-weight: 800;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
-  width: fit-content;
-  margin-bottom: 0.9rem;
 }
-.session-card h3 {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.85rem;
-  font-weight: 800;
-  color: var(--white);
-  margin: 0 0 0.25rem;
-  letter-spacing: -0.2px;
-  line-height: 1.1;
+.summer-class-code {
+  color: rgba(232,237,233,0.4);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
 }
-.session-card-code {
-  color: var(--text-dim);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  margin-bottom: 1rem;
+.summer-class-row { color: #fff; font-size: 0.95rem; line-height: 1.4; }
+.summer-class-row strong { color: #fff; font-weight: 800; }
+.summer-class-dim { color: rgba(232,237,233,0.55); font-size: 0.83rem; }
+.summer-class-price {
+  color: var(--gold);
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-top: 0.35rem;
 }
-.session-card-rows {
-  display: grid;
-  gap: 0.55rem;
-  margin: 0.4rem 0 1.3rem;
-  padding: 1rem 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-.session-card-row {
-  display: grid;
-  grid-template-columns: 22px 1fr;
-  gap: 0.7rem;
-  align-items: baseline;
-  font-size: 0.92rem;
-  color: var(--text);
-}
-.session-card-row .icon { font-size: 0.95rem; opacity: 0.85; }
-.session-card-row .label { color: var(--text-dim); font-size: 0.78rem; display: block; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 1px; }
-.session-card-row strong { color: var(--white); font-weight: 700; }
-.session-card-price {
-  display: flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  margin-bottom: 1.2rem;
-}
-.session-card-price .price-main {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 2.1rem;
-  font-weight: 800;
-  color: var(--white);
-  line-height: 1;
-}
-.session-card-price .price-meta { color: var(--text-dim); font-size: 0.82rem; }
-.session-card .btn-signup {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.4rem;
+
+.summer-cta {
+  display: block;
+  text-align: center;
   background: var(--green);
   color: #fff;
   font-weight: 800;
-  font-size: 1rem;
-  padding: 0.95rem 1.4rem;
-  border-radius: 8px;
+  font-size: 1.02rem;
+  padding: 1rem 1.4rem;
+  border-radius: 10px;
   text-decoration: none;
-  margin-top: auto;
+  margin-top: 0.4rem;
+  box-shadow: 0 4px 18px rgba(34,162,77,0.4);
   transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
-  box-shadow: 0 4px 14px rgba(34,162,77,0.3);
 }
-.session-card .btn-signup:hover {
+.summer-cta:hover {
   background: var(--green-dark);
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(34,162,77,0.5);
+  box-shadow: 0 6px 22px rgba(34,162,77,0.55);
 }
-.session-card-spots {
-  text-align: center;
-  margin-top: 0.7rem;
-  font-size: 0.78rem;
-  color: var(--gold);
+.summer-dismiss {
+  background: transparent;
+  border: none;
+  color: rgba(232,237,233,0.5);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.4rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.summer-dismiss:hover { color: rgba(232,237,233,0.85); }
+
+/* Floating reopen button (lower-left) */
+.summer-btn {
+  position: fixed;
+  bottom: 1.6rem;
+  left: 1.6rem;
+  z-index: 9998;
+  background: var(--green);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  padding: 0.7rem 1.2rem;
+  font-family: inherit;
   font-weight: 700;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 18px rgba(34,162,77,0.45);
+  transition: transform 0.18s, box-shadow 0.18s;
 }
+.summer-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(34,162,77,0.6); }
 
-.featured-sessions-foot {
-  text-align: center;
-  margin-top: 2rem;
-  color: var(--text-dim);
-  font-size: 0.88rem;
-}
-.featured-sessions-foot a { color: #6fcf97; text-decoration: underline; font-weight: 700; }
-
-@media (max-width: 820px) {
-  .session-cards { grid-template-columns: 1fr; }
-  .featured-sessions { padding: 3rem 1.2rem 3.5rem; }
+@media (max-width: 640px) {
+  .summer-modal { max-width: 100%; border-radius: 14px; }
+  .summer-modal-head { padding: 1.4rem 1.4rem 1rem; }
+  .summer-modal-head h3 { font-size: 1.65rem; }
+  .summer-modal-body { padding: 1rem 1.1rem 1.2rem; }
+  .summer-btn { bottom: 1rem; left: 1rem; font-size: 0.78rem; padding: 0.6rem 1rem; }
 }

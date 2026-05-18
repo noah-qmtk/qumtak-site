@@ -21,6 +21,36 @@ function toggleFaq(item) {
   }
 }
 
+// ─── SUMMER ENROLLMENT POPUP ───
+function openSummer() {
+  var o = document.getElementById('summer-overlay');
+  if (!o) return;
+  o.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeSummer() {
+  var o = document.getElementById('summer-overlay');
+  if (!o) return;
+  o.classList.remove('open');
+  document.body.style.overflow = '';
+  try { sessionStorage.setItem('summerSeen', '1'); } catch (e) {}
+}
+(function () {
+  var overlay = document.getElementById('summer-overlay');
+  if (!overlay) return;
+  overlay.addEventListener('click', function (e) {
+    if (e.target === this) closeSummer();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeSummer();
+  });
+  var seen = false;
+  try { seen = sessionStorage.getItem('summerSeen') === '1'; } catch (e) {}
+  if (!seen) {
+    setTimeout(openSummer, 3000);
+  }
+})();
+
 // ─── CONTACT POPUP ───
 function openSurvey() {
   var o = document.getElementById('survey-overlay');
