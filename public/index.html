@@ -215,6 +215,21 @@ nav {
 .why-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; line-height: 1.2; }
 .why-card p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.6; }
 
+/* MISSION SECTION */
+#mission { background: linear-gradient(180deg, var(--bg) 0%, rgba(34,162,77,0.04) 100%); border-top: 1px solid var(--border); }
+.mission-wrap { max-width: 920px; margin: 0 auto; text-align: center; }
+.mission-statement { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(1.8rem, 3.6vw, 2.7rem); font-weight: 800; line-height: 1.18; color: var(--white); margin: 0.8rem 0 1rem; letter-spacing: -0.01em; }
+.mission-statement .accent { color: var(--green); }
+.mission-sub { color: var(--text-dim); font-size: 0.95rem; margin: 0 auto 3rem; max-width: 540px; }
+.mission-values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2rem; text-align: left; }
+.mission-value { padding: 1.2rem 0 0; border-top: 2px solid rgba(34,162,77,0.5); }
+.mission-value-num { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--green); letter-spacing: 0.18em; }
+.mission-value h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.18rem; font-weight: 700; color: var(--white); margin: 0.45rem 0 0.55rem; line-height: 1.3; }
+.mission-value p { font-size: 0.92rem; color: var(--text-mid); line-height: 1.6; margin: 0; }
+@media (max-width: 900px) {
+  .mission-values { grid-template-columns: 1fr; gap: 1.4rem; }
+}
+
 /* PROGRAMS - 3 CARDS TIGHT */
 .programs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; margin-top: 2rem; }
 .prog-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 1.6rem; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
@@ -663,6 +678,35 @@ src="https://www.facebook.com/tr?id=1771205577188699&ev=PageView&noscript=1"
         <div class="why-card-icon">⭐</div>
         <h3>Coach with real credentials</h3>
         <p>Bundesliga player in Germany. AC Arlington pedigree. 1,000+ kids developed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="section" id="mission">
+  <div class="section-inner">
+    <div class="mission-wrap">
+      <span class="section-tag">Our Mission</span>
+      <h2 class="mission-statement">To raise the standard of youth soccer by developing players &mdash; and the <span class="accent">coaches who shape them.</span></h2>
+      <p class="mission-sub">Three things we hold to, no exceptions.</p>
+
+      <div class="mission-values">
+        <div class="mission-value reveal reveal-d1">
+          <span class="mission-value-num">01 &mdash; FUN FIRST</span>
+          <h3>Fun first. Skill follows.</h3>
+          <p>Kids who love the game keep playing. Kids who keep playing get great. That order matters.</p>
+        </div>
+        <div class="mission-value reveal reveal-d2">
+          <span class="mission-value-num">02 &mdash; COACH THE COACHES</span>
+          <h3>A great coach reaches more kids than a great trainer ever could.</h3>
+          <p>That&rsquo;s why we develop coaches, not just players. Better coaches everywhere means a better game for every kid.</p>
+        </div>
+        <div class="mission-value reveal reveal-d3">
+          <span class="mission-value-num">03 &mdash; NO EGOS</span>
+          <h3>No egos. No tryouts. Just the game.</h3>
+          <p>We coach to develop, not to chase youth trophies. Every kid who walks in gets real instruction.</p>
+        </div>
       </div>
     </div>
   </div>
