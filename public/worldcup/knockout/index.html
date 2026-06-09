@@ -246,7 +246,8 @@ const LAYOUT={
 /* ===== State ===== */
 const SAVE_PRED='wc2026_v2', SAVE_KO='wc2026_ko';
 let pred={}, ko={};
-function loadPred(){ try{ const s=JSON.parse(localStorage.getItem(SAVE_PRED)); pred=(s&&s.pred)||{}; }catch(e){ pred={}; } }
+function loadPred(){ try{ const s=JSON.parse(localStorage.getItem(SAVE_PRED)); pred=(s&&s.pred)||{}; }catch(e){ pred={}; }
+  if(Object.keys(pred).length===0 && /[?&]demo=1/.test(location.search)){ pred={}; for(const g in GROUPS){ PAIRS.forEach((p,i)=>{ pred[g+i]={h:p[0]<p[1]?2:0,a:p[0]<p[1]?0:2}; }); } } }
 function loadKo(){ try{ ko=JSON.parse(localStorage.getItem(SAVE_KO))||{}; }catch(e){ ko={}; } }
 function saveKo(){ localStorage.setItem(SAVE_KO,JSON.stringify(ko)); }
 
