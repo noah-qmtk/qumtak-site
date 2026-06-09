@@ -70,14 +70,15 @@ nav{ position:fixed; top:0; left:0; right:0; z-index:100; height:96px;
 .wc-hero h1{ font-size:clamp(2.6rem,6vw,5rem); font-weight:900; color:var(--white); line-height:0.95; text-transform:uppercase; }
 .wc-hero h1 .accent{ color:var(--green); }
 .wc-hero p{ color:var(--text-mid); max-width:600px; margin:0.9rem auto 0; font-size:1.05rem; }
-/* side trophies */
-.wc-deco{ position:absolute; top:50%; transform:translateY(-50%); z-index:1; pointer-events:none;
-  filter:drop-shadow(0 8px 30px rgba(240,165,0,0.5)); animation:wcFloat 6.5s ease-in-out infinite; }
-.wc-deco svg{ display:block; height:clamp(210px,26vw,360px); width:auto; }
-.wc-deco.left{ left:max(1.5rem, calc(50% - 560px)); }
-.wc-deco.right{ right:max(1.5rem, calc(50% - 560px)); animation-delay:-3.25s; }
-.wc-deco.right svg{ transform:scaleX(-1); }
-@keyframes wcFloat{ 0%,100%{ transform:translateY(-50%); } 50%{ transform:translateY(calc(-50% - 16px)); } }
+/* side trophy panels (from /worldcup/wc-trophy.jpg) */
+.wc-deco{ position:absolute; top:0; bottom:0; width:clamp(180px,22vw,340px); z-index:1; pointer-events:none;
+  background-image:url('/worldcup/wc-trophy.jpg'); background-size:cover; background-position:center center; background-repeat:no-repeat;
+  -webkit-mask-image:radial-gradient(125% 80% at 50% 45%, #000 50%, transparent 100%);
+          mask-image:radial-gradient(125% 80% at 50% 45%, #000 50%, transparent 100%);
+  opacity:.97; animation:wcGlow 5s ease-in-out infinite; }
+.wc-deco.left{ left:0; }
+.wc-deco.right{ right:0; transform:scaleX(-1); animation-delay:-2.5s; }
+@keyframes wcGlow{ 0%,100%{ filter:brightness(1); } 50%{ filter:brightness(1.12); } }
 @media (max-width:980px){ .wc-deco{ display:none; } }
 
 /* ===== CONTROL BAR ===== */
@@ -237,37 +238,6 @@ footer{ background:var(--bg-card); border-top:1px solid var(--border); padding:1
 </head>
 <body class="predmode">
 
-<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
-  <defs>
-    <linearGradient id="wcGold" x1="0" y1="0" x2="0.25" y2="1">
-      <stop offset="0" stop-color="#fff6cf"/><stop offset=".4" stop-color="#f4c544"/>
-      <stop offset=".74" stop-color="#d99405"/><stop offset="1" stop-color="#8f6207"/>
-    </linearGradient>
-    <linearGradient id="wcSheen" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
-      <stop offset=".5" stop-color="#fff7d6" stop-opacity=".9"/>
-      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
-    </linearGradient>
-    <symbol id="wcTrophy" viewBox="0 0 120 280">
-      <ellipse cx="60" cy="266" rx="43" ry="10" fill="url(#wcGold)"/>
-      <rect x="32" y="238" width="56" height="26" rx="6" fill="url(#wcGold)"/>
-      <ellipse cx="60" cy="238" rx="28" ry="7" fill="#caa01f"/>
-      <path d="M54,236 C25,198 31,164 60,149" fill="none" stroke="url(#wcGold)" stroke-width="16" stroke-linecap="round"/>
-      <path d="M66,236 C95,198 89,164 60,149" fill="none" stroke="url(#wcGold)" stroke-width="16" stroke-linecap="round"/>
-      <path d="M50,150 L70,150 L66,132 L54,132 Z" fill="url(#wcGold)"/>
-      <circle cx="60" cy="100" r="36" fill="url(#wcGold)"/>
-      <g fill="none" stroke="#7a5206" stroke-width="1.6" opacity=".4">
-        <circle cx="60" cy="100" r="36"/>
-        <ellipse cx="60" cy="100" rx="36" ry="13"/>
-        <ellipse cx="60" cy="100" rx="13" ry="36"/>
-        <ellipse cx="60" cy="100" rx="27" ry="36"/>
-        <line x1="24" y1="100" x2="96" y2="100"/>
-      </g>
-      <path d="M38,86 C46,75 58,70 72,73" fill="none" stroke="url(#wcSheen)" stroke-width="4.5" stroke-linecap="round" opacity=".75"/>
-    </symbol>
-  </defs>
-</svg>
-
 <nav id="main-nav">
   <a href="/" class="nav-logo">
     <div class="nav-logo-icon"><img src="/logo.webp" alt="qmtk Soccer Logo"></div>
@@ -295,8 +265,8 @@ footer{ background:var(--bg-card); border-top:1px solid var(--border); padding:1
 </div>
 
 <header class="wc-hero">
-  <div class="wc-deco left"><svg viewBox="0 0 120 280"><use href="#wcTrophy"/></svg></div>
-  <div class="wc-deco right"><svg viewBox="0 0 120 280"><use href="#wcTrophy"/></svg></div>
+  <div class="wc-deco left" aria-hidden="true"></div>
+  <div class="wc-deco right" aria-hidden="true"></div>
   <div class="wc-hero-inner">
     <span class="eyebrow">⚽ Canada · Mexico · USA · June–July 2026</span>
     <h1>World Cup 2026<br><span class="accent">Predictor</span></h1>
