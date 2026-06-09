@@ -71,18 +71,17 @@ nav{ position:fixed; top:0; left:0; right:0; z-index:100; height:96px;
 .wc-hero h1 .accent{ color:var(--green); }
 .wc-hero p{ color:var(--text-mid); max-width:600px; margin:0.9rem auto 0; font-size:1.05rem; }
 /* side trophy panels (from /worldcup/wc-trophy.jpg) — fixed, parallax-slide with scroll */
-.wc-deco{ position:fixed; top:-12vh; height:124vh; width:clamp(180px,22vw,340px); z-index:0; pointer-events:none;
+.wc-deco{ position:fixed; top:-12vh; height:124vh; width:clamp(140px,16vw,290px); z-index:0; pointer-events:none;
   background-image:url('/worldcup/wc-trophy.jpg'); background-size:cover; background-position:center center; background-repeat:no-repeat;
   -webkit-mask-image:radial-gradient(110% 78% at 50% 50%, #000 34%, transparent 72%);
           mask-image:radial-gradient(110% 78% at 50% 50%, #000 34%, transparent 72%);
-  opacity:.97; transform:translateY(var(--wcpy,0px)); animation:wcGlow 5s ease-in-out infinite; will-change:transform; }
+  opacity:.9; transform:translateY(var(--wcpy,0px)); animation:wcGlow 5s ease-in-out infinite; will-change:transform; }
 .wc-deco.left{ left:0; }
 .wc-deco.right{ right:0; transform:scaleX(-1) translateY(var(--wcpy,0px)); animation-delay:-2.5s; }
 @keyframes wcGlow{ 0%,100%{ filter:brightness(0.98); } 50%{ filter:brightness(1.12); } }
 @media (max-width:980px){ .wc-deco{ display:none; } }
-/* keep all predictions content above the fixed trophies, in one consistent column */
-.controls,.banner,.hud{ position:relative; z-index:1; background:var(--bg); }
-footer{ position:relative; z-index:1; }
+/* keep all predictions content above the fixed trophies (no solid bg = no hard edges) */
+.controls,.banner,.hud,footer{ position:relative; z-index:1; }
 
 /* ===== CONTROL BAR ===== */
 .controls{ position:relative; max-width:1320px; margin:1.5rem auto 0; padding:0 2.5rem;
@@ -115,7 +114,7 @@ footer{ position:relative; z-index:1; }
 .bar i{ display:block; height:100%; background:linear-gradient(90deg,var(--green),#3fe07a); transition:width .4s; }
 
 /* ===== GROUPS ===== */
-.wrap{ max-width:1320px; margin:0 auto; padding:1.5rem 2.5rem 2rem; position:relative; z-index:1; background:var(--bg); }
+.wrap{ max-width:1320px; margin:0 auto; padding:1.5rem 2.5rem 2rem; position:relative; z-index:1; }
 .section-h{ display:flex; align-items:baseline; gap:0.8rem; margin:2.2rem 0 1rem; }
 .section-h h2{ font-size:1.7rem; font-weight:800; text-transform:uppercase; color:var(--white); }
 .section-h .pill{ font-size:0.7rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-dim); border:1px solid var(--border); border-radius:99px; padding:4px 11px; }
