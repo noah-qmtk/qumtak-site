@@ -17,29 +17,12 @@ Live at: **qmtk.org**
 | `public/monchengladbach.jpg` | Card 02 — Mönchengladbach (700×900 portrait) | Replacing image |
 | `public/klosterhardt.jpg` | Card 03 — Klosterhardt team (1200×700 landscape) | Replacing image |
 | `public/resume.pdf` | Shaya's coaching resume | Replacing resume |
-| `public/app/` | **qmtk Player Hub** — FIFA-style player grader & development app (see section below) | Working on the player/coach app |
 | `vercel.json` | Vercel config — output dir = public | Almost never |
 
-## qmtk Player Hub (`/app/`)
-FIFA/EA-style player development app — the demo backbone of the soccer AI product.
-Live at **qmtk.org/app/**. Pure static, no backend yet; data lives in localStorage.
-
-| File | What it is |
-|------|-----------|
-| `public/app/index.html` | App shell (nav + `#view` container + script tags) |
-| `public/app/app.css` | All Hub styling — FUT card tiers, radar, report, plan, reveal animation |
-| `public/app/data.js` | PILLARS (5 pillars × 5 attributes = 25), position weights, play styles, pro-comparison map, 50-drill library (`DRILLS`) with qmtk Instagram video links |
-| `public/app/engine.js` | Pure functions: `overallFor()`, `tierFor()`, `pillarAverages()`, `attrDeltas()`, `generatePlan()` — the "AI coach". Swap `generatePlan()` body for an API call when the backend lands |
-| `public/app/app.js` | Store (localStorage `qmtk_hub_v1`), hash router, all views, share links |
-
-**Flows:**
-- **Coach Mode** (`#/coach`): roster → add/grade player (25 sliders, live OVR preview) → save dated assessment → copy share link.
-- **Player Mode** (`#/player/<id>`): card reveal animation → tabs: My Card (FUT card + radar + attributes), Report (EA-style: letter grades, deltas, progress chart, coach's note), My Plan (AI-generated: 3 focus areas with drills/videos, daily routine checklist, 7-day schedule), Profile (play style, pro comparison, goals).
-- **Share links** (`#p=<base64>`): the full card travels in the URL — coach texts it, player opens it, no backend. "Save to this device" claims it locally.
-
-**Card tiers:** ICON 83+, GOLD 70–82, SILVER 55–69, BRONZE <55. Overall = pillar averages × position weights (`POSITION_WEIGHTS` in data.js).
-**Demo seed:** two demo players (Leo Carter, Maya Brooks) seed on first load; flag `qmtk_hub_seeded`.
-**Tests:** headless jsdom flow test lived at `/tmp/qmtk-jsdom/test.js` during the build — recreate from git history of this section if needed.
+> The FIFA-style player grader ("Player Hub") briefly lived at `/app/` on this site
+> but belongs to the separate **SOCRAI** app (`~/Desktop/QUMTAK/socrai-prototype`,
+> repo `noah-qmtk/SoccerAI`, live at soccer-ai-green.vercel.app). It was removed
+> from qmtk.org — don't re-add player-app features here.
 
 ## CSS Architecture (style.css)
 Key CSS variables at the top (`:root`): `--green`, `--bg`, `--bg-card`, `--text`, etc.  
