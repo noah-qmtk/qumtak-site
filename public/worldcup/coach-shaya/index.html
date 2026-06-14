@@ -91,6 +91,12 @@ nav{ position:fixed; top:0; left:0; right:0; z-index:100; height:96px;
 .champ-in .trophy{ font-size:1.5rem; line-height:1; }
 .champ-in b{ color:#fff; }
 
+/* ===== LIVE-RESULTS NOTE ===== */
+.resnote{ max-width:1320px; margin:0.8rem auto 0; padding:0 2.5rem; position:relative; z-index:1; }
+.resnote-in{ border-radius:12px; padding:0.7rem 1rem; font-size:0.88rem; font-weight:600; line-height:1.4;
+  background:var(--green-dim); border:1px solid var(--green-border); color:#9fe3b8; display:flex; gap:9px; align-items:center; }
+.resnote-in b{ color:#fff; }
+
 /* ===== CONTROL BAR ===== */
 .controls{ position:relative; max-width:1320px; margin:1.5rem auto 0; padding:0 2.5rem;
   display:flex; gap:0.7rem; align-items:center; flex-wrap:wrap; }
@@ -222,7 +228,7 @@ footer{ background:var(--bg-card); border-top:1px solid var(--border); padding:1
   .nav-hamburger{ display:flex; }
   .nav-mobile-menu{ top:72px; }
   .wc-hero{ padding:6.5rem 1.2rem 1rem; }
-  .controls,.hud,.banner,.champ,.wrap{ padding-left:1.2rem; padding-right:1.2rem; }
+  .controls,.hud,.banner,.champ,.resnote,.wrap{ padding-left:1.2rem; padding-right:1.2rem; }
   .groups{ grid-template-columns:1fr; }
 }
 
@@ -299,6 +305,8 @@ footer{ background:var(--bg-card); border-top:1px solid var(--border); padding:1
 </header>
 
 <div class="champ"><div class="champ-in"><span class="trophy">🏆</span><span>Predicted champion: <b>Portugal</b> 🇵🇹 — Cristiano Ronaldo for the Golden Ball and a 99th-minute winner in the final. Runner-up: <b>Germany</b> 🇩🇪.</span></div></div>
+
+<div class="resnote" id="resnote"></div>
 
 <div class="controls">
   <div class="modeswitch" id="modeswitch">
@@ -415,14 +423,25 @@ const SHAYA_PRED = {
   L0:{h:1,a:1}, L1:{h:2,a:0}, L2:{h:4,a:0}, L3:{h:2,a:0}, L4:{h:4,a:0}, L5:{h:2,a:2}
 };
 
+/* ===== ACTUAL LIVE RESULTS (real 2026 World Cup scores) =====
+   Pulled from Wikipedia group pages + CBS Sports, cross-checked.
+   Only completed matches go here — same {h,a} home/away orientation as SHAYA_PRED.
+   Last updated 2026-06-14: Matchday 1, Groups A–D (8 matches). */
+const ACTUAL_RES = {
+  /* A */ A0:{h:2,a:0}, A1:{h:2,a:1},            // Mexico 2-0 S.Africa · S.Korea 2-1 Czechia
+  /* B */ B0:{h:1,a:1}, B1:{h:1,a:1},            // Canada 1-1 Bosnia · Qatar 1-1 Switzerland
+  /* C */ C0:{h:1,a:1}, C1:{h:0,a:1},            // Brazil 1-1 Morocco · Haiti 0-1 Scotland
+  /* D */ D0:{h:4,a:1}, D1:{h:2,a:0}             // USA 4-1 Paraguay · Australia 2-0 Türkiye
+};
+
 const SAVE="wc2026_coach_shaya";   // own key — independent of the public predictor
 const PASSCODE="2015";
 let store={pred:{}, res:{}}, mode="pred", unlocked=false;
 
 function load(){
   let s=null; try{ s=JSON.parse(localStorage.getItem(SAVE)); }catch(e){}
-  if(s && s.pred && Object.keys(s.pred).length){ store.pred=s.pred; store.res=s.res||{}; mode=s.mode||"pred"; }
-  else { store.pred=JSON.parse(JSON.stringify(SHAYA_PRED)); store.res={}; mode="pred"; }
+  if(s && s.pred && Object.keys(s.pred).length){ store.pred=s.pred; store.res=s.res||JSON.parse(JSON.stringify(ACTUAL_RES)); mode=s.mode||"pred"; }
+  else { store.pred=JSON.parse(JSON.stringify(SHAYA_PRED)); store.res=JSON.parse(JSON.stringify(ACTUAL_RES)); mode="pred"; }
 }
 function persist(){ if(!unlocked) return; localStorage.setItem(SAVE, JSON.stringify({pred:store.pred,res:store.res,mode})); }
 
@@ -587,6 +606,10 @@ function renderHud(){
     cards.push(`<div class="stat"><div class="k">Exact / Right result</div><div class="v">${g.perfect}<small> / ${g.outcome}</small></div></div>`);
     cards.push(`<div class="stat"><div class="k">Result accuracy</div><div class="v">${acc}<small>%</small> <small>(${g.graded} games)</small></div></div>`);
   }
+  const rn=document.getElementById('resnote');
+  if(rn) rn.innerHTML = g.graded
+    ? `<div class="resnote-in">📊 <span>Live results are in for <b>${g.graded}</b> of 72 matches so far — Coach Shaya sits on <b>${g.pts} pts</b> (${g.perfect} exact, ${g.outcome} correct results · ${acc}% on outcomes). Flip to <b>Actual Results</b> for the match-by-match grade.</span></div>`
+    : '';
   document.getElementById('hud').innerHTML=cards.join('');
 }
 
@@ -633,8 +656,8 @@ document.getElementById('lockBtn').addEventListener('click',lock);
 document.getElementById('resetBtn').addEventListener('click',()=>{
   if(!confirm('Reset this tab back to the published picks? Your local edits will be discarded.')) return;
   localStorage.removeItem(SAVE);
-  store.pred=JSON.parse(JSON.stringify(SHAYA_PRED)); store.res={};
-  syncInputs(); update(); toast('Reset to published picks');
+  store.pred=JSON.parse(JSON.stringify(SHAYA_PRED)); store.res=JSON.parse(JSON.stringify(ACTUAL_RES));
+  syncInputs(); update(); toast('Reset to published picks + results');
 });
 document.getElementById('copyBtn').addEventListener('click',()=>{
   const out='const SHAYA_PRED = '+JSON.stringify(store.pred)+';';
