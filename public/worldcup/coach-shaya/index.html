@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>World Cup 2026 Predictor | qmtk Soccer</title>
-  <meta name="description" content="Predict every 2026 World Cup group-stage match, auto-build the standings and Round of 32, then grade your picks against the real results. Built by qmtk Soccer.">
-  <link rel="canonical" href="https://qmtk.org/worldcup">
+  <title>Coach Shaya's World Cup 2026 Picks | qmtk Soccer</title>
+  <meta name="description" content="Coach Shaya's official 2026 World Cup group-stage predictions — every scoreline locked in, auto standings and Round of 32. View only; grade them against the real results as the tournament plays out.">
+  <link rel="canonical" href="https://qmtk.org/worldcup/coach-shaya">
 
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png">
@@ -13,9 +13,9 @@
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="qmtk Soccer">
-  <meta property="og:title" content="World Cup 2026 Predictor | qmtk Soccer">
-  <meta property="og:description" content="Pick every group-stage scoreline, auto-build the Round of 32, and grade your predictions against real results.">
-  <meta property="og:url" content="https://qmtk.org/worldcup">
+  <meta property="og:title" content="Coach Shaya's World Cup 2026 Picks | qmtk Soccer">
+  <meta property="og:description" content="Every group-stage scoreline Coach Shaya called for the 2026 World Cup — with the standings and Round of 32 built in. Portugal to win it all.">
+  <meta property="og:url" content="https://qmtk.org/worldcup/coach-shaya">
   <meta property="og:image" content="https://qmtk.org/og-image.jpg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,7 +66,7 @@ nav{ position:fixed; top:0; left:0; right:0; z-index:100; height:96px;
 .wc-hero{ position:relative; padding:8.5rem 2.5rem 1.8rem; overflow:hidden; min-height:440px; }
 .wc-hero::before{ content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 25% 35%, rgba(34,162,77,0.16), transparent 60%), radial-gradient(ellipse at 90% 120%, rgba(240,165,0,0.10), transparent 55%); pointer-events:none; }
 .wc-hero-inner{ position:relative; z-index:3; max-width:760px; margin:0 auto; text-align:center; }
-.eyebrow{ display:inline-flex; align-items:center; gap:8px; border:1px solid var(--green-border); background:var(--green-dim); color:#6fcf97; padding:5px 14px; border-radius:100px; font-size:0.72rem; font-weight:700; letter-spacing:0.9px; text-transform:uppercase; margin-bottom:1rem; }
+.eyebrow{ display:inline-flex; align-items:center; gap:8px; border:1px solid var(--gold-border); background:var(--gold-dim); color:#ffd778; padding:5px 14px; border-radius:100px; font-size:0.72rem; font-weight:700; letter-spacing:0.9px; text-transform:uppercase; margin-bottom:1rem; }
 .wc-hero h1{ font-size:clamp(2.6rem,6vw,5rem); font-weight:900; color:var(--white); line-height:0.95; text-transform:uppercase; }
 .wc-hero h1 .accent{ color:var(--green); }
 .wc-hero p{ color:var(--text-mid); max-width:600px; margin:0.9rem auto 0; font-size:1.05rem; }
@@ -81,21 +81,35 @@ nav{ position:fixed; top:0; left:0; right:0; z-index:100; height:96px;
 @keyframes wcGlow{ 0%,100%{ filter:brightness(0.98); } 50%{ filter:brightness(1.12); } }
 @media (max-width:980px){ .wc-deco{ display:none; } }
 /* keep all predictions content above the fixed trophies (no solid bg = no hard edges) */
-.controls,.banner,.hud,footer{ position:relative; z-index:1; }
+.controls,.banner,.champ,.hud,footer{ position:relative; z-index:1; }
+
+/* ===== CHAMPION CALLOUT ===== */
+.champ{ max-width:1320px; margin:1.1rem auto 0; padding:0 2.5rem; }
+.champ-in{ border-radius:14px; padding:0.9rem 1.2rem; font-size:0.95rem; font-weight:600; line-height:1.45;
+  background:linear-gradient(100deg,var(--gold-dim),transparent); border:1px solid var(--gold-border); color:#ffd778;
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.champ-in .trophy{ font-size:1.5rem; line-height:1; }
+.champ-in b{ color:#fff; }
 
 /* ===== CONTROL BAR ===== */
 .controls{ position:relative; max-width:1320px; margin:1.5rem auto 0; padding:0 2.5rem;
-  display:flex; gap:1rem; align-items:center; flex-wrap:wrap; }
+  display:flex; gap:0.7rem; align-items:center; flex-wrap:wrap; }
 .modeswitch{ display:inline-flex; background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:4px; }
 .modeswitch button{ font-family:'Inter'; font-weight:700; font-size:0.85rem; color:var(--text-dim); background:none; border:none; cursor:pointer; padding:0.55rem 1.1rem; border-radius:7px; transition:.18s; white-space:nowrap; }
 .modeswitch button.on{ color:var(--white); }
 .modeswitch button.on[data-m="pred"]{ background:var(--green); }
 .modeswitch button.on[data-m="res"]{ background:var(--gold); color:#231a00; }
+.lockpill{ font-size:0.7rem; font-weight:800; letter-spacing:.5px; text-transform:uppercase; padding:6px 12px; border-radius:99px; border:1px solid var(--gold-border); background:var(--gold-dim); color:#ffd778; white-space:nowrap; }
+body.unlocked .lockpill{ border-color:var(--green-border); background:var(--green-dim); color:#8fe0ab; }
 .btn{ font-family:'Inter'; font-weight:700; font-size:0.85rem; cursor:pointer; padding:0.6rem 1.1rem; border-radius:9px; text-decoration:none; transition:.18s; border:1px solid var(--border-bright); background:var(--bg-card); color:var(--text); display:inline-flex; align-items:center; gap:7px; }
 .btn:hover{ background:var(--bg-raised); border-color:var(--green-border); }
 .btn.danger{ border-color:rgba(229,72,77,0.4); color:#ff8a8d; background:var(--red-dim); }
 .btn.danger:hover{ background:rgba(229,72,77,0.2); }
 .spacer{ flex:1; }
+/* edit-state visibility toggles */
+.editonly{ display:none !important; }
+body.unlocked .editonly{ display:inline-flex !important; }
+body.unlocked .lockonly{ display:none !important; }
 
 /* mode banner */
 .banner{ max-width:1320px; margin:1rem auto 0; padding:0 2.5rem; }
@@ -129,7 +143,6 @@ nav{ position:fixed; top:0; left:0; right:0; z-index:100; height:96px;
 table.tbl{ width:100%; border-collapse:collapse; font-size:0.8rem; }
 .tbl thead th{ font-size:0.6rem; letter-spacing:.5px; text-transform:uppercase; color:var(--text-dim); font-weight:700; padding:0.5rem 0.3rem; text-align:center; }
 .tbl thead th.team{ text-align:left; padding-left:0.9rem; }
-.tbl tbody{ }
 .tbl td{ padding:0.45rem 0.3rem; text-align:center; border-top:1px solid var(--border); }
 .tbl td.team{ text-align:left; padding-left:0.6rem; display:flex; align-items:center; gap:8px; }
 .tbl td.pts{ font-weight:800; color:var(--white); }
@@ -153,6 +166,9 @@ table.tbl{ width:100%; border-collapse:collapse; font-size:0.8rem; }
 .fx input::-webkit-outer-spin-button,.fx input::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
 .fx input:focus{ outline:none; border-color:var(--green); box-shadow:0 0 0 3px var(--green-dim); }
 body.resmode .fx input:focus{ border-color:var(--gold); box-shadow:0 0 0 3px var(--gold-dim); }
+/* locked (disabled) inputs read as a clean scoreboard, not editable boxes */
+.fx input:disabled{ -webkit-appearance:none; appearance:none; background:transparent; border-color:transparent;
+  color:var(--white); opacity:1; cursor:default; box-shadow:none; }
 .fx .dash{ color:var(--text-dim); font-weight:700; }
 .flag{ width:26px; height:18px; border-radius:3px; object-fit:cover; box-shadow:inset 0 0 0 1px rgba(255,255,255,0.1); flex-shrink:0; }
 .mono{ width:26px; height:18px; border-radius:3px; display:grid; place-items:center; font-size:0.55rem; font-weight:800; color:#cfe7d6; background:linear-gradient(160deg,#1e3a28,#13241a); flex-shrink:0; }
@@ -206,7 +222,7 @@ footer{ background:var(--bg-card); border-top:1px solid var(--border); padding:1
   .nav-hamburger{ display:flex; }
   .nav-mobile-menu{ top:72px; }
   .wc-hero{ padding:6.5rem 1.2rem 1rem; }
-  .controls,.hud,.banner,.wrap{ padding-left:1.2rem; padding-right:1.2rem; }
+  .controls,.hud,.banner,.champ,.wrap{ padding-left:1.2rem; padding-right:1.2rem; }
   .groups{ grid-template-columns:1fr; }
 }
 
@@ -218,6 +234,8 @@ footer{ background:var(--bg-card); border-top:1px solid var(--border); padding:1
   .wc-hero{ padding:0 0 0.5rem; }
   .wc-hero h1{ color:#111; font-size:2rem; } .wc-hero h1 .accent{ color:var(--green); }
   .wc-hero p,.eyebrow{ display:none; }
+  .champ-in{ background:#fff; border:1px solid #caa; color:#7a5b00; }
+  .champ-in b{ color:#111; }
   .print-head{ display:block; margin-bottom:0.4rem; color:#555; font-size:0.8rem; }
   .hud{ margin-top:0.5rem; }
   .stat{ background:#fff; border:1px solid #ccc; } .stat .v{ color:#111 !important; }
@@ -229,7 +247,7 @@ footer{ background:var(--bg-card); border-top:1px solid var(--border); padding:1
   .tbl thead th{ color:#666; }
   .tbl tr.q1 td,.tbl tr.q2 td{ background:rgba(34,162,77,0.14); }
   .tbl tr.q3 td{ background:rgba(240,165,0,0.14); }
-  .fx input{ border:none; background:transparent; color:#111; width:24px; height:auto; font-size:0.95rem; }
+  .fx input{ border:none; background:transparent; color:#111; width:24px; height:auto; font-size:0.95rem; opacity:1; }
   .fx .nm{ color:#111; } .fx .dash{ color:#111; }
   .section-h h2{ color:#111; }
   .third,.qcard{ background:#fff !important; border:1px solid #ccc; }
@@ -249,9 +267,9 @@ footer{ background:var(--bg-card); border-top:1px solid var(--border); padding:1
     <a href="/#sessions">Sessions</a>
     <a href="/#programs">Programs</a>
     <a href="/#pricing">Pricing</a>
-    <a href="/worldcup" class="active">Group Stage</a>
+    <a href="/worldcup">Group Stage</a>
     <a href="/worldcup/knockout">Knockout</a>
-    <a href="/worldcup/coach-shaya">Coach Shaya</a>
+    <a href="/worldcup/coach-shaya" class="active">Coach Shaya</a>
   </div>
   <div class="nav-right">
     <a href="/buy/?p=intro_call" class="nav-cta">Book Intro Call</a>
@@ -264,7 +282,8 @@ footer{ background:var(--bg-card); border-top:1px solid var(--border); padding:1
   <a href="/#sessions">Sessions</a>
   <a href="/#programs">Programs</a>
   <a href="/#pricing">Pricing</a>
-  <a href="/worldcup">World Cup Predictor</a>
+  <a href="/worldcup">Group Stage Predictor</a>
+  <a href="/worldcup/knockout">Knockout Bracket</a>
   <a href="/worldcup/coach-shaya">Coach Shaya's Picks</a>
   <a href="/buy/?p=intro_call" class="nav-mobile-enroll" style="color:var(--green);font-weight:700;">Book Intro Call</a>
 </div>
@@ -273,23 +292,29 @@ footer{ background:var(--bg-card); border-top:1px solid var(--border); padding:1
   <div class="wc-deco left" aria-hidden="true"></div>
   <div class="wc-deco right" aria-hidden="true"></div>
   <div class="wc-hero-inner">
-    <span class="eyebrow">⚽ Canada · Mexico · USA · June–July 2026</span>
-    <h1>World Cup 2026<br><span class="accent">Predictor</span></h1>
-    <p>Call every group-stage scoreline. The standings, qualifiers and Round of 32 build themselves. When the real matches kick off, flip to <b>Results</b> mode and watch your prediction score climb.</p>
+    <span class="eyebrow">🔒 Official Picks · Coach Shaya</span>
+    <h1>Coach Shaya's<br><span class="accent">World Cup 2026</span></h1>
+    <p>Every group-stage scoreline I called — locked in before a ball was kicked. Anyone can view. As the real matches play out, flip to <b>Results</b> to see how I did.</p>
   </div>
 </header>
 
+<div class="champ"><div class="champ-in"><span class="trophy">🏆</span><span>Predicted champion: <b>Portugal</b> 🇵🇹 — Cristiano Ronaldo for the Golden Ball and a 99th-minute winner in the final. Runner-up: <b>Germany</b> 🇩🇪.</span></div></div>
+
 <div class="controls">
   <div class="modeswitch" id="modeswitch">
-    <button data-m="pred" class="on">⚽ My Predictions</button>
+    <button data-m="pred" class="on">⚽ Coach's Picks</button>
     <button data-m="res">🏆 Actual Results</button>
   </div>
+  <span class="lockpill" id="lockpill">🔒 View only</span>
   <span class="spacer"></span>
+  <button class="btn lockonly" id="editBtn">🔓 Edit (coach)</button>
+  <button class="btn editonly" id="copyBtn">⧉ Copy data</button>
+  <button class="btn editonly danger" id="resetBtn">↺ Reset to published</button>
+  <button class="btn editonly" id="lockBtn">🔒 Lock</button>
   <button class="btn" id="printBtn">🖨️ Print / Save PDF</button>
-  <button class="btn danger" id="resetBtn">↺ Clear</button>
 </div>
 
-<div class="banner"><div class="banner-in pred" id="banner">Enter your predicted scoreline for each match. Win = 3 pts · Draw = 1 pt — top two of every group advance, plus the 8 best third-place teams.</div></div>
+<div class="banner"><div class="banner-in pred" id="banner">Coach Shaya's official picks — view only. Tap <b>Edit (coach)</b> and enter the passcode to make changes.</div></div>
 
 <div class="hud" id="hud"></div>
 
@@ -298,13 +323,14 @@ footer{ background:var(--bg-card); border-top:1px solid var(--border); padding:1
   <div class="groups" id="groups"></div>
 
   <div class="section-h"><h2>Best Third-Place Teams</h2><span class="pill" id="thirdsPill">0 / 8 in</span></div>
-  <p style="color:var(--text-dim);font-size:0.88rem;margin:-0.4rem 0 1rem;max-width:760px;">The 8 best of the 12 group third-place teams also reach the Round of 32 — ranked by points, then goal difference, then goals scored. Finish all six matches in a group to lock its third-place team in.</p>
+  <p style="color:var(--text-dim);font-size:0.88rem;margin:-0.4rem 0 1rem;max-width:760px;">The 8 best of the 12 group third-place teams also reach the Round of 32 — ranked by points, then goal difference, then goals scored.</p>
   <div class="thirds-grid" id="thirds"></div>
 
-  <div class="section-h"><h2>Your Round of 32</h2><span class="pill" id="boardPill">0 / 32</span></div>
+  <div class="section-h"><h2>Coach Shaya's Round of 32</h2><span class="pill" id="boardPill">0 / 32</span></div>
   <div id="board"></div>
   <div style="text-align:center;margin-top:1.5rem;">
-    <a class="btn" href="/worldcup/knockout" style="background:var(--green);border-color:transparent;color:#fff;font-size:0.95rem;padding:0.8rem 1.5rem;">🏆 Build your knockout bracket →</a>
+    <a class="btn" href="/worldcup" style="border-color:transparent;font-size:0.95rem;padding:0.8rem 1.5rem;">⚽ Make your own predictions →</a>
+    <a class="btn" href="/worldcup/knockout" style="background:var(--green);border-color:transparent;color:#fff;font-size:0.95rem;padding:0.8rem 1.5rem;">🏆 Knockout bracket →</a>
   </div>
 </main>
 
@@ -314,17 +340,17 @@ footer{ background:var(--bg-card); border-top:1px solid var(--border); padding:1
       <div class="footer-brand-icon"><img src="/logo.webp" alt="qmtk Soccer Logo"></div>
       <div class="footer-brand-text">qmtk<span class="brand-suffix">Soccer</span></div>
     </a>
-    <p class="footer-copy">© 2026 qmtk Soccer · World Cup Predictor</p>
+    <p class="footer-copy">© 2026 qmtk Soccer · Coach Shaya's World Cup Picks</p>
     <div class="footer-socials">
       <a href="https://www.instagram.com/qmtk.soccer" target="_blank" class="social-btn" title="Instagram">📸</a>
       <a href="https://www.facebook.com/profile.php?id=61584861148256" target="_blank" class="social-btn" title="Facebook">📘</a>
     </div>
   </div>
   <ul class="footer-links">
-    <span>Site</span>
-    <li><a href="/#programs">Programs</a></li>
-    <li><a href="/#pricing">Pricing</a></li>
-    <li><a href="/worldcup">World Cup Predictor</a></li>
+    <span>World Cup</span>
+    <li><a href="/worldcup">Group Stage Predictor</a></li>
+    <li><a href="/worldcup/knockout">Knockout Bracket</a></li>
+    <li><a href="/worldcup/coach-shaya">Coach Shaya's Picks</a></li>
   </ul>
   <ul class="footer-links">
     <span>Connect</span>
@@ -356,10 +382,49 @@ const MDY   = [1,1,2,2,3,3];
 const MATCHES = [];
 for(const g in GROUPS) PAIRS.forEach((p,i)=> MATCHES.push({id:g+i, g, h:p[0], a:p[1], md:MDY[i]}));
 
-const SAVE="wc2026_v2";
-let store={pred:{}, res:{}}, mode="pred";
-function load(){ try{ const s=JSON.parse(localStorage.getItem(SAVE)); if(s){ store.pred=s.pred||{}; store.res=s.res||{}; mode=s.mode||"pred"; } }catch(e){} }
-function persist(){ localStorage.setItem(SAVE, JSON.stringify({pred:store.pred,res:store.res,mode})); }
+/* ===== COACH SHAYA'S OFFICIAL PICKS (from the prediction video) =====
+   match id = group letter + fixture index. Fixture order per group:
+   0: pot0 v pot1 (MD1)   1: pot2 v pot3 (MD1)
+   2: pot0 v pot2 (MD2)   3: pot1 v pot3 (MD2)
+   4: pot0 v pot3 (MD3)   5: pot1 v pot2 (MD3)
+   {h,a} = home score, away score.  Groups D, E, F pending screenshots. */
+const SHAYA_PRED = {
+  /* A — Mexico, S.Africa, S.Korea, Czechia */
+  A0:{h:2,a:0}, A1:{h:3,a:0}, A2:{h:1,a:1}, A3:{h:0,a:0}, A4:{h:1,a:0}, A5:{h:0,a:2},
+  /* B — Canada, Bosnia, Qatar, Switzerland */
+  B0:{h:1,a:1}, B1:{h:0,a:2}, B2:{h:2,a:1}, B3:{h:1,a:0}, B4:{h:0,a:2}, B5:{h:1,a:1},
+  /* C — Brazil, Morocco, Haiti, Scotland */
+  C0:{h:2,a:1}, C1:{h:2,a:0}, C2:{h:1,a:1}, C3:{h:2,a:0}, C4:{h:1,a:1}, C5:{h:1,a:2},
+  /* D — USA, Paraguay, Australia, Türkiye */
+  D0:{h:2,a:0}, D1:{h:0,a:1}, D2:{h:2,a:0}, D3:{h:0,a:2}, D4:{h:1,a:1}, D5:{h:0,a:0},
+  /* E — Germany, Curaçao, Ivory Coast, Ecuador */
+  E0:{h:4,a:0}, E1:{h:2,a:1}, E2:{h:3,a:1}, E3:{h:0,a:2}, E4:{h:2,a:0}, E5:{h:0,a:3},
+  /* F — Netherlands, Japan, Sweden, Tunisia */
+  F0:{h:1,a:1}, F1:{h:2,a:0}, F2:{h:0,a:1}, F3:{h:3,a:0}, F4:{h:2,a:0}, F5:{h:1,a:0},
+  /* G — Belgium, Egypt, Iran, New Zealand */
+  G0:{h:2,a:1}, G1:{h:2,a:0}, G2:{h:2,a:1}, G3:{h:1,a:0}, G4:{h:2,a:1}, G5:{h:1,a:2},
+  /* H — Spain, Uruguay, Saudi Arabia, Cape Verde */
+  H0:{h:2,a:1}, H1:{h:3,a:0}, H2:{h:3,a:1}, H3:{h:2,a:0}, H4:{h:2,a:0}, H5:{h:1,a:2},
+  /* I — France, Senegal, Iraq, Norway */
+  I0:{h:0,a:1}, I1:{h:0,a:4}, I2:{h:3,a:0}, I3:{h:2,a:2}, I4:{h:3,a:2}, I5:{h:2,a:1},
+  /* J — Argentina, Algeria, Austria, Jordan */
+  J0:{h:2,a:1}, J1:{h:0,a:2}, J2:{h:3,a:0}, J3:{h:1,a:1}, J4:{h:2,a:0}, J5:{h:0,a:1},
+  /* K — Portugal, DR Congo, Uzbekistan, Colombia */
+  K0:{h:4,a:0}, K1:{h:0,a:3}, K2:{h:3,a:1}, K3:{h:0,a:2}, K4:{h:3,a:0}, K5:{h:0,a:0},
+  /* L — England, Croatia, Ghana, Panama */
+  L0:{h:1,a:1}, L1:{h:2,a:0}, L2:{h:4,a:0}, L3:{h:2,a:0}, L4:{h:4,a:0}, L5:{h:2,a:2}
+};
+
+const SAVE="wc2026_coach_shaya";   // own key — independent of the public predictor
+const PASSCODE="2015";
+let store={pred:{}, res:{}}, mode="pred", unlocked=false;
+
+function load(){
+  let s=null; try{ s=JSON.parse(localStorage.getItem(SAVE)); }catch(e){}
+  if(s && s.pred && Object.keys(s.pred).length){ store.pred=s.pred; store.res=s.res||{}; mode=s.mode||"pred"; }
+  else { store.pred=JSON.parse(JSON.stringify(SHAYA_PRED)); store.res={}; mode="pred"; }
+}
+function persist(){ if(!unlocked) return; localStorage.setItem(SAVE, JSON.stringify({pred:store.pred,res:store.res,mode})); }
 
 const shortOf = t => t[2]||t[0];
 function cell(m,id,side){ const o=store[m][id]; return (o&&o[side]!=null&&o[side]!=="")?+o[side]:null; }
@@ -402,9 +467,9 @@ function build(){
       const H=GROUPS[g][x.h], A=GROUPS[g][x.a];
       fx+=`<div class="fx" data-mid="${x.id}">
         <div class="side home"><span class="nm">${shortOf(H)}</span>${flag(H)}</div>
-        <input type="number" min="0" max="99" inputmode="numeric" data-mid="${x.id}" data-side="h" aria-label="${H[0]} score">
+        <input type="number" min="0" max="99" inputmode="numeric" data-mid="${x.id}" data-side="h" aria-label="${H[0]} score" disabled>
         <span class="dash">–</span>
-        <input type="number" min="0" max="99" inputmode="numeric" data-mid="${x.id}" data-side="a" aria-label="${A[0]} score">
+        <input type="number" min="0" max="99" inputmode="numeric" data-mid="${x.id}" data-side="a" aria-label="${A[0]} score" disabled>
         <div class="side away">${flag(A)}<span class="nm">${shortOf(A)}</span></div>
       </div>
       <div class="grade" data-grade="${x.id}"></div>`;
@@ -419,10 +484,9 @@ function build(){
         <div class="fixtures">${fx}</div>
       </div>`);
   }
-  // populate inputs + listeners
   document.querySelectorAll('.fx input').forEach(inp=>{
     inp.addEventListener('input', onInput);
-    inp.addEventListener('wheel', e=>e.target.blur()); // don't change value on scroll
+    inp.addEventListener('wheel', e=>e.target.blur());
   });
   syncInputs();
 }
@@ -430,9 +494,11 @@ function syncInputs(){
   document.querySelectorAll('.fx input').forEach(inp=>{
     const v=cell(mode, inp.dataset.mid, inp.dataset.side);
     inp.value = (v==null? '' : v);
+    inp.disabled = !unlocked;
   });
 }
 function onInput(e){
+  if(!unlocked) return;
   const {mid,side}=e.target.dataset;
   setCell(mode, mid, side, e.target.value);
   persist(); update();
@@ -441,7 +507,6 @@ function onInput(e){
 /* ---------- derived render ---------- */
 function rowClass(pos){ return pos===0?'q1':pos===1?'q2':pos===2?'q3':'q4'; }
 function update(){
-  // tables reflect ACTIVE mode
   for(const g in GROUPS){
     const T=standings(g,mode);
     const body=document.querySelector(`[data-tbody="${g}"]`);
@@ -454,27 +519,25 @@ function update(){
     const done=MATCHES.filter(x=>x.g===g).filter(x=> cell(mode,x.id,'h')!=null && cell(mode,x.id,'a')!=null).length;
     st.textContent = done===6 ? 'Final' : `${done}/6`;
   }
-  // per-match grade badges (only in results mode, comparing pred vs res)
   document.querySelectorAll('[data-grade]').forEach(el=>{
     const id=el.dataset.grade;
     if(mode!=='res'){ el.textContent=''; el.className='grade'; return; }
     const ph=cell('pred',id,'h'), pa=cell('pred',id,'a');
     if(ph==null||pa==null){ el.textContent=''; el.className='grade'; return; }
     const rh=cell('res',id,'h'), ra=cell('res',id,'a');
-    const pickTxt=`<span class="pick">your pick ${ph}–${pa}</span>`;
+    const pickTxt=`<span class="pick">Shaya's pick ${ph}–${pa}</span>`;
     if(rh==null||ra==null){ el.className='grade'; el.innerHTML=pickTxt; return; }
     if(ph===rh&&pa===ra){ el.className='grade perfect'; el.innerHTML=`${pickTxt} · ✓ Exact +5`; }
     else if(Math.sign(ph-pa)===Math.sign(rh-ra)){ el.className='grade outcome'; el.innerHTML=`${pickTxt} · ◉ Right result +3`; }
     else { el.className='grade miss'; el.innerHTML=`${pickTxt} · ✗ Missed`; }
   });
-
   renderThirds(); renderBoard(); renderHud();
 }
 
 function renderThirds(){
-  const ranked=thirdsRanked('pred'); // your predicted thirds
+  const ranked=thirdsRanked('pred');
   const host=document.getElementById('thirds');
-  if(!ranked.length){ host.innerHTML='<div class="empty">Complete all six matches in a group to lock in its third-place team.</div>'; document.getElementById('thirdsPill').textContent='0 / 8 in'; return; }
+  if(!ranked.length){ host.innerHTML='<div class="empty">Third-place teams lock in once all six matches in a group are filled.</div>'; document.getElementById('thirdsPill').textContent='0 / 8 in'; return; }
   host.innerHTML=ranked.map((r,i)=>{
     const isIn=i<8;
     return `<div class="third ${isIn?'in':'out'}"><span class="rk">${i+1}</span>${flag(r.t)}
@@ -493,7 +556,7 @@ function predictedQualifiers(){
 }
 function renderBoard(){
   const q=predictedQualifiers(); const host=document.getElementById('board');
-  if(!q.length){ host.className=''; host.innerHTML='<div class="empty">Your qualified teams appear here as you complete each group.</div>'; }
+  if(!q.length){ host.className=''; host.innerHTML='<div class="empty">Qualified teams appear here once every group is filled.</div>'; }
   else{ host.className='board';
     host.innerHTML=q.map(x=>`<div class="qcard ${x.kind==='third'?'third-q':''}">${flag(x.t)}<span class="nm">${shortOf(x.t)}</span><span class="seed">${x.seed}</span></div>`).join('');
   }
@@ -512,50 +575,82 @@ function gradeTotals(){
 }
 function renderHud(){
   const q=predictedQualifiers().length;
+  const filled=MATCHES.filter(x=>cell('pred',x.id,'h')!=null&&cell('pred',x.id,'a')!=null).length;
   const g=gradeTotals();
   const acc = g.graded? Math.round(g.outcome/g.graded*100):0;
   const cards=[
     `<div class="stat green"><div class="k">Predicted R32</div><div class="v">${q}<small>/32</small></div><div class="bar"><i style="width:${Math.min(100,q/32*100)}%"></i></div></div>`,
-    `<div class="stat"><div class="k">Predictions filled</div><div class="v">${MATCHES.filter(x=>cell('pred',x.id,'h')!=null&&cell('pred',x.id,'a')!=null).length}<small>/72</small></div></div>`
+    `<div class="stat"><div class="k">Picks locked in</div><div class="v">${filled}<small>/72</small></div></div>`
   ];
   if(g.graded){
-    cards.push(`<div class="stat gold"><div class="k">Your score</div><div class="v">${g.pts}<small>pts</small></div></div>`);
+    cards.push(`<div class="stat gold"><div class="k">Coach's score</div><div class="v">${g.pts}<small>pts</small></div></div>`);
     cards.push(`<div class="stat"><div class="k">Exact / Right result</div><div class="v">${g.perfect}<small> / ${g.outcome}</small></div></div>`);
     cards.push(`<div class="stat"><div class="k">Result accuracy</div><div class="v">${acc}<small>%</small> <small>(${g.graded} games)</small></div></div>`);
   }
   document.getElementById('hud').innerHTML=cards.join('');
 }
 
-/* ---------- mode + actions ---------- */
+/* ---------- mode + lock + actions ---------- */
+function setBanner(){
+  const b=document.getElementById('banner');
+  if(mode==='res'){
+    b.className='banner-in res';
+    b.innerHTML = unlocked
+      ? '🏆 <b>Results mode (editing)</b> — enter the real scoreline as each match finishes. Exact = +5, right result = +3. Coach Shaya\'s score updates live below.'
+      : '🏆 <b>Results mode</b> — real scorelines and how Coach Shaya\'s picks graded out. Unlock to enter results.';
+  } else {
+    b.className='banner-in pred';
+    b.innerHTML = unlocked
+      ? '✏️ <b>Editing Coach\'s picks</b> — changes auto-save on this device. Use “Copy data” to publish, or “Reset to published” to revert.'
+      : 'Coach Shaya\'s official picks — view only. Tap <b>Edit (coach)</b> and enter the passcode to make changes.';
+  }
+}
 function setMode(m){
   mode=m; persist();
   document.querySelectorAll('#modeswitch button').forEach(b=> b.classList.toggle('on', b.dataset.m===m));
   document.body.classList.toggle('resmode', m==='res');
   document.body.classList.toggle('predmode', m==='pred');
-  const b=document.getElementById('banner');
-  if(m==='res'){ b.className='banner-in res'; b.innerHTML='🏆 <b>Results mode</b> — enter the real scoreline as each match finishes. Exact score = +5, right result = +3. Your prediction score updates live below.'; }
-  else { b.className='banner-in pred'; b.innerHTML='Enter your predicted scoreline for each match. Win = 3 pts · Draw = 1 pt — top two of every group advance, plus the 8 best third-place teams.'; }
-  syncInputs(); update();
+  setBanner(); syncInputs(); update();
 }
+function unlock(){ unlocked=true; document.body.classList.add('unlocked');
+  document.getElementById('lockpill').textContent='✏️ Editing (coach)';
+  syncInputs(); setBanner(); toast('Unlocked — you can edit'); }
+function lock(){ unlocked=false; document.body.classList.remove('unlocked');
+  document.getElementById('lockpill').textContent='🔒 View only';
+  syncInputs(); setBanner(); toast('Locked'); }
+
 let toastT;
 function toast(msg){ const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove('show'),1900); }
 
 document.getElementById('modeswitch').addEventListener('click',e=>{ const b=e.target.closest('button'); if(b) setMode(b.dataset.m); });
 document.getElementById('printBtn').addEventListener('click',()=>window.print());
+document.getElementById('editBtn').addEventListener('click',()=>{
+  const c=prompt('Enter coach passcode to edit:');
+  if(c==null) return;
+  if(c.trim()===PASSCODE) unlock(); else toast('Wrong passcode');
+});
+document.getElementById('lockBtn').addEventListener('click',lock);
 document.getElementById('resetBtn').addEventListener('click',()=>{
-  const label = mode==='res'?'actual results':'predictions';
-  if(!confirm(`Clear all ${label}? This can't be undone.`)) return;
-  store[mode]={}; persist(); syncInputs(); update(); toast(`Cleared your ${label}`);
+  if(!confirm('Reset this tab back to the published picks? Your local edits will be discarded.')) return;
+  localStorage.removeItem(SAVE);
+  store.pred=JSON.parse(JSON.stringify(SHAYA_PRED)); store.res={};
+  syncInputs(); update(); toast('Reset to published picks');
+});
+document.getElementById('copyBtn').addEventListener('click',()=>{
+  const out='const SHAYA_PRED = '+JSON.stringify(store.pred)+';';
+  navigator.clipboard?.writeText(out).then(
+    ()=>toast('Picks copied — paste to Claude to publish'),
+    ()=>{ prompt('Copy this data:', out); }
+  ) || prompt('Copy this data:', out);
 });
 
 load();
 build();
 setMode(mode);
-// print header date
 document.querySelector('.wc-hero-inner').insertAdjacentHTML('beforeend',
-  `<div class="print-head">qmtk.org/worldcup · printed ${new Date().toLocaleDateString()}</div>`);
+  `<div class="print-head">qmtk.org/worldcup/coach-shaya · Coach Shaya's official 2026 World Cup picks · printed ${new Date().toLocaleDateString()}</div>`);
 
-// parallax: side trophies slide gently down as you scroll the predictions
+/* parallax: side trophies slide gently down as you scroll */
 (function(){
   let ticking=false;
   function upd(){ const y=window.pageYOffset||0; const py=Math.min(90, y*0.10); document.documentElement.style.setProperty('--wcpy', py.toFixed(1)+'px'); ticking=false; }
