@@ -202,6 +202,38 @@ body.resmode .fx input:focus{ border-color:var(--gold); box-shadow:0 0 0 3px var
 .qcard .nm{ font-size:0.82rem; font-weight:600; }
 .empty{ color:var(--text-dim); font-size:0.9rem; padding:1.6rem; text-align:center; border:1px dashed var(--border); border-radius:12px; }
 
+/* ===== KNOCKOUT BRACKET ===== */
+.bracket-wrap{ margin:0.4rem auto 0; overflow-x:auto; padding-bottom:0.5rem; --cw:20px; --line:rgba(255,255,255,0.16); }
+.bracket{ display:inline-flex; gap:var(--cw); align-items:stretch; min-height:760px; min-width:100%; }
+.side{ display:flex; gap:var(--cw); }
+.round{ display:flex; flex-direction:column; min-width:142px; }
+.round-h{ height:26px; display:flex; align-items:center; justify-content:center; font-family:'Barlow Condensed'; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; font-size:0.66rem; color:var(--text-dim); margin-bottom:6px; }
+.matches{ flex:1; display:flex; flex-direction:column; }
+.match{ flex:1; display:flex; flex-direction:column; justify-content:center; position:relative; }
+.kcard{ background:var(--bg-card); border:1px solid var(--border); border-radius:9px; overflow:hidden; }
+.koteam{ display:flex; align-items:center; gap:8px; padding:6px 9px; transition:background .15s; min-height:33px; }
+.koteam+.koteam{ border-top:1px solid var(--border); }
+body.unlocked .koteam:not(.placeholder){ cursor:pointer; }
+body.unlocked .koteam:not(.placeholder):hover{ background:var(--bg-raised); }
+.koteam .flag,.koteam .mono{ width:24px; height:16px; }
+.koteam .nm{ font-size:0.78rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.koteam.placeholder .kseed{ font-size:0.72rem; font-weight:700; color:var(--text-dim); }
+.koteam.win{ background:var(--green-dim); }
+.koteam.win .nm{ color:#fff; font-weight:800; }
+.koteam.win::after{ content:'✓'; margin-left:auto; color:var(--green); font-weight:900; font-size:0.78rem; }
+.koteam.lose{ opacity:0.42; }
+.side.left .matches .match::after{ content:''; position:absolute; top:50%; right:0; width:var(--cw); height:2px; background:var(--line); transform:translateX(100%); }
+.side.right .matches .match::after{ content:''; position:absolute; top:50%; left:0; width:var(--cw); height:2px; background:var(--line); transform:translateX(-100%); }
+.side.left .matches .match:nth-child(odd):not(:only-child)::before{ content:''; position:absolute; top:50%; right:calc(var(--cw) * -1); width:2px; height:100%; background:var(--line); }
+.side.right .matches .match:nth-child(odd):not(:only-child)::before{ content:''; position:absolute; top:50%; left:calc(var(--cw) * -1); width:2px; height:100%; background:var(--line); }
+.final-col{ display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:172px; }
+.final-h{ font-family:'Barlow Condensed'; font-weight:800; letter-spacing:2px; text-transform:uppercase; font-size:0.74rem; color:var(--gold); margin-bottom:8px; }
+.final-col .kcard{ width:168px; border-color:var(--gold-border); box-shadow:0 0 0 1px var(--gold-dim), 0 16px 40px -22px rgba(240,165,0,.5); }
+.final-trophy{ font-size:2rem; margin-bottom:8px; filter:drop-shadow(0 2px 12px rgba(240,165,0,.55)); }
+.ko-champ{ margin-top:14px; display:flex; align-items:center; gap:9px; font-family:'Barlow Condensed'; font-weight:800; font-size:1.2rem; color:#fff; text-transform:uppercase; }
+.ko-champ .flag,.ko-champ .mono{ width:30px; height:20px; }
+.ko-champ .muted{ color:var(--text-dim); font-weight:600; }
+
 /* footer */
 footer{ background:var(--bg-card); border-top:1px solid var(--border); padding:1.5rem 2.5rem; display:flex; justify-content:space-between; align-items:flex-start; gap:1.5rem; flex-wrap:wrap; margin-top:2.5rem; }
 .footer-brand{ display:flex; align-items:center; gap:10px; text-decoration:none; }
@@ -336,6 +368,11 @@ footer{ background:var(--bg-card); border-top:1px solid var(--border); padding:1
 
   <div class="section-h"><h2>Coach Shaya's Round of 32</h2><span class="pill" id="boardPill">0 / 32</span></div>
   <div id="board"></div>
+
+  <div class="section-h"><h2>Coach Shaya's Knockout Bracket</h2><span class="pill" id="koPill">🏆 Portugal to win it all</span></div>
+  <p style="color:var(--text-dim);font-size:0.88rem;margin:-0.4rem 0 1rem;max-width:760px;">My full call from the Round of 32 to the final — seeded straight from the group picks above and carried through to the trophy. <span class="editonly" style="color:#8fe0ab;font-weight:700;">Unlocked: click a team to send them through; picks save on this device.</span></p>
+  <div class="bracket-wrap"><div class="bracket" id="bracket"></div></div>
+
   <div style="text-align:center;margin-top:1.5rem;">
     <a class="btn" href="/worldcup" style="border-color:transparent;font-size:0.95rem;padding:0.8rem 1.5rem;">⚽ Make your own predictions →</a>
     <a class="btn" href="/worldcup/knockout" style="background:var(--green);border-color:transparent;color:#fff;font-size:0.95rem;padding:0.8rem 1.5rem;">🏆 Knockout bracket →</a>
@@ -436,14 +473,14 @@ const ACTUAL_RES = {
 
 const SAVE="wc2026_coach_shaya";   // own key — independent of the public predictor
 const PASSCODE="2015";
-let store={pred:{}, res:{}}, mode="pred", unlocked=false;
+let store={pred:{}, res:{}, ko:{}}, mode="pred", unlocked=false;
 
 function load(){
   let s=null; try{ s=JSON.parse(localStorage.getItem(SAVE)); }catch(e){}
-  if(s && s.pred && Object.keys(s.pred).length){ store.pred=s.pred; store.res=s.res||JSON.parse(JSON.stringify(ACTUAL_RES)); mode=s.mode||"pred"; }
-  else { store.pred=JSON.parse(JSON.stringify(SHAYA_PRED)); store.res=JSON.parse(JSON.stringify(ACTUAL_RES)); mode="pred"; }
+  if(s && s.pred && Object.keys(s.pred).length){ store.pred=s.pred; store.res=s.res||JSON.parse(JSON.stringify(ACTUAL_RES)); store.ko=(s.ko&&Object.keys(s.ko).length)?s.ko:JSON.parse(JSON.stringify(SHAYA_KO)); mode=s.mode||"pred"; }
+  else { store.pred=JSON.parse(JSON.stringify(SHAYA_PRED)); store.res=JSON.parse(JSON.stringify(ACTUAL_RES)); store.ko=JSON.parse(JSON.stringify(SHAYA_KO)); mode="pred"; }
 }
-function persist(){ if(!unlocked) return; localStorage.setItem(SAVE, JSON.stringify({pred:store.pred,res:store.res,mode})); }
+function persist(){ if(!unlocked) return; localStorage.setItem(SAVE, JSON.stringify({pred:store.pred,res:store.res,ko:store.ko,mode})); }
 
 const shortOf = t => t[2]||t[0];
 function cell(m,id,side){ const o=store[m][id]; return (o&&o[side]!=null&&o[side]!=="")?+o[side]:null; }
@@ -550,7 +587,7 @@ function update(){
     else if(Math.sign(ph-pa)===Math.sign(rh-ra)){ el.className='grade outcome'; el.innerHTML=`${pickTxt} · ◉ Right result +3`; }
     else { el.className='grade miss'; el.innerHTML=`${pickTxt} · ✗ Missed`; }
   });
-  renderThirds(); renderBoard(); renderHud();
+  renderThirds(); renderBoard(); renderHud(); renderBracket();
 }
 
 function renderThirds(){
@@ -613,6 +650,82 @@ function renderHud(){
   document.getElementById('hud').innerHTML=cards.join('');
 }
 
+/* ===== KNOCKOUT BRACKET (official 2026 R32→Final tree, seeded from Coach's group picks) ===== */
+const R32={
+ 73:[{p:2,g:'A'},{p:2,g:'B'}], 74:[{p:1,g:'C'},{p:2,g:'F'}], 75:[{p:1,g:'E'},{t:'75'}],
+ 76:[{p:1,g:'F'},{p:2,g:'C'}], 77:[{p:2,g:'E'},{p:2,g:'I'}], 78:[{p:1,g:'I'},{t:'78'}],
+ 79:[{p:1,g:'A'},{t:'79'}], 80:[{p:1,g:'L'},{t:'80'}], 81:[{p:1,g:'G'},{t:'81'}],
+ 82:[{p:1,g:'D'},{t:'82'}], 83:[{p:1,g:'H'},{p:2,g:'J'}], 84:[{p:2,g:'K'},{p:2,g:'L'}],
+ 85:[{p:1,g:'B'},{t:'85'}], 86:[{p:2,g:'D'},{p:2,g:'G'}], 87:[{p:1,g:'J'},{p:2,g:'H'}], 88:[{p:1,g:'K'},{t:'88'}]
+};
+const THIRD_SLOTS={ '75':['A','B','C','D','F'],'78':['C','D','F','G','H'],'79':['C','E','F','H','I'],
+ '80':['E','H','I','J','K'],'81':['A','E','H','I','J'],'82':['B','E','F','I','J'],'85':['E','F','G','I','J'],'88':['D','E','I','J','L'] };
+const FEED={ 89:[74,77],90:[73,75],91:[76,78],92:[79,80],93:[83,84],94:[81,82],95:[86,88],96:[85,87],
+ 97:[89,90],98:[93,94],99:[91,92],100:[95,96],101:[97,98],102:[99,100],104:[101,102] };
+const KO_PARENT={}; for(const m in FEED){ FEED[m].forEach(c=>KO_PARENT[c]=+m); }
+const KO_LAYOUT={ 'r32-l':[74,77,73,75,83,84,81,82],'r16-l':[89,90,93,94],'qf-l':[97,98],'sf-l':[101],
+ 'sf-r':[102],'qf-r':[99,100],'r16-r':[91,92,95,96],'r32-r':[76,78,79,80,86,88,85,87] };
+const KO_RH={ 'r32-l':'Round of 32','r16-l':'Round of 16','qf-l':'Quarters','sf-l':'Semi',
+ 'sf-r':'Semi','qf-r':'Quarters','r16-r':'Round of 16','r32-r':'Round of 32' };
+
+/* Coach Shaya's official knockout winners — winner of each match, by team name. */
+const SHAYA_KO = {
+  73:"Mexico", 74:"Sweden", 75:"Germany", 76:"Brazil", 77:"France", 78:"Senegal", 79:"South Korea", 80:"England",
+  81:"Belgium", 82:"Netherlands", 83:"Spain", 84:"Croatia", 85:"Switzerland", 86:"Türkiye", 87:"Argentina", 88:"Portugal",
+  89:"France", 90:"Germany", 91:"Brazil", 92:"England", 93:"Spain", 94:"Belgium", 95:"Portugal", 96:"Argentina",
+  97:"Germany", 98:"Spain", 99:"Brazil", 100:"Portugal", 101:"Germany", 102:"Portugal", 104:"Portugal"
+};
+
+/* assign the 8 best thirds to their 8 slots (bipartite matching) — from Coach's picks */
+let koThirdAssign={};
+function koComputeThirds(){
+  const arr=[]; for(const g in GROUPS){ if(!complete(g,'pred')) continue; const t=standings(g,'pred')[2]; arr.push({g,Pts:t.Pts,GD:t.GD,GF:t.GF,name:t.name}); }
+  arr.sort((a,b)=> b.Pts-a.Pts||b.GD-a.GD||b.GF-a.GF||a.name.localeCompare(b.name));
+  const qual=arr.slice(0,8).map(r=>r.g); const slots=Object.keys(THIRD_SLOTS);
+  const adj={}; slots.forEach(s=> adj[s]=THIRD_SLOTS[s].filter(g=>qual.includes(g))); const g2s={};
+  function aug(s,seen){ for(const g of adj[s]){ if(seen[g])continue; seen[g]=1; if(g2s[g]==null||aug(g2s[g],seen)){ g2s[g]=s; return true; } } return false; }
+  slots.forEach(s=>aug(s,{})); koThirdAssign={}; for(const g in g2s){ koThirdAssign[g2s[g]]=g; }
+}
+function koSeed(slot){
+  if(slot.p){ if(!complete(slot.g,'pred')) return null; return standings(slot.g,'pred')[slot.p-1].t; }
+  const grp=koThirdAssign[slot.t]; if(!grp||!complete(grp,'pred')) return null; return standings(grp,'pred')[2].t;
+}
+function koSeedLabel(slot){ if(slot.p) return (slot.p===1?'Winner ':'Runner-up ')+slot.g; return '3rd place'; }
+function koTeams(mid){ if(R32[mid]) return R32[mid].map(koSeed); return FEED[mid].map(m=>koWinner(m)); }
+function koWinner(mid){ const ts=koTeams(mid); const nm=store.ko[mid]; if(nm==null) return null; return ts.find(t=>t&&t[0]===nm)||null; }
+function koLabel(mid,idx){ if(R32[mid]) return koSeedLabel(R32[mid][idx]); return 'Winner M'+FEED[mid][idx]; }
+function koPick(mid,name){
+  if(!unlocked) return; const ts=koTeams(mid); if(!ts.find(t=>t&&t[0]===name)) return;
+  store.ko[mid]=name; let p=KO_PARENT[mid]; while(p){ delete store.ko[p]; p=KO_PARENT[p]; }   // changing a winner clears everything above it
+  persist(); renderBracket();
+}
+function koRow(mid,idx){
+  const t=koTeams(mid)[idx];
+  if(!t) return `<div class="koteam placeholder"><span class="kseed">${koLabel(mid,idx)}</span></div>`;
+  const w=koWinner(mid); let cls='koteam'; if(w&&w[0]===t[0]) cls+=' win'; else if(w) cls+=' lose';
+  return `<div class="${cls}" data-ko="${mid}" data-team="${t[0]}">${flag(t)}<span class="nm">${shortOf(t)}</span></div>`;
+}
+function koCard(mid){ return `<div class="match"><div class="kcard">${koRow(mid,0)}${koRow(mid,1)}</div></div>`; }
+function renderBracket(){
+  const host=document.getElementById('bracket'); if(!host) return;
+  koComputeThirds();
+  const col=key=>`<div class="round"><div class="round-h">${KO_RH[key]}</div><div class="matches">${KO_LAYOUT[key].map(koCard).join('')}</div></div>`;
+  const left=['r32-l','r16-l','qf-l','sf-l'].map(col).join('');
+  const right=['sf-r','qf-r','r16-r','r32-r'].map(col).join('');
+  const champ=koWinner(104);
+  const finalCol=`<div class="final-col"><div class="final-trophy">🏆</div><div class="final-h">Final</div>
+    <div class="kcard">${koRow(104,0)}${koRow(104,1)}</div>
+    <div class="ko-champ">${champ?`${flag(champ)}<span>${champ[0]}</span>`:'<span class="muted">Champion TBD</span>'}</div></div>`;
+  host.innerHTML=`<div class="side left">${left}</div>${finalCol}<div class="side right">${right}</div>`;
+  const w=koWinner(104); const kp=document.getElementById('koPill');
+  if(kp) kp.textContent = w ? `🏆 ${w[0]} to win it all` : 'Pick through to a champion';
+}
+document.getElementById('bracket').addEventListener('click',e=>{
+  const r=e.target.closest('.koteam'); if(!r||r.classList.contains('placeholder')) return;
+  if(!unlocked){ toast('Unlock with the coach passcode to change picks'); return; }
+  koPick(+r.dataset.ko, r.dataset.team);
+});
+
 /* ---------- mode + lock + actions ---------- */
 function setBanner(){
   const b=document.getElementById('banner');
@@ -656,11 +769,11 @@ document.getElementById('lockBtn').addEventListener('click',lock);
 document.getElementById('resetBtn').addEventListener('click',()=>{
   if(!confirm('Reset this tab back to the published picks? Your local edits will be discarded.')) return;
   localStorage.removeItem(SAVE);
-  store.pred=JSON.parse(JSON.stringify(SHAYA_PRED)); store.res=JSON.parse(JSON.stringify(ACTUAL_RES));
+  store.pred=JSON.parse(JSON.stringify(SHAYA_PRED)); store.res=JSON.parse(JSON.stringify(ACTUAL_RES)); store.ko=JSON.parse(JSON.stringify(SHAYA_KO));
   syncInputs(); update(); toast('Reset to published picks + results');
 });
 document.getElementById('copyBtn').addEventListener('click',()=>{
-  const out='const SHAYA_PRED = '+JSON.stringify(store.pred)+';';
+  const out='const SHAYA_PRED = '+JSON.stringify(store.pred)+';\n\nconst SHAYA_KO = '+JSON.stringify(store.ko)+';';
   navigator.clipboard?.writeText(out).then(
     ()=>toast('Picks copied — paste to Claude to publish'),
     ()=>{ prompt('Copy this data:', out); }
