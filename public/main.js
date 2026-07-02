@@ -68,15 +68,20 @@ document.querySelectorAll(REVEAL_SELECTOR).forEach(function(el) {
 });
 
 // ─── NEXT SESSION DATE ───
-// Spring 2026 schedule: Apr 27 – Jun 12, Mon (1) & Fri (5), 5:50–6:50 PM
+// NOTE: main.js is NOT loaded by index.html (all JS/CSS is inline there).
+// This function is dead code kept only for reference — the live "Week of"
+// date comes from the inline loadTrainingPlans() in index.html, driven by
+// public/training-plans.json.
+// Summer 2026 schedule: Jul 9 – Aug 20, Thursdays, 6:00–7:30 PM
+// (K–5 6:00–6:45, Grades 6–8 6:45–7:30)
 function updateNextSessionDate() {
   var el = document.getElementById('next-session-date');
   if (!el) return;
-  var SEASON_START = new Date(2026, 3, 27);             // Apr 27, 2026
-  var SEASON_END   = new Date(2026, 5, 12, 18, 50, 0);  // Jun 12, 6:50 PM
-  var SESSION_DAYS = [1, 5];                            // Mon, Fri
-  var START_H = 17, START_M = 50;                       // 5:50 PM start
-  var DURATION_MIN = 60;
+  var SEASON_START = new Date(2026, 6, 9);              // Jul 9, 2026
+  var SEASON_END   = new Date(2026, 7, 20, 19, 30, 0);  // Aug 20, 7:30 PM
+  var SESSION_DAYS = [4];                               // Thu
+  var START_H = 18, START_M = 0;                        // 6:00 PM start
+  var DURATION_MIN = 90;                                // both groups combined
   var now = new Date();
   var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var found = null;
